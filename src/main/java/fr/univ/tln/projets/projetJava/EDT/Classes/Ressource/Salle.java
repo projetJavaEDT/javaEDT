@@ -1,4 +1,6 @@
-package fr.univ.tln.projets.projetJava.EDT.Classes;
+package fr.univ.tln.projets.projetJava.EDT.Classes.Ressource;
+
+import fr.univ.tln.projets.projetJava.EDT.Classes.ClasseType;
 
 public class Salle {
     private int id ;

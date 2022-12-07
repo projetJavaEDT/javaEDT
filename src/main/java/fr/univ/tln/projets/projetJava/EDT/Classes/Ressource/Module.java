@@ -1,4 +1,4 @@
-package fr.univ.tln.projets.projetJava.EDT.Classes;
+package fr.univ.tln.projets.projetJava.EDT.Classes.Ressource;
 
 public class Module {
     private String codeMod ;

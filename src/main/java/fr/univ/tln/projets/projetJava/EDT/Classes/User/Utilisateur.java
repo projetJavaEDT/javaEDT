@@ -1,4 +1,4 @@
-package fr.univ.tln.projets.projetJava.EDT.Classes;
+package fr.univ.tln.projets.projetJava.EDT.Classes.User;
 
 public abstract class Utilisateur {
     private int id ;

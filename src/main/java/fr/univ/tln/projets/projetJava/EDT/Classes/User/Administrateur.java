@@ -1,6 +1,6 @@
-package fr.univ.tln.projets.projetJava.EDT.Classes;
+package fr.univ.tln.projets.projetJava.EDT.Classes.User;
 
-public class Administrateur extends Utilisateur{
+public class Administrateur extends Utilisateur {
     private Administrateur(int id, String nom, String prenom, String email, int tel, String login, String mdp){
         super(id, nom, prenom, email, tel, login, mdp);
     }

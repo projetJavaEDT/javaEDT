@@ -1,6 +1,6 @@
-package fr.univ.tln.projets.projetJava.EDT.Classes;
+package fr.univ.tln.projets.projetJava.EDT.Classes.User;
 
-public class Enseignant extends Utilisateur{
+public class Enseignant extends Utilisateur {
     private String grade ;
     private Enseignant(int id, String nom, String prenom, String email, int tel, String login, String mdp, String grade)
     {
