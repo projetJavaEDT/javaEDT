@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="573.0" prefWidth="1006.0" style="-fx-background-color: #EDEDED;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.MController">
+<children>
+    <TableView fx:id="tabedt" layoutX="13.0" layoutY="78.0" prefHeight="466.0" prefWidth="978.0">
+        <columns>
+            <TableColumn fx:id="horaires" minWidth="0.0" prefWidth="132.0" text="Heures/Jours" />
+            <TableColumn minWidth="0.0" prefWidth="129.0" text="Décembre">
+               <columns>
+                  <TableColumn fx:id="lundi" minWidth="0.0" prefWidth="132.0" text="Lundi" />
+                  <TableColumn fx:id="mardi" minWidth="0.0" prefWidth="119.0" text="Mardi" />
+                  <TableColumn fx:id="mercredi" prefWidth="109.0" text="Mercredi" />
+                  <TableColumn fx:id="jeudi" prefWidth="117.0" text="Jeudi" />
+                  <TableColumn fx:id="vendredi" prefWidth="104.0" text="Vendredi" />
+                  <TableColumn fx:id="samedi" minWidth="0.0" prefWidth="129.0" text="Samedi" />
+                  <TableColumn fx:id="dimanche" minWidth="0.0" prefWidth="129.0" text="Dimanche" />
+               </columns>
+            </TableColumn>
+        </columns>
+    </TableView>
+    <Label fx:id="txt" contentDisplay="CENTER" layoutX="14.0" layoutY="-5.0" prefHeight="62.0" prefWidth="138.0" text="Etudiant" textAlignment="CENTER" textFill="#2d2d37">
+        <font>
+            <Font name="Leelawadee UI Bold" size="30.0" />
+        </font>
+    </Label>
+    <Button fx:id="loadData" layoutX="788.0" layoutY="24.0" mnemonicParsing="false" onAction="#displayModule" prefHeight="42.0" prefWidth="203.0" text="a voir" textFill="#4d4a4a">
+        <font>
+            <Font name="System Bold" size="20.0" />
+        </font>
+        <cursor>
+            <Cursor fx:constant="HAND" />
+        </cursor>
+    </Button>
+
+</children>
+</AnchorPane>
