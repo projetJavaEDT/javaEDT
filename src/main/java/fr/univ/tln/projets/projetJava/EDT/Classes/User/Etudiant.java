@@ -10,7 +10,7 @@ public class Etudiant extends Utilisateur {
         super( nom, prenom, email, tel, mdp);
         this.promo = promo ;
     }
-    public static Etudiant of(int id, String nom, String prenom, String email, int tel, String login, String mdp, String promo){
+    public static Etudiant of( String nom, String prenom, String email, int tel, String mdp, String promo){
         return new Etudiant( nom, prenom, email, tel, mdp, promo);
     }
 
