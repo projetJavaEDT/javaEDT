@@ -7,6 +7,29 @@ public abstract class Utilisateur {
     private String email ;
     private int tel ;
     private String mdp;
+    private String adresse ;
+    private int age ;
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
+    }
+
+    public void setMdp(String mdp) {
+        this.mdp = mdp;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public String getAdresse() {
+        return adresse;
+    }
+
     public String getNom() {
         return nom;
     }
@@ -37,13 +60,14 @@ public abstract class Utilisateur {
     public void setTel(int tel) {
         this.tel = tel;
     }
-    protected Utilisateur ( String nom, String prenom, String email, int tel, String mdp)
+    protected Utilisateur (String nom, String prenom, String email, int tel, String mdp, int age, String adresse )
     {
         this.email = email ;
         this.nom = nom ;
         this.prenom = prenom ;
         this.mdp = mdp ;
-
+        this.adresse = adresse;
+        this.age= age ;
     }
 
 

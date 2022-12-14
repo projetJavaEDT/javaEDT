@@ -9,11 +9,10 @@ import java.util.regex.Pattern;
 public class Security {
 
             private String mdp ;
-            private String email ;
             // convertir bytes en hexadécimal
-            public Security(String mdp, String email){
+            public Security(String mdp){
                 this.mdp = mdp ;
-                this.email = email;
+
             }
 
             public String hacherMdp(String mdp){
@@ -35,14 +34,6 @@ public class Security {
                 }
             }
             }
-            public boolean verifieEmail(String email){
-                String regex = "^[a-zA-Z0-9]{0,30}[_.-]{0,10}[a-zA-Z0-9]{0,30}[@][a-zA-Z0-9]{0,10}[.][f][r]$";
-                Pattern p = Pattern.compile(regex);
-                Matcher match = p.matcher(email);
-                if(!match.matches())
-                    return false;
-                return true ;
 
-            }
 
 }

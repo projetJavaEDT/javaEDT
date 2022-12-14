@@ -5,22 +5,21 @@ import java.util.regex.Pattern;
 
 public class Etudiant extends Utilisateur {
     private String promo ;
-    private Etudiant(String nom, String prenom, String email, int tel,String mdp, String promo)
+    private Etudiant(String nom, String prenom, String email, int tel,String mdp,int age, String adresse, String promo)
     {
-        super( nom, prenom, email, tel, mdp);
+        super( nom, prenom, email, tel, mdp, age, adresse);
         this.promo = promo ;
     }
-    public static Etudiant of( String nom, String prenom, String email, int tel, String mdp, String promo){
-        return new Etudiant( nom, prenom, email, tel, mdp, promo);
+    public static Etudiant of( String nom, String prenom, String email, int tel, String mdp,int age, String adresse, String promo){
+        return new Etudiant( nom, prenom, email, tel, mdp, age, adresse, promo);
     }
 
-    @Override
-    public String getPrenom() {
-        return super.getPrenom();
+
+    public String getPromo() {
+        return this.promo;
     }
 
-    @Override
-    public void setPrenom(String prenom) {
-        super.setPrenom(prenom);
+    public void setPromo(String promo) {
+        this.promo = promo;
     }
 }

@@ -11,7 +11,7 @@ public abstract class JdbcDAO {
     public static String PASS = "";
     public Connection connection;
     public PreparedStatement findAll;
-    public PreparedStatement findbyId;
+    public static PreparedStatement findbyId;
 
 
     public JdbcDAO() throws SQLException {

@@ -25,7 +25,7 @@ public class EtudiantDAO extends JdbcDAO implements AutoCloseable{
         ResultSet rs = findAll.executeQuery();
         // Extract data from result set
         while (rs.next()) {
-            etudiants.add(Etudiant.of(rs.getString("NOM"), rs.getString("PRENOM"), rs.getString("EMAIL"),rs.getInt("TEL"), rs.getString("MDP"),rs.getString("PROMO")));
+            etudiants.add(Etudiant.of(rs.getString("NOM"), rs.getString("PRENOM"), rs.getString("EMAIL"),rs.getInt("TEL"), rs.getString("MDP"),rs.getInt("AGE"),rs.getString("ADRESSE"),rs.getString("PROMO")));
         }
         return etudiants;
     }
@@ -36,7 +36,7 @@ public class EtudiantDAO extends JdbcDAO implements AutoCloseable{
         findbyId.setString(1, email);
         ResultSet rs = findbyId.executeQuery();
         while (rs.next()) {
-            etud = Etudiant.of(rs.getString("NOM"), rs.getString("PRENOM"), rs.getString("EMAIL"),rs.getInt("TEL"), rs.getString("MDP"),rs.getString("PROMO"));
+            etud = Etudiant.of(rs.getString("NOM"), rs.getString("PRENOM"), rs.getString("EMAIL"),rs.getInt("TEL"), rs.getString("MDP"),rs.getInt("AGE"),rs.getString("ADRESSE"),rs.getString("PROMO"));
         }
         return etud;
     }
