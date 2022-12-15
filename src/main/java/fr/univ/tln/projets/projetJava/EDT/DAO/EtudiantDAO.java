@@ -1,5 +1,6 @@
 package fr.univ.tln.projets.projetJava.EDT.DAO;
 
+import fr.univ.tln.projets.projetJava.EDT.Classes.Security;
 import fr.univ.tln.projets.projetJava.EDT.Classes.User.*;
 
 import java.sql.ResultSet;
@@ -7,19 +8,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class EtudiantDAO extends JdbcDAO implements AutoCloseable{
-
-    private static Logger log = Logger.getLogger(ModuleDAO.class.getName());
-    private EtudiantDAO() throws SQLException {
+    private static Logger log = Logger.getLogger(EtudiantDAO.class.getName());
+    public EtudiantDAO() throws SQLException {
         findAll = connection.prepareStatement("SELECT * FROM ETUDIANT");
-        findbyId = connection.prepareStatement("SELECT * FROM ETUDIANT WHERE EMAIL=?");
+        findbyId = connection.prepareStatement("SELECT * FROM ETUDIANT WHERE EMAIL=? AND MDP = ?");
     }
-
-    public static ModuleDAO create() throws SQLException {
-        return new ModuleDAO();
+    public static EtudiantDAO  create() throws SQLException {
+        return new EtudiantDAO();
     }
-
     public List<Etudiant> findAll() throws SQLException {
         List<Etudiant> etudiants = new ArrayList<>();
         ResultSet rs = findAll.executeQuery();
@@ -29,8 +29,6 @@ public class EtudiantDAO extends JdbcDAO implements AutoCloseable{
         }
         return etudiants;
     }
-
-
     public Etudiant findById(String email) throws SQLException {
         Etudiant etud = null;
         findbyId.setString(1, email);
@@ -40,18 +38,34 @@ public class EtudiantDAO extends JdbcDAO implements AutoCloseable{
         }
         return etud;
     }
-
     public boolean exist(Etudiant etud) throws SQLException {
         return exist(etud.getEmail());
     }
-
     public boolean exist(String email) throws SQLException {
         findbyId.setString(1, email);
         ResultSet rs = findbyId.executeQuery();
         return rs.next();
     }
+    public static boolean validateEmailRegex(String email){
+        String regex = "^[a-zA-Z0-9]{0,30}[_.-]{0,10}[a-zA-Z0-9]{0,30}[@][e][t][u][d][.][f][r]$";
+        Pattern p = Pattern.compile(regex);
+        Matcher match = p.matcher(email);
+        if(!match.matches())
+            return false;
+        return true ;
+    }
+    public static boolean validate(String email, String password) throws SQLException {
 
+        // Step 2:Create a statement using connection object
+        Security sec = new Security(password);
+        String mdp = sec.hacherMdp(password);
+        findbyId.setString(1, email);
+        findbyId.setString(2, mdp);
+        //System.out.println(preparedStatement);
 
+        ResultSet resultSet = findbyId.executeQuery();
+        return resultSet.next() ;
+    }
     @Override
     public void close() throws SQLException {
         connection.close();
