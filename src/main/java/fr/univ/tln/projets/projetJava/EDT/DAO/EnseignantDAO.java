@@ -47,7 +47,7 @@ public class EnseignantDAO extends JdbcDAO implements AutoCloseable{
         return rs.next();
     }
     public static boolean validateEmailRegex(String email){
-        String regex = "^[a-zA-Z0-9]{0,30}[_.-]{0,10}[a-zA-Z0-9]{0,30}[@][e][n][s]+[.][f][r]$";
+        String regex = "^[a-zA-Z0-9]{0,30}[_.-]{0,10}[a-zA-Z0-9]{0,30}[@][e][n][s][.][f][r]$";
         Pattern p = Pattern.compile(regex);
         Matcher match = p.matcher(email);
         if(!match.matches())
@@ -66,9 +66,11 @@ public class EnseignantDAO extends JdbcDAO implements AutoCloseable{
         ResultSet resultSet = findbyId.executeQuery();
         return resultSet.next() ;
     }
+
     @Override
     public void close() throws SQLException {
         connection.close();
         log.info("DB connection closed");
     }
+
 }

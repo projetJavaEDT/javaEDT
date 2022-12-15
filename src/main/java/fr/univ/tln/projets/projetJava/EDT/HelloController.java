@@ -1,5 +1,6 @@
 package fr.univ.tln.projets.projetJava.EDT;
 
+import fr.univ.tln.projets.projetJava.EDT.DAO.EnseignantDAO;
 import fr.univ.tln.projets.projetJava.EDT.DAO.EtudiantDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -42,14 +43,31 @@ public class HelloController  {
         }
         String emailId = emailIdField.getText();
         String password = passwordField.getText();
-        EtudiantDAO jdbcDao = new EtudiantDAO();
-        boolean regex = EtudiantDAO.validateEmailRegex(emailId);
+        EnseignantDAO jdbcDao = new EnseignantDAO();
+        EtudiantDAO jdbcDao1 = new EtudiantDAO();
+
+
+
+        boolean regex =  EnseignantDAO.validateEmailRegex(emailId);
         if (!regex) {
             infoBox("Entrez une adresse mail valide", null, "Echec");
         }
         else {
-            boolean flag = EtudiantDAO.validate(emailId, password);
+            boolean flag =  EnseignantDAO.validate(emailId, password) ;
             if (!flag) {
+                infoBox("Entrez un mot de passe et login correcte", null, "Echec");
+            } else {
+                infoBox("Authentification reussite", null, "Succes");
+            }
+        }
+
+        boolean regex1 =  EtudiantDAO.validateEmailRegex(emailId);
+        if (!regex1) {
+            infoBox("Entrez une adresse mail valide", null, "Echec");
+        }
+        else {
+            boolean flag1 =  EtudiantDAO.validate(emailId, password) ;
+            if (!flag1) {
                 infoBox("Entrez un mot de passe et login correcte", null, "Echec");
             } else {
                 infoBox("Authentification reussite", null, "Succes");
