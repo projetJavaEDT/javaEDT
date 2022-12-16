@@ -46,14 +46,7 @@ public class EtudiantDAO extends JdbcDAO implements AutoCloseable{
         ResultSet rs = findbyId.executeQuery();
         return rs.next();
     }
-    public static boolean validateEmailRegex(String email){
-        String regex = "^[a-zA-Z0-9]{0,30}[_.-]{0,10}[a-zA-Z0-9]{0,30}[@][e][t][u][d][.][f][r]$";
-        Pattern p = Pattern.compile(regex);
-        Matcher match = p.matcher(email);
-        if(!match.matches())
-            return false;
-        return true ;
-    }
+
     public static boolean validate(String email, String password) throws SQLException {
 
         // Step 2:Create a statement using connection object

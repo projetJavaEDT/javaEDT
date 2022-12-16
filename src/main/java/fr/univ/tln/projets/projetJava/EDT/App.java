@@ -1,11 +1,6 @@
 package fr.univ.tln.projets.projetJava.EDT;
 
 import fr.univ.tln.projets.projetJava.EDT.Classes.*;
-import fr.univ.tln.projets.projetJava.EDT.DAO.*;
-
-
-import java.util.*;
-import java.sql.*;
 
 
 public class App 
@@ -24,6 +19,6 @@ public class App
 
 
 
-        HelloApplication.main(args);
+        EDTApplication.main(args);
     }
 }
