@@ -1,19 +1,33 @@
 package com.example.demo;
 
 
+import java.util.Date;
+
 public class Seance {
-
-    private String codeMod ;
-    private String jour ;
-    private String horaires  ;
-
-    private Seance(String codeMod, String jour, String horaires){
-        this.codeMod = codeMod ;
-        this.jour = jour ;
-        this.horaires = horaires ;
+    public enum Type {
+        TP, TD, CM;
     }
-    public static Seance of(String codeMod, String jour, String horaires){
-        return new Seance(codeMod, jour, horaires);
+    private String codeMod ;
+    private String codeSalle;
+    private Type typeSeance;
+    private Date date;
+    private String heureD;
+    private String heureF;
+
+    private Seance(String codeMod, Type typeSeance, Date date, String heureD, String heureF){
+        this.codeMod = codeMod ;
+        this.typeSeance = typeSeance;
+        this.date = date;
+        this.heureD = heureD;
+        this.heureF = heureF;
+    }
+
+    /*private Seance(String codeMod, Type typeSeance, Date date, String heureD, String heureF){
+        new Seance(codeMod, null, typeSeance, date, heureD, heureF);
+    }*/
+
+    public static Seance of(String codeMod, Type typeSeance, Date date, String heureD, String heureF){
+        return new Seance(codeMod, typeSeance, date, heureD, heureF);
     }
 
     public String getCodeMod() {
@@ -24,28 +38,53 @@ public class Seance {
         this.codeMod = codeMod;
     }
 
-    public String getJour() {
-        return jour;
+    public String getCodeSalle() {
+        return codeSalle;
     }
 
-    public void setJour(String jour) {
-        this.jour = jour;
+    public void setCodeSalle(String codeSalle) {
+        this.codeSalle = codeSalle;
     }
 
-    public String getHoraires() {
-        return horaires;
+    public Type getTypeSeance() {
+        return typeSeance;
     }
 
-    public void setHoraires(String horaires) {
-        this.horaires = horaires;
+    public void setTypeSeance(Type typeSeance) {
+        this.typeSeance = typeSeance;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public String getHeureD() {
+        return heureD;
+    }
+
+    public void setHeureD(String heureD) {
+        this.heureD = heureD;
+    }
+
+    public String getHeureF() {
+        return heureF;
+    }
+
+    public void setHeureF(String heureF) {
+        this.heureF = heureF;
     }
 
     @Override
     public String toString() {
         return "Seance{" +
                 "codeMod='" + codeMod + '\'' +
-                ", jour=" + jour +
-                ", horaires='" + horaires + '\'' +
+                ", date=" + date +
+                ", heureD='" + heureD + '\'' +
+                ", heureF='" + heureF + '\'' +
                 '}';
     }
 }

@@ -1,4 +1,4 @@
-package com.example.demo.Modele.DAO;
+package com.example.demo.modele.DAO;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -6,10 +6,6 @@ import java.util.List;
 import java.util.logging.Logger;
 import com.example.demo.Module;
 import com.example.demo.Seance;
-import javafx.collections.ObservableList;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 
 public class ModuleDAO extends JdbcDAO implements AutoCloseable{
 
@@ -33,17 +29,18 @@ public class ModuleDAO extends JdbcDAO implements AutoCloseable{
         return modules;
     }
 
-    public Seance displayM_1() throws SQLException {
+    /*public Seance displayM_1() throws SQLException {
         //List<Seance> seances = new ArrayList<>();
-        findAll = connection.prepareStatement("SELECT MODULE.CODEM, CALENDRIER.JOUR, TRANCHEHORAIRE.HORAIRES FROM SEANCE,MODULE,TRANCHEHORAIRE,CALENDRIER WHERE SEANCE.HORAIRES = TRANCHEHORAIRE.ID AND SEANCE.JOUR = CALENDRIER.ID AND SEANCE.CODEM = MODULE.CODEM");
+        findAll = connection.prepareStatement("SELECT CODEM,DATE,TYPESEANCE,HEURED,HEUREF FROM SEANCE");
         ResultSet rs = findAll.executeQuery();
         // Extract data from result set
         Seance s = null;
         while (rs.next()) {
-            s = Seance.of(rs.getString("CODEM"), rs.getString("JOUR"), rs.getString("HORAIRES"));
+            s = Seance.of(rs.getString("CODEM"), Seance.Type.valueOf(rs.getString("TYPESEANCE")),rs.getDate("DATE"), rs.getString("HEURED"), rs.getString("HEUREF"));
         }
+        System.out.println(s);
         return s;
-    }
+    }*/
 
     /*public void displayMOLD(TableView tabedt, TableColumn codeMod, TableColumn libelleMod, TableColumn volumeHoraire) throws SQLException {
         data = FXCollections.observableArrayList();

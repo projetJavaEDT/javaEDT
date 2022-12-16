@@ -1,4 +1,4 @@
-package com.example.demo.Modele.User;
+package com.example.demo.modele.user;
 
 public class Administrateur extends Utilisateur {
     private Administrateur(int id, String nom, String prenom, String email, int tel, String login, String mdp){

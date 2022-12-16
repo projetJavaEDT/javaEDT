@@ -1,4 +1,4 @@
-package com.example.demo.Modele.DAO;
+package com.example.demo.modele.DAO;
 
 import java.sql.*;
 import java.util.logging.Logger;

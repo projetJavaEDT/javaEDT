@@ -1,4 +1,4 @@
-package com.example.demo.Modele.User;
+package com.example.demo.modele.user;
 
 public abstract class Utilisateur {
     private int id ;
