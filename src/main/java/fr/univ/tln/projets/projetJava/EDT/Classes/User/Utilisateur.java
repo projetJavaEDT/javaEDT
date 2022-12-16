@@ -2,6 +2,9 @@ package fr.univ.tln.projets.projetJava.EDT.Classes.User;
 
 import fr.univ.tln.projets.projetJava.EDT.Exceptions.*;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public abstract class Utilisateur {
 
     private String nom ;
@@ -62,10 +65,16 @@ public abstract class Utilisateur {
     public void setTel(int tel) {
         this.tel = tel;
     }
-    protected Utilisateur (String nom, String prenom, String email, int tel, String mdp, int age, String adresse )throws ExceptionAge
+    protected Utilisateur (String nom, String prenom, String email, int tel, String mdp, int age, String adresse )throws ExceptionAge, ExceptionEmail
     {
         if (age < 0)
             throw new ExceptionAge();
+        String regex = "^[a-zA-Z0-9]{0,30}[_.-]{0,10}[a-zA-Z0-9]{0,30}[@][a-z]{3, 5}[.][f][r]$";
+        Pattern p = Pattern.compile(regex);
+        Matcher match = p.matcher(email);
+        if(!match.matches())
+            throw new ExceptionEmail();
+
         this.email = email ;
         this.nom = nom ;
         this.prenom = prenom ;

@@ -1,16 +1,11 @@
 package fr.univ.tln.projets.projetJava.EDT.DAO;
 
-import fr.univ.tln.projets.projetJava.EDT.Classes.Security;
 import fr.univ.tln.projets.projetJava.EDT.Classes.User.*;
-import fr.univ.tln.projets.projetJava.EDT.Exceptions.ExceptionAge;
+import fr.univ.tln.projets.projetJava.EDT.Exceptions.*;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class AdministrateurDAO extends JdbcDAO implements AutoCloseable{
     private static Logger log = Logger.getLogger(EtudiantDAO.class.getName());
@@ -21,7 +16,7 @@ public class AdministrateurDAO extends JdbcDAO implements AutoCloseable{
         return new AdministrateurDAO();
     }
 
-    public Administrateur findById(String email) throws SQLException, ExceptionAge {
+    public Administrateur findById(String email) throws SQLException, ExceptionAge,ExceptionEmail {
         Administrateur adm = null;
         findbyId.setString(1, email);
         ResultSet rs = findbyId.executeQuery();
@@ -40,11 +35,8 @@ public class AdministrateurDAO extends JdbcDAO implements AutoCloseable{
     }
 
     public static boolean validate(String email, String password) throws SQLException {
-
-        Security sec = new Security(password);
-        String mdp = sec.hacherMdp(password);
         findbyId.setString(1, email);
-        findbyId.setString(2, mdp);
+        findbyId.setString(2, password);
         ResultSet resultSet = findbyId.executeQuery();
         return resultSet.next() ;
     }

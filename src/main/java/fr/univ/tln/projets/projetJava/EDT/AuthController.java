@@ -12,6 +12,9 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Window;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -50,6 +53,25 @@ public class AuthController {
         else
             return "not exist";
     }
+    public String hacherMdp(String mdp){
+
+        String s = "" ;
+        MessageDigest msg;
+
+        {
+            try {
+                msg = MessageDigest.getInstance("SHA-256");
+                byte[] hash = msg.digest(mdp.getBytes(StandardCharsets.UTF_8));
+                for(byte b : hash) {
+                    s +=(Integer.toString((b & 0xff) + 0x100, 16).substring(1));
+                }
+                //System.out.println(s.toString());
+                return s;
+            } catch (NoSuchAlgorithmException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
     public void login(ActionEvent event) throws SQLException {
 
         Window owner = submitButton.getScene().getWindow();
@@ -66,6 +88,7 @@ public class AuthController {
         }
         String emailId = emailIdField.getText();
         String password = passwordField.getText();
+        password = hacherMdp(password);
         String type = validateEmailRegex(emailId);
         if (type == "ens") {
             EnseignantDAO jdbcDao = new EnseignantDAO();

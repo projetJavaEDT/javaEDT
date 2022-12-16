@@ -4,12 +4,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import fr.univ.tln.projets.projetJava.EDT.Classes.User.*;
-import fr.univ.tln.projets.projetJava.EDT.Classes.Security ;
-import fr.univ.tln.projets.projetJava.EDT.Exceptions.ExceptionAge;
+import fr.univ.tln.projets.projetJava.EDT.Exceptions.*;
 
 public class EnseignantDAO extends JdbcDAO implements AutoCloseable{
     private static Logger log = Logger.getLogger(EnseignantDAO.class.getName());
@@ -22,7 +19,7 @@ public class EnseignantDAO extends JdbcDAO implements AutoCloseable{
     }
 
     //String nom, String prenom, String email, int tel, String mdp, String grade
-    public List<Enseignant> findAll() throws SQLException, ExceptionAge {
+    public List<Enseignant> findAll() throws SQLException, ExceptionAge, ExceptionEmail  {
         List<Enseignant> enseignants = new ArrayList<>();
         ResultSet rs = findAll.executeQuery();
         // Extract data from result set
@@ -31,7 +28,7 @@ public class EnseignantDAO extends JdbcDAO implements AutoCloseable{
         }
         return enseignants;
     }
-    public Enseignant findById(String email) throws SQLException, ExceptionAge {
+    public Enseignant findById(String email) throws SQLException, ExceptionAge, ExceptionEmail {
         Enseignant ens = null;
         findbyId.setString(1, email);
         ResultSet rs = findbyId.executeQuery();
@@ -52,13 +49,8 @@ public class EnseignantDAO extends JdbcDAO implements AutoCloseable{
 
     public static boolean validate(String email, String password) throws SQLException {
 
-        // Step 2:Create a statement using connection object
-        Security sec = new Security(password);
-        String mdp = sec.hacherMdp(password);
         findbyId.setString(1, email);
-        findbyId.setString(2, mdp);
-        //System.out.println(preparedStatement);
-
+        findbyId.setString(2, password);
         ResultSet resultSet = findbyId.executeQuery();
         return resultSet.next() ;
     }
