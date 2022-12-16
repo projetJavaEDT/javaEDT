@@ -9,6 +9,8 @@ import java.util.regex.Pattern;
 
 import fr.univ.tln.projets.projetJava.EDT.Classes.User.*;
 import fr.univ.tln.projets.projetJava.EDT.Classes.Security ;
+import fr.univ.tln.projets.projetJava.EDT.Exceptions.ExceptionAge;
+
 public class EnseignantDAO extends JdbcDAO implements AutoCloseable{
     private static Logger log = Logger.getLogger(EnseignantDAO.class.getName());
     public EnseignantDAO() throws SQLException {
@@ -20,7 +22,7 @@ public class EnseignantDAO extends JdbcDAO implements AutoCloseable{
     }
 
     //String nom, String prenom, String email, int tel, String mdp, String grade
-    public List<Enseignant> findAll() throws SQLException {
+    public List<Enseignant> findAll() throws SQLException, ExceptionAge {
         List<Enseignant> enseignants = new ArrayList<>();
         ResultSet rs = findAll.executeQuery();
         // Extract data from result set
@@ -29,7 +31,7 @@ public class EnseignantDAO extends JdbcDAO implements AutoCloseable{
         }
         return enseignants;
     }
-    public Enseignant findById(String email) throws SQLException {
+    public Enseignant findById(String email) throws SQLException, ExceptionAge {
         Enseignant ens = null;
         findbyId.setString(1, email);
         ResultSet rs = findbyId.executeQuery();

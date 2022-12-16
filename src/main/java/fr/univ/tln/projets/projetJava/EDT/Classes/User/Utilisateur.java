@@ -1,5 +1,7 @@
 package fr.univ.tln.projets.projetJava.EDT.Classes.User;
 
+import fr.univ.tln.projets.projetJava.EDT.Exceptions.*;
+
 public abstract class Utilisateur {
 
     private String nom ;
@@ -60,8 +62,10 @@ public abstract class Utilisateur {
     public void setTel(int tel) {
         this.tel = tel;
     }
-    protected Utilisateur (String nom, String prenom, String email, int tel, String mdp, int age, String adresse )
+    protected Utilisateur (String nom, String prenom, String email, int tel, String mdp, int age, String adresse )throws ExceptionAge
     {
+        if (age < 0)
+            throw new ExceptionAge();
         this.email = email ;
         this.nom = nom ;
         this.prenom = prenom ;

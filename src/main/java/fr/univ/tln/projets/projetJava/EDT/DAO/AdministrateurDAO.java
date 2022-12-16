@@ -2,6 +2,7 @@ package fr.univ.tln.projets.projetJava.EDT.DAO;
 
 import fr.univ.tln.projets.projetJava.EDT.Classes.Security;
 import fr.univ.tln.projets.projetJava.EDT.Classes.User.*;
+import fr.univ.tln.projets.projetJava.EDT.Exceptions.ExceptionAge;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,7 +21,7 @@ public class AdministrateurDAO extends JdbcDAO implements AutoCloseable{
         return new AdministrateurDAO();
     }
 
-    public Administrateur findById(String email) throws SQLException {
+    public Administrateur findById(String email) throws SQLException, ExceptionAge {
         Administrateur adm = null;
         findbyId.setString(1, email);
         ResultSet rs = findbyId.executeQuery();

@@ -2,6 +2,7 @@ package fr.univ.tln.projets.projetJava.EDT.DAO;
 
 import fr.univ.tln.projets.projetJava.EDT.Classes.Security;
 import fr.univ.tln.projets.projetJava.EDT.Classes.User.*;
+import fr.univ.tln.projets.projetJava.EDT.Exceptions.ExceptionAge;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,7 +21,7 @@ public class EtudiantDAO extends JdbcDAO implements AutoCloseable{
     public static EtudiantDAO  create() throws SQLException {
         return new EtudiantDAO();
     }
-    public List<Etudiant> findAll() throws SQLException {
+    public List<Etudiant> findAll() throws SQLException, ExceptionAge {
         List<Etudiant> etudiants = new ArrayList<>();
         ResultSet rs = findAll.executeQuery();
         // Extract data from result set
@@ -29,7 +30,7 @@ public class EtudiantDAO extends JdbcDAO implements AutoCloseable{
         }
         return etudiants;
     }
-    public Etudiant findById(String email) throws SQLException {
+    public Etudiant findById(String email) throws SQLException, ExceptionAge {
         Etudiant etud = null;
         findbyId.setString(1, email);
         ResultSet rs = findbyId.executeQuery();
