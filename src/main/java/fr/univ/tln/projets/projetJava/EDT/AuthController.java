@@ -69,7 +69,7 @@ public class AuthController {
         String type = validateEmailRegex(emailId);
         if (type == "ens") {
             EnseignantDAO jdbcDao = new EnseignantDAO();
-            boolean flag =  EnseignantDAO.validate(emailId, password) ;
+            boolean flag =  jdbcDao.validate(emailId, password) ;
             if (!flag) {
                 infoBox("Entrez un mot de passe et login correcte", null, "Echec");
             } else {
@@ -78,7 +78,7 @@ public class AuthController {
         }
         else if(type == "etud") {
             EtudiantDAO jdbcDao1 = new EtudiantDAO();
-            boolean flag =  EtudiantDAO.validate(emailId, password) ;
+            boolean flag =  jdbcDao1.validate(emailId, password) ;
             if (!flag) {
                 infoBox("Entrez un mot de passe et login correcte", null, "Echec");
             } else {
@@ -87,7 +87,7 @@ public class AuthController {
         }
         else if (type == "admin") {
             AdministrateurDAO jdbcDao2 = new AdministrateurDAO();
-            boolean flag = AdministrateurDAO.validate(emailId, password);
+            boolean flag = jdbcDao2.validate(emailId, password);
             if (!flag) {
                 infoBox("Entrez un mot de passe et login correcte", null, "Echec");
             } else {
