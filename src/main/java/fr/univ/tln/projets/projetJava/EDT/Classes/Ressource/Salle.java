@@ -2,19 +2,23 @@ package fr.univ.tln.projets.projetJava.EDT.Classes.Ressource;
 
 import fr.univ.tln.projets.projetJava.EDT.Classes.ClasseType;
 
+import fr.univ.tln.projets.projetJava.EDT.Exceptions.*;
+
 public class Salle {
     private int id ;
     private String libelleSalle ;
     private int nbPlace;
     private ClasseType classeType ;
 
-    private Salle(int id, String libelleSalle, int nbPlace, ClasseType classeType){
+    private Salle(int id, String libelleSalle, int nbPlace, ClasseType classeType) throws ExceptionNbMaxPlacesSalle{
         this.classeType = classeType;
         this.id = id ;
         this.nbPlace = nbPlace ;
+        if (nbPlace > 30 )
+                throw new ExceptionNbMaxPlacesSalle();
         this.libelleSalle = libelleSalle ;
     }
-    public static Salle of(int id, String libelleSalle, int nbPlace, ClasseType classeType) {
+    public static Salle of(int id, String libelleSalle, int nbPlace, ClasseType classeType) throws ExceptionNbMaxPlacesSalle {
         return new Salle(id, libelleSalle, nbPlace, classeType);
     }
 

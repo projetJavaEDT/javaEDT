@@ -69,7 +69,7 @@ public abstract class Utilisateur {
     {
         if (age < 0)
             throw new ExceptionAge();
-        String regex = "^[a-zA-Z0-9]{0,30}[_.-]{0,10}[a-zA-Z0-9]{0,30}[@][a-z]{3, 5}[.][f][r]$";
+        String regex = "^[a-zA-Z0-9]{0,30}[_.-]{0,10}[a-zA-Z0-9]{0,30}[@][a-z]{3,5}[.][f][r]$";
         Pattern p = Pattern.compile(regex);
         Matcher match = p.matcher(email);
         if(!match.matches())

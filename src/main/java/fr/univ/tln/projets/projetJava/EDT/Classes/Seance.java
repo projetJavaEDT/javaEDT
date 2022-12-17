@@ -1,6 +1,6 @@
 package fr.univ.tln.projets.projetJava.EDT.Classes;
 
-
+import fr.univ.tln.projets.projetJava.EDT.Exceptions.*;
 import java.util.*;
 
 import java.util.Date;
@@ -16,9 +16,7 @@ public class Seance {
     private String heureD;
     private String heureF;
 
-
-
-    public static class SeanceBuilder{
+    public static class SeanceBuilder {
         private String codeMod ;
         private String codeSalle;
         private Type typeSeance;
@@ -55,7 +53,7 @@ public class Seance {
 
         public Seance build() {
             Seance seance = new Seance();
-            seance.codeMod = codeSalle;
+            seance.codeMod = codeMod;
             seance.codeSalle = codeSalle;
             seance.heureD = heureD;
             seance.heureF = heureF;
