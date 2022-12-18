@@ -13,16 +13,16 @@ public class Seance {
     private String codeSalle;
     private Type typeSeance;
     private Date date;
-    private String heureD;
-    private String heureF;
+    private int heureD;
+    private int heureF;
 
-    public static class SeanceBuilder {
+    public static class SeanceBuilder  {
         private String codeMod ;
         private String codeSalle;
         private Type typeSeance;
         private Date date;
-        private String heureD;
-        private String heureF;
+        private int heureD;
+        private int heureF;
 
 
         public SeanceBuilder codeMod(String codeMod) {
@@ -41,20 +41,22 @@ public class Seance {
             this.date = date;
             return this;
         }
-        public SeanceBuilder heureD(String heureD) {
+        public SeanceBuilder heureD(int heureD) {
             this.heureD = heureD;
             return this;
         }
-        public SeanceBuilder heureF(String heureF) {
+        public SeanceBuilder heureF(int heureF) {
             this.heureF = heureF;
             return this;
         }
 
 
-        public Seance build() {
+        public Seance build() throws ExceptionHeure {
             Seance seance = new Seance();
             seance.codeMod = codeMod;
             seance.codeSalle = codeSalle;
+            if (heureD > heureF)
+                throw new ExceptionHeure();
             seance.heureD = heureD;
             seance.heureF = heureF;
             seance.date = date;
@@ -93,19 +95,19 @@ public class Seance {
         this.date = date;
     }
 
-    public String getHeureD() {
+    public int getHeureD() {
         return heureD;
     }
 
-    public void setHeureD(String heureD) {
+    public void setHeureD(int heureD) {
         this.heureD = heureD;
     }
 
-    public String getHeureF() {
+    public int getHeureF() {
         return heureF;
     }
 
-    public void setHeureF(String heureF) {
+    public void setHeureF(int heureF) {
         this.heureF = heureF;
     }
 
