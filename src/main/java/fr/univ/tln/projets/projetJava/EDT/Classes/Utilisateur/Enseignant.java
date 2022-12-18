@@ -1,4 +1,4 @@
-package fr.univ.tln.projets.projetJava.EDT.Classes.User;
+package fr.univ.tln.projets.projetJava.EDT.Classes.Utilisateur;
 
 import fr.univ.tln.projets.projetJava.EDT.Exceptions.*;
 

@@ -1,7 +1,6 @@
-package fr.univ.tln.projets.projetJava.EDT.Classes;
+package fr.univ.tln.projets.projetJava.EDT.Classes.Ressource;
 
 import fr.univ.tln.projets.projetJava.EDT.Exceptions.*;
-import java.util.*;
 
 import java.util.Date;
 

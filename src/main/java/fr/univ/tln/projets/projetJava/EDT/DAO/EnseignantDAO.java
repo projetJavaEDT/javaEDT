@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-import fr.univ.tln.projets.projetJava.EDT.Classes.User.*;
+import fr.univ.tln.projets.projetJava.EDT.Classes.Utilisateur.*;
 import fr.univ.tln.projets.projetJava.EDT.Exceptions.*;
 
 public class EnseignantDAO extends JdbcDAO implements AutoCloseable{

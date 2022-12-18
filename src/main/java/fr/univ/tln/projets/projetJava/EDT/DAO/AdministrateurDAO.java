@@ -1,6 +1,6 @@
 package fr.univ.tln.projets.projetJava.EDT.DAO;
 
-import fr.univ.tln.projets.projetJava.EDT.Classes.User.*;
+import fr.univ.tln.projets.projetJava.EDT.Classes.Utilisateur.*;
 import fr.univ.tln.projets.projetJava.EDT.Exceptions.*;
 
 import java.sql.ResultSet;
