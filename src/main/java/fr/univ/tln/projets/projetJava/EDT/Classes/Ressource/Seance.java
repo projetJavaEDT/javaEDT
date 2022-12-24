@@ -61,6 +61,7 @@ public class Seance {
             seance.date = date;
             return seance;
         }
+
     }
     public String getCodeMod() {
         return codeMod;
