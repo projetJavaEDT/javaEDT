@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.modele.ressources;
 
 
 import java.util.Date;
@@ -9,25 +9,25 @@ public class Seance {
     }
     private String codeMod ;
     private String codeSalle;
+    private String codeEns;
     private Type typeSeance;
     private Date date;
-    private String heureD;
-    private String heureF;
+    private int heureD;
+    private int heureF;
 
-    private Seance(String codeMod, Type typeSeance, Date date, String heureD, String heureF){
+    private Seance(String codeMod, String codeSalle, String codeEns, Type typeSeance, Date date, int heureD, int heureF){
         this.codeMod = codeMod ;
+        this.codeSalle = codeSalle;
+        this.codeEns = codeEns;
         this.typeSeance = typeSeance;
         this.date = date;
         this.heureD = heureD;
         this.heureF = heureF;
     }
 
-    /*private Seance(String codeMod, Type typeSeance, Date date, String heureD, String heureF){
-        new Seance(codeMod, null, typeSeance, date, heureD, heureF);
-    }*/
 
-    public static Seance of(String codeMod, Type typeSeance, Date date, String heureD, String heureF){
-        return new Seance(codeMod, typeSeance, date, heureD, heureF);
+    public static Seance of(String codeMod, String codeSalle, String codeEns, Type typeSeance, Date date, int heureD, int heureF){
+        return new Seance(codeMod, codeSalle, codeEns, typeSeance, date, heureD, heureF);
     }
 
     public String getCodeMod() {
@@ -46,6 +46,14 @@ public class Seance {
         this.codeSalle = codeSalle;
     }
 
+    public String getCodeEns() {
+        return codeEns;
+    }
+
+    public void setCodeEns(String codeEns) {
+        this.codeEns = codeEns;
+    }
+
     public Type getTypeSeance() {
         return typeSeance;
     }
@@ -62,19 +70,19 @@ public class Seance {
         this.date = date;
     }
 
-    public String getHeureD() {
+    public int getHeureD() {
         return heureD;
     }
 
-    public void setHeureD(String heureD) {
+    public void setHeureD(int heureD) {
         this.heureD = heureD;
     }
 
-    public String getHeureF() {
+    public int getHeureF() {
         return heureF;
     }
 
-    public void setHeureF(String heureF) {
+    public void setHeureF(int heureF) {
         this.heureF = heureF;
     }
 
@@ -82,9 +90,12 @@ public class Seance {
     public String toString() {
         return "Seance{" +
                 "codeMod='" + codeMod + '\'' +
+                ", codeSalle='" + codeSalle + '\'' +
+                ", codeEns='" + codeEns + '\'' +
+                ", typeSeance=" + typeSeance +
                 ", date=" + date +
-                ", heureD='" + heureD + '\'' +
-                ", heureF='" + heureF + '\'' +
+                ", heureD=" + heureD +
+                ", heureF=" + heureF +
                 '}';
     }
 }

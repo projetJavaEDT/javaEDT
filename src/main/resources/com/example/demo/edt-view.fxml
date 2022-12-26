@@ -12,7 +12,7 @@
             <Font name="Leelawadee UI Bold" size="30.0" />
         </font>
     </Label>
-    <Button fx:id="loadData" layoutX="788.0" layoutY="24.0" mnemonicParsing="false" onAction="#displayModule" prefHeight="42.0" prefWidth="203.0" text="a voir" textFill="#4d4a4a">
+    <Button fx:id="loadData" layoutX="788.0" layoutY="24.0" mnemonicParsing="false" onAction="#displaySeance" prefHeight="42.0" prefWidth="203.0" text="a voir" textFill="#4d4a4a">
         <font>
             <Font name="System Bold" size="20.0" />
         </font>
@@ -20,10 +20,10 @@
             <Cursor fx:constant="HAND" />
         </cursor>
     </Button>
-      <GridPane fx:id="edt" alignment="TOP_CENTER" gridLinesVisible="true" layoutX="8.0" layoutY="126.0" prefHeight="496.0" prefWidth="786.0" AnchorPane.bottomAnchor="107.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="502.0" AnchorPane.topAnchor="126.0">
+      <GridPane fx:id="edt" alignment="TOP_CENTER" gridLinesVisible="true" layoutX="8.0" layoutY="126.0" prefHeight="500.0" prefWidth="810.0" AnchorPane.bottomAnchor="103.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="478.0" AnchorPane.topAnchor="126.0">
         <columnConstraints>
           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="64.0" minWidth="10.0" prefWidth="56.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="500.0" minWidth="0.0" prefWidth="160.0" />
+          <ColumnConstraints fx:id="lundicolonne" hgrow="SOMETIMES" maxWidth="500.0" minWidth="0.0" prefWidth="160.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="500.0" minWidth="10.0" prefWidth="160.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="500.0" minWidth="10.0" prefWidth="160.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="500.0" minWidth="10.0" prefWidth="160.0" />
@@ -43,99 +43,84 @@
           <RowConstraints maxHeight="500.0" minHeight="0.0" prefHeight="60.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="67.0" prefWidth="42.0" style="-fx-background-color: #d4e7ff;" text="8H" GridPane.rowIndex="1">
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="71.0" prefWidth="48.0" style="-fx-background-color: #d4e7ff;" text="8H" GridPane.rowIndex="1">
                <font>
                   <Font name="DejaVu Serif Bold" size="15.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="48.0" prefHeight="75.0" prefWidth="42.0" style="-fx-background-color: #d4e7ff;" text="9H" GridPane.rowIndex="2">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="48.0" prefHeight="77.0" prefWidth="48.0" style="-fx-background-color: #d4e7ff;" text="9H" GridPane.rowIndex="2">
                <font>
                   <Font name="DejaVu Serif Bold" size="15.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="95.0" prefHeight="89.0" prefWidth="42.0" style="-fx-background-color: #d4e7ff;" text="10H" GridPane.rowIndex="3">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="95.0" prefHeight="81.0" prefWidth="48.0" style="-fx-background-color: #d4e7ff;" text="10H" GridPane.rowIndex="3">
                <font>
                   <Font name="DejaVu Serif Bold" size="15.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="142.0" prefHeight="73.0" prefWidth="42.0" style="-fx-background-color: #d4e7ff;" text="11H" GridPane.rowIndex="4">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="142.0" prefHeight="75.0" prefWidth="48.0" style="-fx-background-color: #d4e7ff;" text="11H" GridPane.rowIndex="4">
                <font>
                   <Font name="DejaVu Serif Bold" size="15.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="189.0" prefHeight="69.0" prefWidth="42.0" style="-fx-background-color: #d4e7ff;" text="14H" GridPane.rowIndex="7">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="189.0" prefHeight="87.0" prefWidth="48.0" style="-fx-background-color: #d4e7ff;" text="14H" GridPane.rowIndex="7">
                <font>
                   <Font name="DejaVu Serif Bold" size="15.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="10.0" prefHeight="73.0" prefWidth="42.0" style="-fx-background-color: #d4e7ff;" text="13H" GridPane.rowIndex="6">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="10.0" prefHeight="89.0" prefWidth="48.0" style="-fx-background-color: #d4e7ff;" text="13H" GridPane.rowIndex="6">
                <font>
                   <Font name="DejaVu Serif Bold" size="15.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="10.0" prefHeight="65.0" prefWidth="42.0" style="-fx-background-color: #d4e7ff;" text="12H" GridPane.rowIndex="5">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="10.0" prefHeight="87.0" prefWidth="48.0" style="-fx-background-color: #d4e7ff;" text="12H" GridPane.rowIndex="5">
                <font>
                   <Font name="DejaVu Serif Bold" size="15.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="236.0" prefHeight="82.0" prefWidth="42.0" style="-fx-background-color: #d4e7ff;" text="15H" GridPane.rowIndex="8">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="236.0" prefHeight="76.0" prefWidth="48.0" style="-fx-background-color: #d4e7ff;" text="15H" GridPane.rowIndex="8">
                <font>
                   <Font name="DejaVu Serif Bold" size="15.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="243.0" prefHeight="80.0" prefWidth="42.0" style="-fx-background-color: #d4e7ff;" text="17H" GridPane.rowIndex="10">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="243.0" prefHeight="76.0" prefWidth="48.0" style="-fx-background-color: #d4e7ff;" text="17H" GridPane.rowIndex="10">
                <font>
                   <Font name="DejaVu Serif Bold" size="15.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="10.0" prefHeight="78.0" prefWidth="42.0" style="-fx-background-color: #d4e7ff;" text="16H" GridPane.rowIndex="9">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="10.0" prefHeight="104.0" prefWidth="48.0" style="-fx-background-color: #d4e7ff;" text="16H" GridPane.rowIndex="9">
                <font>
                   <Font name="DejaVu Serif Bold" size="15.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="26.0" prefWidth="162.0" style="-fx-background-color: #d4e7ff;" text="Lundi" GridPane.columnIndex="1">
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="172.0" style="-fx-background-color: #d4e7ff;" text="Lundi" GridPane.columnIndex="1">
                <font>
                   <Font name="System Bold Italic" size="16.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="60.0" layoutY="10.0" prefHeight="26.0" prefWidth="165.0" style="-fx-background-color: #d4e7ff;" text="Jeudi" GridPane.columnIndex="4">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="60.0" layoutY="10.0" prefHeight="27.0" prefWidth="193.0" style="-fx-background-color: #d4e7ff;" text="Jeudi" GridPane.columnIndex="4">
                <font>
                   <Font name="System Bold Italic" size="16.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="26.0" prefWidth="168.0" style="-fx-background-color: #d4e7ff;" text="Mercredi" GridPane.columnIndex="3">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="27.0" prefWidth="200.0" style="-fx-background-color: #d4e7ff;" text="Mercredi" GridPane.columnIndex="3">
                <font>
                   <Font name="System Bold Italic" size="16.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="26.0" prefWidth="178.0" style="-fx-background-color: #d4e7ff;" text="Mardi" GridPane.columnIndex="2">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="27.0" prefWidth="178.0" style="-fx-background-color: #d4e7ff;" text="Mardi" GridPane.columnIndex="2">
                <font>
                   <Font name="System Bold Italic" size="16.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="188.0" layoutY="10.0" prefHeight="55.0" prefWidth="147.0" style="-fx-background-color: #d4e7ff;" text="Vendredi" GridPane.columnIndex="5">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="188.0" layoutY="10.0" prefHeight="27.0" prefWidth="175.0" style="-fx-background-color: #d4e7ff;" text="Vendredi" GridPane.columnIndex="5">
                <font>
                   <Font name="System Bold Italic" size="16.0" />
                </font>
             </Label>
-            <FlowPane fx:id="lundi9h" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-               <children>
-                  <Label fx:id="code1" alignment="CENTER" contentDisplay="CENTER">
-                     <font>
-                        <Font name="DejaVu Serif Condensed Bold" size="16.0" />
-                     </font>
-                  </Label>
-               </children></FlowPane>
-            <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-            <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-            <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
          </children>
       </GridPane>
-      <SplitPane dividerPositions="0.35" layoutX="835.0" layoutY="130.0" prefHeight="488.0" prefWidth="456.0">
+      <SplitPane dividerPositions="0.35" layoutX="825.0" layoutY="130.0" prefHeight="488.0" prefWidth="466.0">
         <items>
           <AnchorPane layoutX="50.0" layoutY="160.0" minHeight="0.0" minWidth="0.0" prefHeight="442.0" prefWidth="95.0">
                <children>

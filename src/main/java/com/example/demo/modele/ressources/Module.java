@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.modele.ressources;
 
 public class Module {
     private String codeMod ;

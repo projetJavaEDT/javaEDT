@@ -1,10 +1,15 @@
 package com.example.demo.modele.user;
 
+import com.example.demo.exception.ExceptionAge;
+import com.example.demo.exception.ExceptionEmail;
+
+import java.util.Date;
+
 public class Administrateur extends Utilisateur {
-    private Administrateur(int id, String nom, String prenom, String email, int tel, String login, String mdp){
-        super(id, nom, prenom, email, tel, login, mdp);
+    private Administrateur(String nom, String prenom, Date datenaissance, String adresse, String tel, String email, String mdp) throws ExceptionEmail {
+        super(nom, prenom, datenaissance, adresse, tel, email, mdp);
     }
-    public static Administrateur of(int id, String nom, String prenom, String email, int tel, String login, String mdp){
-        return new Administrateur(id, nom, prenom, email, tel, login, mdp);
+    public static Administrateur of(String nom, String prenom, Date datenaissance, String adresse, String tel, String email, String mdp)throws ExceptionEmail{
+        return new Administrateur(nom, prenom, datenaissance, adresse, tel, email, mdp);
     }
 }

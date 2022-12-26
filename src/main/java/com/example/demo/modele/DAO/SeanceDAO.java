@@ -1,7 +1,6 @@
 package com.example.demo.modele.DAO;
 
-import com.example.demo.Module;
-import com.example.demo.Seance;
+import com.example.demo.modele.ressources.Seance;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,6 +14,7 @@ public class SeanceDAO extends JdbcDAO implements AutoCloseable{
 
     private SeanceDAO() throws SQLException {
         findAll = connection.prepareStatement("SELECT * FROM SEANCE");
+        findbyID = connection.prepareStatement("SELECT * FROM SEANCE WHERE CODEM=?");
     }
 
     public static SeanceDAO create() throws SQLException {
@@ -26,28 +26,17 @@ public class SeanceDAO extends JdbcDAO implements AutoCloseable{
         ResultSet rs = findAll.executeQuery();
         // Extract data from result set
         while (rs.next()) {
-            seances.add(Seance.of(rs.getString("CODEM"), Seance.Type.valueOf(rs.getString("TYPESEANCE")),rs.getDate("DATE"), rs.getString("HEURED"), rs.getString("HEUREF")));
+            seances.add(Seance.of(rs.getString("CODEM"), rs.getString("CODES"), rs.getString("CODEENS"), Seance.Type.valueOf(rs.getString("TYPESEANCE")),rs.getDate("DATE"), rs.getInt("HEURED"), rs.getInt("HEUREF")));
         }
         return seances;
     }
 
-    public List<Seance> displayM_1() throws SQLException {
-        List<Seance> seances = new ArrayList<>();
-        findAll = connection.prepareStatement("SELECT CODEM,DATE,TYPESEANCE,HEURED,HEUREF FROM SEANCE");
-        ResultSet rs = findAll.executeQuery();
-        // Extract data from result set
-        while (rs.next()) {
-            seances.add(Seance.of(rs.getString("CODEM"), Seance.Type.valueOf(rs.getString("TYPESEANCE")),rs.getDate("DATE"), rs.getString("HEURED"), rs.getString("HEUREF")));
-        }
-        return seances;
-    }
-
-    public Seance findById(int id) throws SQLException {
+    public Seance findById(String module) throws SQLException {
         Seance s = null;
-        findbyId.setInt(1, id);
-        ResultSet rs = findbyId.executeQuery();
+        findbyID.setString(1, module);
+        ResultSet rs = findbyID.executeQuery();
         while (rs.next()) {
-            s = Seance.of(rs.getString("CODEM"), Seance.Type.valueOf(rs.getString("TYPESEANCE")),rs.getDate("DATE"), rs.getString("HEURED"), rs.getString("HEUREF"));
+            s = Seance.of(rs.getString("CODEM"), rs.getString("CODES"), rs.getString("CODEENS"), Seance.Type.valueOf(rs.getString("TYPESEANCE")),rs.getDate("DATE"), rs.getInt("HEURED"), rs.getInt("HEUREF"));
         }
         return s;
     }

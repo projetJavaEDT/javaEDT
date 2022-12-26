@@ -1,14 +1,18 @@
 package com.example.demo.modele.user;
 
+import com.example.demo.exception.ExceptionAge;
+import com.example.demo.exception.ExceptionEmail;
+
+import java.util.Date;
+
 public class Enseignant extends Utilisateur {
     private String grade ;
-    private Enseignant(int id, String nom, String prenom, String email, int tel, String login, String mdp, String grade)
-    {
-        super(id, nom, prenom, email, tel, login, mdp);
+    private Enseignant(String nom, String prenom, Date datenaissance, String adresse, String tel, String email, String mdp, String grade)throws ExceptionEmail{
+        super(nom, prenom, datenaissance, adresse, tel, email, mdp);
         this.grade = grade ;
     }
-    public static Enseignant of(int id, String nom, String prenom, String email, int tel, String login, String mdp, String grade){
-        return new Enseignant(id, nom, prenom, email, tel, login, mdp, grade);
+    public static Enseignant of(String nom, String prenom, Date datenaissance, String adresse, String tel, String email, String mdp, String grade)throws ExceptionEmail{
+        return new Enseignant(nom, prenom, datenaissance, adresse, tel, email, mdp, grade);
     }
 
     public String getGrade() {
@@ -19,4 +23,3 @@ public class Enseignant extends Utilisateur {
         this.grade = grade;
     }
 }
-

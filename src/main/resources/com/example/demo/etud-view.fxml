@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1340.0" style="-fx-background-color: #EDEDED;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.controleur.EtudController">
+   <children>
+      <Pane prefHeight="82.0" prefWidth="1340.0" style="-fx-background-color: LIGHTGRAY;">
+         <children>
+            <Label fx:id="labnom" contentDisplay="CENTER" layoutY="44.0" prefHeight="42.0" prefWidth="85.0" text="NOM">
+               <font>
+                  <Font name="DejaVu Serif Bold" size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="labprenom" contentDisplay="CENTER" layoutX="85.0" layoutY="44.0" prefHeight="42.0" prefWidth="105.0" text="PRENOM">
+               <font>
+                  <Font name="DejaVu Serif Bold" size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="currdate" contentDisplay="CENTER" layoutX="1065.0" layoutY="44.0" prefHeight="42.0" prefWidth="221.0" text="DATE">
+               <font>
+                  <Font name="DejaVu Serif Bold" size="17.0" />
+               </font>
+            </Label>
+            <Button fx:id="quitbtn" layoutX="1239.0" layoutY="7.0" mnemonicParsing="false" onAction="#fenetreAuth" prefHeight="34.0" prefWidth="94.0" text="Quitter" />
+         </children></Pane>
+      <TabPane fx:id="menu" layoutY="82.0" prefHeight="720.0" prefWidth="1340.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="EMPLOI DU TEMPS">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
+          <Tab onSelectionChanged="#displaySalles" text="SALLES">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="tablesal" layoutX="317.0" layoutY="120.0" prefHeight="484.0" prefWidth="516.0">
+                           <columns>
+                              <TableColumn fx:id="codes" prefWidth="260.0" text="Code" />
+                              <TableColumn fx:id="nbrplace" prefWidth="255.0" text="Disponibilité" />
+                           </columns>
+                        </TableView>
+                        <Button fx:id="searchsbtn" layoutX="714.0" layoutY="58.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="115.0" text="Rechercher" />
+                        <TextField fx:id="searchs" layoutX="317.0" layoutY="58.0" prefHeight="34.0" prefWidth="385.0" />
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+          <Tab onSelectionChanged="#displayMatieres" text="MATIERES">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="tablemat" layoutX="194.0" layoutY="113.0" prefHeight="484.0" prefWidth="952.0">
+                          <columns>
+                            <TableColumn fx:id="codem" prefWidth="100.0" text="Code" />
+                            <TableColumn fx:id="libmod" prefWidth="170.0" text="Libellé" />
+                              <TableColumn fx:id="ens" prefWidth="170.0" text="Enseignant" />
+                              <TableColumn fx:id="debut" prefWidth="170.0" text="Début" />
+                              <TableColumn fx:id="fin" prefWidth="170.0" text="Fin" />
+                              <TableColumn fx:id="volumeh" prefWidth="170.0" text="Volume horaire" />
+                          </columns>
+                        </TableView>
+                        <Button fx:id="searchmbtn" layoutX="1031.0" layoutY="54.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="115.0" text="Rechercher" />
+                        <ChoiceBox fx:id="searchoice" layoutX="194.0" layoutY="54.0" prefHeight="34.0" prefWidth="196.0" />
+                        <TextField fx:id="searchm" layoutX="412.0" layoutY="54.0" prefHeight="34.0" prefWidth="553.0" />
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+          <Tab onSelectionChanged="#displayInfos" text="INFORMATIONS PERSONNELLES">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <SplitPane dividerPositions="0.3832271762208068" layoutX="222.0" layoutY="45.0" prefHeight="574.0" prefWidth="856.0">
+                          <items>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="618.0" prefWidth="361.0">
+                                 <children>
+                                    <Label layoutX="54.0" layoutY="44.0" prefHeight="34.0" prefWidth="193.0" text="Nom">
+                                       <font>
+                                          <Font name="DejaVu Serif Bold Italic" size="21.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="54.0" layoutY="110.0" prefHeight="34.0" prefWidth="193.0" text="Prenom">
+                                       <font>
+                                          <Font name="DejaVu Serif Bold Italic" size="21.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="54.0" layoutY="176.0" prefHeight="34.0" prefWidth="217.0" text="Date de naissance">
+                                       <font>
+                                          <Font name="DejaVu Serif Bold Italic" size="21.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="54.0" layoutY="244.0" prefHeight="34.0" prefWidth="193.0" text="Email">
+                                       <font>
+                                          <Font name="DejaVu Serif Bold Italic" size="21.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="54.0" layoutY="312.0" prefHeight="34.0" prefWidth="193.0" text="Mot de passe">
+                                       <font>
+                                          <Font name="DejaVu Serif Bold Italic" size="21.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="54.0" layoutY="380.0" prefHeight="34.0" prefWidth="193.0" text="N° telephone">
+                                       <font>
+                                          <Font name="DejaVu Serif Bold Italic" size="21.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="54.0" layoutY="450.0" prefHeight="34.0" prefWidth="193.0" text="Adresse">
+                                       <font>
+                                          <Font name="DejaVu Serif Bold Italic" size="21.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="54.0" layoutY="514.0" prefHeight="34.0" prefWidth="193.0" text="Promo">
+                                       <font>
+                                          <Font name="DejaVu Serif Bold Italic" size="21.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="572.0" prefWidth="686.0">
+                                 <children>
+                                    <TextField fx:id="nom" disable="true" editable="false" layoutX="60.0" layoutY="46.0" prefHeight="30.0" prefWidth="407.0">
+                                       <font>
+                                          <Font name="DejaVu Serif Bold" size="17.0" />
+                                       </font></TextField>
+                                    <TextField fx:id="prenom" disable="true" editable="false" layoutX="60.0" layoutY="104.0" prefHeight="30.0" prefWidth="407.0">
+                                       <font>
+                                          <Font name="DejaVu Serif Bold" size="17.0" />
+                                       </font></TextField>
+                                    <TextField fx:id="email" disable="true" editable="false" layoutX="60.0" layoutY="236.0" prefHeight="30.0" prefWidth="407.0">
+                                       <font>
+                                          <Font name="DejaVu Serif Bold" size="17.0" />
+                                       </font></TextField>
+                                    <TextField fx:id="tel" disable="true" editable="false" layoutX="59.0" layoutY="378.0" prefHeight="30.0" prefWidth="407.0">
+                                       <font>
+                                          <Font name="DejaVu Serif Bold" size="17.0" />
+                                       </font></TextField>
+                                    <TextField fx:id="promo" disable="true" editable="false" layoutX="59.0" layoutY="516.0" prefHeight="30.0" prefWidth="407.0">
+                                       <font>
+                                          <Font name="DejaVu Serif Bold" size="17.0" />
+                                       </font></TextField>
+                                    <TextArea fx:id="adresse" disable="true" editable="false" layoutX="60.0" layoutY="442.0" prefHeight="54.0" prefWidth="406.0">
+                                       <font>
+                                          <Font name="DejaVu Serif Bold" size="17.0" />
+                                       </font></TextArea>
+                                    <DatePicker fx:id="datenaiss" disable="true" layoutX="61.0" layoutY="177.0" prefHeight="30.0" prefWidth="408.0" />
+                                    <PasswordField fx:id="mdps" disable="true" editable="false" layoutX="59.0" layoutY="311.0" prefHeight="30.0" prefWidth="405.0">
+                                       <font>
+                                          <Font name="DejaVu Serif Bold" size="17.0" />
+                                       </font></PasswordField>
+                                 </children>
+                              </AnchorPane>
+                          </items>
+                        </SplitPane>
+                        <Button layoutX="435.0" layoutY="637.0" mnemonicParsing="false" onMouseClicked="#modifInfos" prefHeight="34.0" prefWidth="100.0" text="Modifier" />
+                        <Button fx:id="savebtn" disable="true" layoutX="570.0" layoutY="637.0" mnemonicParsing="false" onMouseClicked="#saveModif" prefHeight="34.0" prefWidth="108.0" text="Sauvegarder" />
+                        <Button fx:id="cancelbtn" disable="true" layoutX="711.0" layoutY="637.0" mnemonicParsing="false" onMouseClicked="#cancelModif" prefHeight="34.0" prefWidth="100.0" text="Annuler" />
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+
+   </children>
+</AnchorPane>

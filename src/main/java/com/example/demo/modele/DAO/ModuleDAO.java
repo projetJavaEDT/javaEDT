@@ -4,20 +4,23 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
-import com.example.demo.Module;
-import com.example.demo.Seance;
+import com.example.demo.modele.ressources.Module;
 
 public class ModuleDAO extends JdbcDAO implements AutoCloseable{
 
     private static Logger log = Logger.getLogger(ModuleDAO.class.getName());
-    private ModuleDAO() throws SQLException {
-        findAll = connection.prepareStatement("SELECT * FROM MODULE");
-        findbyId = connection.prepareStatement("SELECT * FROM MODULE WHERE CODEM=?");
-    }
 
     public static ModuleDAO create() throws SQLException {
         return new ModuleDAO();
     }
+
+
+    private ModuleDAO() throws SQLException {
+        findAll = connection.prepareStatement("SELECT * FROM MODULE");
+        findby = connection.prepareStatement("SELECT * FROM MODULE WHERE CODEM=?");
+        findbyMod = connection.prepareStatement("SELECT * FROM MODULE WHERE LIBELLEMOD=?");
+    }
+
 
     public List<Module> findAll() throws SQLException {
         List<Module> modules = new ArrayList<>();
@@ -29,18 +32,34 @@ public class ModuleDAO extends JdbcDAO implements AutoCloseable{
         return modules;
     }
 
-    /*public Seance displayM_1() throws SQLException {
-        //List<Seance> seances = new ArrayList<>();
-        findAll = connection.prepareStatement("SELECT CODEM,DATE,TYPESEANCE,HEURED,HEUREF FROM SEANCE");
-        ResultSet rs = findAll.executeQuery();
-        // Extract data from result set
-        Seance s = null;
+
+    public Module findById(String module) throws SQLException {
+        Module mod= null;
+        findby.setString(1, module);
+        ResultSet rs = findby.executeQuery();
         while (rs.next()) {
-            s = Seance.of(rs.getString("CODEM"), Seance.Type.valueOf(rs.getString("TYPESEANCE")),rs.getDate("DATE"), rs.getString("HEURED"), rs.getString("HEUREF"));
+            mod = Module.of(rs.getString("CODEM"), rs.getString("LIBELLEMOD"), rs.getInt("VOLUMEHORAIRE"));
         }
-        System.out.println(s);
-        return s;
-    }*/
+        return mod;
+    }
+
+    public Module findByMod(String module) throws SQLException {
+        Module mod= null;
+        findbyMod.setString(1, module);
+        ResultSet rs = findbyMod.executeQuery();
+        while (rs.next()) {
+            mod = Module.of(rs.getString("CODEM"), rs.getString("LIBELLEMOD"), rs.getInt("VOLUMEHORAIRE"));
+        }
+        return mod;
+    }
+
+
+    @Override
+    public void close() throws SQLException {
+        connection.close();
+        log.info("DB connection closed");
+    }
+}
 
     /*public void displayMOLD(TableView tabedt, TableColumn codeMod, TableColumn libelleMod, TableColumn volumeHoraire) throws SQLException {
         data = FXCollections.observableArrayList();
@@ -63,31 +82,3 @@ public class ModuleDAO extends JdbcDAO implements AutoCloseable{
         volumeHoraire.setCellValueFactory(new PropertyValueFactory<Module, Integer>("volumeHoraire"));
         tabedt.setItems(data);
     }*/
-
-    public Module findById(String module) throws SQLException {
-        Module mod= null;
-        findbyId.setString(1, module);
-        ResultSet rs = findbyId.executeQuery();
-        while (rs.next()) {
-            mod = Module.of(rs.getString("CODEM"), rs.getString("LIBELLEMOD"), rs.getInt("VOLUMEHORAIRE"));
-        }
-        return mod;
-    }
-
-    public boolean exist(Module module) throws SQLException {
-        return exist(module.getCodeMod());
-    }
-
-    public boolean exist(String module) throws SQLException {
-        findbyId.setString(1, module);
-        ResultSet rs = findbyId.executeQuery();
-        return rs.next();
-    }
-
-
-    @Override
-    public void close() throws SQLException {
-        connection.close();
-        log.info("DB connection closed");
-    }
-}
