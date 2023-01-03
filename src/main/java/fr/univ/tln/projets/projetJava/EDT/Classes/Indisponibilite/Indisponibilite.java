@@ -18,6 +18,7 @@ public class Indisponibilite {
         this.heure = heure;
         this.remarque = remarque;
         this.jour = jour;
+        this.id = this.mail+this.jour;
     }
     public static Indisponibilite of(Date jour,String heure,String remarque, String mail){
         return new Indisponibilite(jour, heure, remarque, mail);
@@ -28,7 +29,7 @@ public class Indisponibilite {
     }
 
     public void setId() {
-        this.id = this.mail + this.heure;
+        this.id = this.mail + this.jour;
 
     }
 

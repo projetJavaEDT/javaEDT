@@ -10,6 +10,7 @@ public abstract class JdbcDAO {
     public static String USER = "sa";
     public static String PASS = "";
     public Connection connection;
+    public PreparedStatement insert;
     public PreparedStatement findAll;
     public static PreparedStatement findbyId;
 
