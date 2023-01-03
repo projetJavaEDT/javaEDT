@@ -1,33 +1,35 @@
 package fr.univ.tln.projets.projetJava.EDT.Classes.Indisponibilite;
 
+import fr.univ.tln.projets.projetJava.EDT.Classes.Utilisateur.Enseignant;
+import javafx.scene.control.DatePicker;
+
 import java.util.*;
 
 public class Indisponibilite {
-    private int id;
-    private boolean indisponibilite;
+    private String id;
     private Date jour;
+    private String remarque ;
+    private String heure;
+    private String mail;
 
 
-    public Indisponibilite(int id, boolean indisponibilite, Date jour) {
-        this.id = id;
-        this.indisponibilite = indisponibilite;
+    private Indisponibilite(Date jour,String heure,String remarque, String mail) {
+        this.mail = mail;
+        this.heure = heure;
+        this.remarque = remarque;
         this.jour = jour;
     }
+    public static Indisponibilite of(Date jour,String heure,String remarque, String mail){
+        return new Indisponibilite(jour, heure, remarque, mail);
+    }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    public void setId() {
+        this.id = this.mail + this.heure;
 
-    public boolean isIndisponibilite() {
-        return indisponibilite;
-    }
-
-    public void setIndisponibilite(boolean indisponibilite) {
-        this.indisponibilite = indisponibilite;
     }
 
     public Date getJour() {
@@ -38,25 +40,29 @@ public class Indisponibilite {
         this.jour = jour;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Indisponibilite that = (Indisponibilite) o;
-        return id == that.id;
+    public String getRemarque() {
+        return remarque;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
+    public void setRemarque(String remarque) {
+        this.remarque = remarque;
     }
 
-    @Override
-    public String toString() {
-        return "Indisponibilite{" +
-                "id=" + id +
-                ", indisponibilite=" + indisponibilite +
-                ", jour=" + jour +
-                '}';
+    public String getHeure() {
+        return heure;
+    }
+
+    public void setHeure(String heure) {
+        this.heure = heure;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 }
+
+
