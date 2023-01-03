@@ -27,23 +27,154 @@
          </children></Pane>
       <TabPane fx:id="menu" layoutY="82.0" prefHeight="720.0" prefWidth="1340.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab text="EMPLOI DU TEMPS">
+          <Tab onSelectionChanged="#displayEDT" text="EMPLOI DU TEMPS">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                         <GridPane fx:id="edt" alignment="TOP_CENTER" gridLinesVisible="true" layoutX="166.0" layoutY="96.0" prefHeight="526.0" prefWidth="870.0" AnchorPane.bottomAnchor="107.0" AnchorPane.leftAnchor="166.0" AnchorPane.rightAnchor="260.0" AnchorPane.topAnchor="96.0">
+                             <columnConstraints>
+                                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="64.0" minWidth="10.0" prefWidth="80.0" />
+                                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="500.0" minWidth="0.0" prefWidth="140.0" />
+                                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="500.0" minWidth="10.0" prefWidth="140.0" />
+                                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="500.0" minWidth="10.0" prefWidth="140.0" />
+                                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="500.0" minWidth="10.0" prefWidth="140.0" />
+                                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="500.0" minWidth="10.0" prefWidth="140.0" />
+                                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="500.0" minWidth="10.0" prefWidth="140.0" />
+                                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="500.0" minWidth="10.0" prefWidth="140.0" />
+                             </columnConstraints>
+                             <rowConstraints>
+                                 <RowConstraints maxHeight="80.0" minHeight="10.0" prefHeight="40.0" valignment="CENTER" vgrow="SOMETIMES" />
+                                 <RowConstraints maxHeight="500.0" minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
+                                 <RowConstraints maxHeight="500.0" minHeight="0.0" prefHeight="60.0" vgrow="SOMETIMES" />
+                                 <RowConstraints maxHeight="500.0" minHeight="6.0" prefHeight="60.0" vgrow="SOMETIMES" />
+                                 <RowConstraints maxHeight="500.0" minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
+                                 <RowConstraints maxHeight="500.0" minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
+                                 <RowConstraints maxHeight="500.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
+                                 <RowConstraints maxHeight="500.0" minHeight="10.0" prefHeight="55.0" vgrow="SOMETIMES" />
+                                 <RowConstraints maxHeight="500.0" minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
+                                 <RowConstraints maxHeight="500.0" minHeight="0.0" prefHeight="60.0" vgrow="SOMETIMES" />
+                                 <RowConstraints maxHeight="500.0" minHeight="0.0" prefHeight="60.0" vgrow="SOMETIMES" />
+                                 <RowConstraints maxHeight="500.0" minHeight="0.0" prefHeight="60.0" vgrow="SOMETIMES" />
+                             </rowConstraints>
+                             <children>
+                                 <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="71.0" prefWidth="48.0" style="-fx-background-color: LIGHTGRAY;" text="8H" GridPane.rowIndex="1">
+                                     <font>
+                                         <Font name="DejaVu Serif Bold" size="14.0" />
+                                     </font>
+                                 </Label>
+                                 <Label alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="48.0" prefHeight="77.0" prefWidth="48.0" style="-fx-background-color: LIGHTGRAY;" text="9H" GridPane.rowIndex="2">
+                                     <font>
+                                         <Font name="DejaVu Serif Bold" size="14.0" />
+                                     </font>
+                                 </Label>
+                                 <Label alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="95.0" prefHeight="81.0" prefWidth="48.0" style="-fx-background-color: LIGHTGRAY;" text="10H" GridPane.rowIndex="3">
+                                     <font>
+                                         <Font name="DejaVu Serif Bold" size="14.0" />
+                                     </font>
+                                 </Label>
+                                 <Label alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="142.0" prefHeight="75.0" prefWidth="48.0" style="-fx-background-color: LIGHTGRAY;" text="11H" GridPane.rowIndex="4">
+                                     <font>
+                                         <Font name="DejaVu Serif Bold" size="14.0" />
+                                     </font>
+                                 </Label>
+                                 <Label alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="189.0" prefHeight="87.0" prefWidth="48.0" style="-fx-background-color: LIGHTGRAY;" text="14H" GridPane.rowIndex="8">
+                                     <font>
+                                         <Font name="DejaVu Serif Bold" size="14.0" />
+                                     </font>
+                                 </Label>
+                                 <Label alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="10.0" prefHeight="89.0" prefWidth="48.0" style="-fx-background-color: LIGHTGRAY;" text="13H" GridPane.rowIndex="7">
+                                     <font>
+                                         <Font name="DejaVu Serif Bold" size="14.0" />
+                                     </font>
+                                 </Label>
+                                 <Label alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="10.0" prefHeight="87.0" prefWidth="48.0" style="-fx-background-color: LIGHTGRAY;" text="12H" GridPane.rowIndex="5">
+                                     <font>
+                                         <Font name="DejaVu Serif Bold" size="14.0" />
+                                     </font>
+                                 </Label>
+                                 <Label alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="236.0" prefHeight="76.0" prefWidth="48.0" style="-fx-background-color: LIGHTGRAY;" text="15H" GridPane.rowIndex="9">
+                                     <font>
+                                         <Font name="DejaVu Serif Bold" size="14.0" />
+                                     </font>
+                                 </Label>
+                                 <Label alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="10.0" prefHeight="104.0" prefWidth="48.0" style="-fx-background-color: LIGHTGRAY;" text="16H" GridPane.rowIndex="10">
+                                     <font>
+                                         <Font name="DejaVu Serif Bold" size="14.0" />
+                                     </font>
+                                 </Label>
+                                 <Label alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="243.0" prefHeight="76.0" prefWidth="48.0" style="-fx-background-color: LIGHTGRAY;" text="17H" GridPane.rowIndex="11">
+                                     <font>
+                                         <Font name="DejaVu Serif Bold" size="14.0" />
+                                     </font>
+                                 </Label>
+                                 <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="172.0" style="-fx-background-color: LIGHTGRAY;" text="Lundi" GridPane.columnIndex="1">
+                                     <font>
+                                         <Font name="System Bold Italic" size="14.0" />
+                                     </font>
+                                 </Label>
+                                 <Label alignment="CENTER" contentDisplay="CENTER" layoutX="60.0" layoutY="10.0" prefHeight="27.0" prefWidth="193.0" style="-fx-background-color: LIGHTGRAY;" text="Jeudi" GridPane.columnIndex="4">
+                                     <font>
+                                         <Font name="System Bold Italic" size="14.0" />
+                                     </font>
+                                 </Label>
+                                 <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="27.0" prefWidth="200.0" style="-fx-background-color: LIGHTGRAY;" text="Mercredi" GridPane.columnIndex="3">
+                                     <font>
+                                         <Font name="System Bold Italic" size="14.0" />
+                                     </font>
+                                 </Label>
+                                 <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="27.0" prefWidth="178.0" style="-fx-background-color: LIGHTGRAY;" text="Mardi" GridPane.columnIndex="2">
+                                     <font>
+                                         <Font name="System Bold Italic" size="14.0" />
+                                     </font>
+                                 </Label>
+                                 <Label alignment="CENTER" contentDisplay="CENTER" layoutX="188.0" layoutY="10.0" prefHeight="27.0" prefWidth="175.0" style="-fx-background-color: LIGHTGRAY;" text="Vendredi" GridPane.columnIndex="5">
+                                     <font>
+                                         <Font name="System Bold Italic" size="14.0" />
+                                     </font>
+                                 </Label>
+                                 <Label alignment="CENTER" contentDisplay="CENTER" layoutX="524.0" layoutY="11.0" prefHeight="27.0" prefWidth="175.0" style="-fx-background-color: LIGHTGRAY;" text="Samedi" GridPane.columnIndex="6">
+                                     <font>
+                                         <Font name="System Bold Italic" size="14.0" />
+                                     </font>
+                                 </Label>
+                                 <Label alignment="CENTER" contentDisplay="CENTER" layoutX="642.0" layoutY="11.0" prefHeight="27.0" prefWidth="175.0" style="-fx-background-color: LIGHTGRAY;" text="Dimanche" GridPane.columnIndex="7">
+                                     <font>
+                                         <Font name="System Bold Italic" size="14.0" />
+                                     </font>
+                                 </Label>
+                             </children>
+                         </GridPane>
+                        <Label layoutX="166.0" layoutY="36.0" prefHeight="24.0" prefWidth="58.0" text="Mois:">
+                           <font>
+                              <Font name="DejaVu Serif Bold Italic" size="17.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="402.0" layoutY="34.0" prefHeight="24.0" prefWidth="114.0" text="Semaine:">
+                           <font>
+                              <Font name="DejaVu Serif Bold Italic" size="17.0" />
+                           </font>
+                        </Label>
+                        <ChoiceBox fx:id="months" layoutX="235.0" layoutY="36.0" prefWidth="150.0" />
+                        <ChoiceBox fx:id="weeks" layoutX="509.0" layoutY="34.0" prefHeight="24.0" prefWidth="206.0" />
+                     </children></AnchorPane>
             </content>
           </Tab>
           <Tab onSelectionChanged="#displaySalles" text="SALLES">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="tablesal" layoutX="317.0" layoutY="120.0" prefHeight="484.0" prefWidth="516.0">
+                        <TableView fx:id="tablesal" layoutX="242.0" layoutY="103.0" prefHeight="484.0" prefWidth="744.0">
                            <columns>
-                              <TableColumn fx:id="codes" prefWidth="260.0" text="Code" />
-                              <TableColumn fx:id="nbrplace" prefWidth="255.0" text="Disponibilité" />
+                              <TableColumn fx:id="codes" prefWidth="250.0" text="Code" />
+                              <TableColumn fx:id="depart" prefWidth="250.0" text="Département" />
+                              <TableColumn fx:id="nbrpl" prefWidth="250.0" text="NbrPlace" />
                            </columns>
                         </TableView>
-                        <Button fx:id="searchsbtn" layoutX="714.0" layoutY="58.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="115.0" text="Rechercher" />
-                        <TextField fx:id="searchs" layoutX="317.0" layoutY="58.0" prefHeight="34.0" prefWidth="385.0" />
+                        <Button layoutX="736.0" layoutY="58.0" mnemonicParsing="false" onMouseClicked="#searchSalle" prefHeight="34.0" prefWidth="115.0" text="Rechercher" />
+                        <TextField fx:id="searchs" layoutX="387.0" layoutY="58.0" prefHeight="34.0" prefWidth="329.0" />
+                        <ChoiceBox fx:id="choices" layoutX="242.0" layoutY="58.0" onAction="#searchChoice" prefHeight="34.0" prefWidth="132.0" />
+                        <Button layoutX="871.0" layoutY="58.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="115.0" text="Actualiser" />
+                        <DatePicker fx:id="dates" layoutX="387.0" layoutY="59.0" prefHeight="34.0" prefWidth="330.0" />
                      </children></AnchorPane>
             </content>
           </Tab>
@@ -61,9 +192,10 @@
                               <TableColumn fx:id="volumeh" prefWidth="170.0" text="Volume horaire" />
                           </columns>
                         </TableView>
-                        <Button fx:id="searchmbtn" layoutX="1031.0" layoutY="54.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="115.0" text="Rechercher" />
-                        <ChoiceBox fx:id="searchoice" layoutX="194.0" layoutY="54.0" prefHeight="34.0" prefWidth="196.0" />
-                        <TextField fx:id="searchm" layoutX="412.0" layoutY="54.0" prefHeight="34.0" prefWidth="553.0" />
+                        <Button layoutX="1031.0" layoutY="54.0" mnemonicParsing="false" onMouseClicked="#displayMatieres" prefHeight="34.0" prefWidth="115.0" text="Actualiser" />
+                        <ChoiceBox fx:id="choicem" layoutX="194.0" layoutY="54.0" prefHeight="34.0" prefWidth="196.0" />
+                        <TextField fx:id="searchm" layoutX="412.0" layoutY="54.0" prefHeight="34.0" prefWidth="457.0" />
+                        <Button layoutX="901.0" layoutY="54.0" mnemonicParsing="false" onMouseClicked="#searchModule" prefHeight="34.0" prefWidth="115.0" text="Rechercher" />
                      </children></AnchorPane>
             </content>
           </Tab>
@@ -119,32 +251,32 @@
                               </AnchorPane>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="572.0" prefWidth="686.0">
                                  <children>
-                                    <TextField fx:id="nom" disable="true" editable="false" layoutX="60.0" layoutY="46.0" prefHeight="30.0" prefWidth="407.0">
+                                    <TextField fx:id="nom" disable="true" layoutX="60.0" layoutY="46.0" prefHeight="30.0" prefWidth="407.0">
                                        <font>
                                           <Font name="DejaVu Serif Bold" size="17.0" />
                                        </font></TextField>
-                                    <TextField fx:id="prenom" disable="true" editable="false" layoutX="60.0" layoutY="104.0" prefHeight="30.0" prefWidth="407.0">
+                                    <TextField fx:id="prenom" disable="true" layoutX="60.0" layoutY="104.0" prefHeight="30.0" prefWidth="407.0">
                                        <font>
                                           <Font name="DejaVu Serif Bold" size="17.0" />
                                        </font></TextField>
-                                    <TextField fx:id="email" disable="true" editable="false" layoutX="60.0" layoutY="236.0" prefHeight="30.0" prefWidth="407.0">
+                                    <TextField fx:id="email" disable="true" layoutX="60.0" layoutY="236.0" prefHeight="30.0" prefWidth="407.0">
                                        <font>
                                           <Font name="DejaVu Serif Bold" size="17.0" />
                                        </font></TextField>
-                                    <TextField fx:id="tel" disable="true" editable="false" layoutX="59.0" layoutY="378.0" prefHeight="30.0" prefWidth="407.0">
+                                    <TextField fx:id="tel" disable="true" layoutX="59.0" layoutY="378.0" prefHeight="30.0" prefWidth="407.0">
                                        <font>
                                           <Font name="DejaVu Serif Bold" size="17.0" />
                                        </font></TextField>
-                                    <TextField fx:id="promo" disable="true" editable="false" layoutX="59.0" layoutY="516.0" prefHeight="30.0" prefWidth="407.0">
+                                    <TextField fx:id="promo" disable="true" layoutX="59.0" layoutY="516.0" prefHeight="30.0" prefWidth="407.0">
                                        <font>
                                           <Font name="DejaVu Serif Bold" size="17.0" />
                                        </font></TextField>
-                                    <TextArea fx:id="adresse" disable="true" editable="false" layoutX="60.0" layoutY="442.0" prefHeight="54.0" prefWidth="406.0">
+                                    <TextArea fx:id="adresse" disable="true" layoutX="60.0" layoutY="442.0" prefHeight="54.0" prefWidth="406.0">
                                        <font>
                                           <Font name="DejaVu Serif Bold" size="17.0" />
                                        </font></TextArea>
                                     <DatePicker fx:id="datenaiss" disable="true" layoutX="61.0" layoutY="177.0" prefHeight="30.0" prefWidth="408.0" />
-                                    <PasswordField fx:id="mdps" disable="true" editable="false" layoutX="59.0" layoutY="311.0" prefHeight="30.0" prefWidth="405.0">
+                                    <PasswordField fx:id="mdps" disable="true" layoutX="59.0" layoutY="311.0" prefHeight="30.0" prefWidth="405.0">
                                        <font>
                                           <Font name="DejaVu Serif Bold" size="17.0" />
                                        </font></PasswordField>

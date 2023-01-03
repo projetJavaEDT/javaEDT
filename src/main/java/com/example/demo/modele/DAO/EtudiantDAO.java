@@ -19,7 +19,7 @@ public class EtudiantDAO extends JdbcDAO implements AutoCloseable, VerificationM
     private EtudiantDAO() throws SQLException {
         findAll = connection.prepareStatement("SELECT * FROM ETUDIANT");
         findby = connection.prepareStatement("SELECT * FROM ETUDIANT WHERE EMAIL=? AND MDP=?");
-        findbyMail = connection.prepareStatement("SELECT * FROM ETUDIANT WHERE EMAIL=?");
+        findbyID = connection.prepareStatement("SELECT * FROM ETUDIANT WHERE EMAIL=?");
     }
 
 
@@ -36,21 +36,11 @@ public class EtudiantDAO extends JdbcDAO implements AutoCloseable, VerificationM
 
     public Etudiant findByID(String email) throws SQLException, ExceptionEmail {
         Etudiant etud = null;
-        findby.setString(1, email);
-        ResultSet rs = findby.executeQuery();
+        findbyID.setString(1, email);
+        ResultSet rs = findbyID.executeQuery();
         while (rs.next()) {
             etud = Etudiant.of(rs.getString("NOM"), rs.getString("PRENOM"), rs.getDate("DATENAISSANCE"), rs.getString("ADRESSE"), rs.getString("TEL"), rs.getString("EMAIL"), rs.getString("MDP"), rs.getString("PROMO"));
 
-        }
-        return etud;
-    }
-
-    public Etudiant findByMail(String email) throws SQLException, ExceptionEmail {
-        Etudiant etud = null;
-        findbyMail.setString(1, email);
-        ResultSet rs = findbyMail.executeQuery();
-        while (rs.next()) {
-            etud = Etudiant.of(rs.getString("NOM"), rs.getString("PRENOM"), rs.getDate("DATENAISSANCE"), rs.getString("ADRESSE"), rs.getString("TEL"), rs.getString("EMAIL"), rs.getString("MDP"), rs.getString("PROMO"));
         }
         return etud;
     }

@@ -2,13 +2,11 @@ package com.example.demo.controleur;
 
 import com.example.demo.Appli;
 import com.example.demo.exception.ExceptionEmail;
-import com.example.demo.modele.DAO.EtudiantDAO;
-import com.example.demo.modele.DAO.ModuleDAO;
-import com.example.demo.modele.DAO.SalleDAO;
-import com.example.demo.modele.DAO.SeanceDAO;
+import com.example.demo.modele.DAO.*;
 import com.example.demo.modele.ressources.Module;
 import com.example.demo.modele.ressources.Salle;
 import com.example.demo.modele.ressources.Seance;
+import com.example.demo.modele.user.Enseignant;
 import com.example.demo.modele.user.Etudiant;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -38,7 +36,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.List;
 
-public class EtudController {
+public class EnsController {
 
     @FXML
     public Label labnom;
@@ -59,7 +57,7 @@ public class EtudController {
     @FXML
     private DatePicker datenaiss;
     @FXML
-    private TextField promo;
+    private TextField grade;
     @FXML
     private Button savebtn;
     @FXML
@@ -185,17 +183,17 @@ public class EtudController {
 
     //PARTIE INFORMATIONS PERSONNELLES
     public void displayInfos(){
-        try(EtudiantDAO etudDAO = EtudiantDAO.create()) {
-            Etudiant etud = etudDAO.findByID(AuthController.mail_pers);
-            nom.setText(etud.getNom());
-            prenom.setText(etud.getPrenom());
+        try(EnseignantDAO ensDAO = EnseignantDAO.create()) {
+            Enseignant ens = ensDAO.findByID(AuthController.mail_pers);
+            nom.setText(ens.getNom());
+            prenom.setText(ens.getPrenom());
 
-            LocalDate ldate = LocalDate.parse(etud.getDatenaissance().toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            LocalDate ldate = LocalDate.parse(ens.getDatenaissance().toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             datenaiss.setValue(ldate);
-            email.setText(etud.getEmail());
-            tel.setText(String.valueOf(etud.getTel()));
-            adresse.setText(etud.getAdresse());
-            promo.setText(etud.getPromo());
+            email.setText(ens.getEmail());
+            tel.setText(String.valueOf(ens.getTel()));
+            adresse.setText(ens.getAdresse());
+            grade.setText(ens.getGrade());
 
             nom.setDisable(true);
             prenom.setDisable(true);
@@ -203,7 +201,7 @@ public class EtudController {
             email.setDisable(true);
             tel.setDisable(true);
             adresse.setDisable(true);
-            promo.setDisable(true);
+            grade.setDisable(true);
             savebtn.setDisable(true);
             cancelbtn.setDisable(true);
         } catch (SQLException | ExceptionEmail e) {
@@ -218,7 +216,7 @@ public class EtudController {
         email.setDisable(false);
         tel.setDisable(false);
         adresse.setDisable(false);
-        promo.setDisable(false);
+        grade.setDisable(false);
         savebtn.setDisable(false);
         cancelbtn.setDisable(false);
     }
@@ -230,9 +228,9 @@ public class EtudController {
         String val4 = adresse.getText();
         String val5 = tel.getText();
         String val6 = email.getText();
-        String val7 = promo.getText();
-        try(EtudiantDAO etudDAO = EtudiantDAO.create()) {
-            etudDAO.update(new AuthController().mail_pers,val1,val2, java.sql.Date.valueOf(val3),val4,val5,val6,val7);
+        String val7 = grade.getText();
+        try(EnseignantDAO ensDAO = EnseignantDAO.create()) {
+            ensDAO.update(new AuthController().mail_pers,val1,val2, java.sql.Date.valueOf(val3),val4,val5,val6,val7);
             infoBox("Modification(s) sauvegardée(s)!", "Succes");
         } catch (SQLException e) {
             //throw new RuntimeException(e);

@@ -10,11 +10,13 @@ public abstract class JdbcDAO {
     public static String USER = "sa";
     public static String PASS = "";
     public Connection connection;
+
     public PreparedStatement findAll;
+    public PreparedStatement findbyDATE;
+    public PreparedStatement persist;
     public static PreparedStatement findby;
     public PreparedStatement findbyID;
     public PreparedStatement update;
-    public PreparedStatement findbyMail;
     public PreparedStatement findbyMod;
 
 

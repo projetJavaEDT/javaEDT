@@ -2,14 +2,11 @@ package com.example.demo.controleur;
 
 import com.example.demo.Appli;
 import com.example.demo.exception.ExceptionEmail;
-import com.example.demo.modele.DAO.EtudiantDAO;
-import com.example.demo.modele.DAO.ModuleDAO;
-import com.example.demo.modele.DAO.SalleDAO;
-import com.example.demo.modele.DAO.SeanceDAO;
+import com.example.demo.modele.DAO.*;
 import com.example.demo.modele.ressources.Module;
 import com.example.demo.modele.ressources.Salle;
 import com.example.demo.modele.ressources.Seance;
-import com.example.demo.modele.user.Etudiant;
+import com.example.demo.modele.user.Administrateur;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -38,12 +35,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.List;
 
-public class EtudController {
+public class AdminController {
 
     @FXML
     public Label labnom;
-    @FXML
-    public Label labprenom;
     @FXML
     private Label currdate;
     @FXML
@@ -58,8 +53,6 @@ public class EtudController {
     private TextField tel;
     @FXML
     private DatePicker datenaiss;
-    @FXML
-    private TextField promo;
     @FXML
     private Button savebtn;
     @FXML
@@ -101,6 +94,28 @@ public class EtudController {
     @FXML
     private DatePicker dates;
     @FXML
+    private TextField codemod;
+    @FXML
+    private TextField libm;
+    @FXML
+    private ChoiceBox codesalle;
+    @FXML
+    private TextField codeens;
+    @FXML
+    private ChoiceBox types;
+    @FXML
+    private DatePicker dateseance;
+    @FXML
+    private TextField debuts;
+    @FXML
+    private TextField fins;
+    @FXML
+    private Button modifseance;
+    @FXML
+    private Button saveseance;
+    @FXML
+    private Button cancelseance;
+    @FXML
     private GridPane edt;
     private ObservableList data;
     private FlowPane f;
@@ -139,6 +154,10 @@ public class EtudController {
         months.getItems().add("Octobre");
         months.getItems().add("Novembre");
         months.getItems().add("Décembre");
+        //ajout des items du choicebox
+        types.getItems().add("CM");
+        types.getItems().add("TD");
+        types.getItems().add("TP");
 
         months.getSelectionModel().selectFirst();
     }
@@ -160,6 +179,8 @@ public class EtudController {
 
     //PARTIE EDT
     public void displayEDT(Event event) {
+        h = new Help();
+        h.deleteOldWeeks(edt);
         EDTperDate("2022-12-05", "2022-12-11");
     }
 
@@ -174,6 +195,7 @@ public class EtudController {
                 courslabel = new Label(cours);
                 courslabel.setAlignment(Pos.CENTER);
                 f.getChildren().add(courslabel);
+                courslabel.setOnMouseClicked(this::dispalyRecap);
                 edt.add(f, h.jourSemaine(s), h.horaireD(s), 1, h.horaireF(s));
                 h.typeSeance(s,f);
             }
@@ -182,20 +204,84 @@ public class EtudController {
         }
     }
 
+    private void dispalyRecap(MouseEvent mouseEvent) {
+        try(SeanceDAO seanceDAO = SeanceDAO.create()) {
+            Module m = ModuleDAO.create().findMod(courslabel.getText());
+            Seance s = seanceDAO.findById(m.getCodeMod());
+            codemod.setText(m.getCodeMod());
+            libm.setText(m.getLibelleMod());
+            switch (s.getTypeSeance().toString()){
+                case "CM":
+                    types.getSelectionModel().select(0);
+                    break;
+                case "TD":
+                    types.getSelectionModel().select(1);
+                    break;
+                case "TP":
+                    types.getSelectionModel().select(2);
+                    break;
+            }
+            codeens.setText(s.getCodeEns());
+            dateseance.setValue(LocalDate.parse(s.getDate().toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+            debuts.setText(String.valueOf(s.getHeureD()));
+            fins.setText(String.valueOf(s.getHeureF()));
+            modifseance.setDisable(false);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void modifSeance(MouseEvent mouseEvent) {
+        codemod.setEditable(true);
+        libm.setEditable(true);
+        codeens.setEditable(true);
+        dateseance.setEditable(true);
+        debuts.setEditable(true);
+        fins.setEditable(true);
+
+        saveseance.setDisable(false);
+        cancelseance.setDisable(false);
+    }
+
+    public void addSeance(MouseEvent mouseEvent) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Appli.class.getResource("addSeance-view.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 900,700);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("Insertion séance");
+            stage.setResizable(false);
+            stage.show();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void nextWeek(MouseEvent mouseEvent) {
+        h = new Help();
+        h.deleteOldWeeks(edt);
+        EDTperDate("2022-12-12","2022-12-18");
+    }
+
+    public void prevWeek(MouseEvent mouseEvent) {
+        h = new Help();
+        h.deleteOldWeeks(edt);
+        EDTperDate("2022-12-05", "2022-12-11");
+    }
+
 
     //PARTIE INFORMATIONS PERSONNELLES
     public void displayInfos(){
-        try(EtudiantDAO etudDAO = EtudiantDAO.create()) {
-            Etudiant etud = etudDAO.findByID(AuthController.mail_pers);
-            nom.setText(etud.getNom());
-            prenom.setText(etud.getPrenom());
+        try(AdministrateurDAO adminDAO = AdministrateurDAO.create()) {
+            Administrateur admin = adminDAO.findByID(AuthController.mail_pers);
+            nom.setText(admin.getNom());
+            prenom.setText(admin.getPrenom());
 
-            LocalDate ldate = LocalDate.parse(etud.getDatenaissance().toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            LocalDate ldate = LocalDate.parse(admin.getDatenaissance().toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             datenaiss.setValue(ldate);
-            email.setText(etud.getEmail());
-            tel.setText(String.valueOf(etud.getTel()));
-            adresse.setText(etud.getAdresse());
-            promo.setText(etud.getPromo());
+            email.setText(admin.getEmail());
+            tel.setText(String.valueOf(admin.getTel()));
+            adresse.setText(admin.getAdresse());
 
             nom.setDisable(true);
             prenom.setDisable(true);
@@ -203,7 +289,6 @@ public class EtudController {
             email.setDisable(true);
             tel.setDisable(true);
             adresse.setDisable(true);
-            promo.setDisable(true);
             savebtn.setDisable(true);
             cancelbtn.setDisable(true);
         } catch (SQLException | ExceptionEmail e) {
@@ -218,21 +303,19 @@ public class EtudController {
         email.setDisable(false);
         tel.setDisable(false);
         adresse.setDisable(false);
-        promo.setDisable(false);
         savebtn.setDisable(false);
         cancelbtn.setDisable(false);
     }
 
-    public void saveModif(MouseEvent mouseEvent) {
+    public void saveModifInfos(MouseEvent mouseEvent) {
         String val1 = nom.getText();
         String val2 = prenom.getText();
         String val3 = datenaiss.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         String val4 = adresse.getText();
         String val5 = tel.getText();
         String val6 = email.getText();
-        String val7 = promo.getText();
-        try(EtudiantDAO etudDAO = EtudiantDAO.create()) {
-            etudDAO.update(new AuthController().mail_pers,val1,val2, java.sql.Date.valueOf(val3),val4,val5,val6,val7);
+        try(AdministrateurDAO adminDAO = AdministrateurDAO.create()) {
+            adminDAO.update(new AuthController().mail_pers,val1,val2, java.sql.Date.valueOf(val3),val4,val5,val6);
             infoBox("Modification(s) sauvegardée(s)!", "Succes");
         } catch (SQLException e) {
             //throw new RuntimeException(e);
@@ -240,7 +323,7 @@ public class EtudController {
         }
     }
 
-    public void cancelModif(MouseEvent mouseEvent) {
+    public void cancelModifInfos(MouseEvent mouseEvent) {
         displayInfos();
     }
 
@@ -354,4 +437,7 @@ public class EtudController {
         alert.setHeaderText(null);
         alert.show();
     }
+
+
+
 }

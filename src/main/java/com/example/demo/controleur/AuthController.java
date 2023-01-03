@@ -26,22 +26,49 @@ public class AuthController{
     private Label codeerror;
     @FXML
     private PasswordField passwordField;
-    private EtudController control;
-
+    private EtudController etudControl;
+    private EnsController ensControl;
+    private AdminController adminControl;
     public static String mail_pers;
 
     public void clean() {
         codeerror.setText("");
     }
 
-    public void fenetreEtud(ActionEvent event){
+
+    //ESPACE
+    public void espaceDedie(ActionEvent event, Utilisateur user){
         try {
             ((Node)(event.getSource())).getScene().getWindow().hide();
-            FXMLLoader fxmlLoader = new FXMLLoader(Appli.class.getResource("etud-view.fxml"));
-            Scene scene = new Scene(fxmlLoader.load());
+            FXMLLoader fxmlLoader = null;
+            Scene scene = null;
+            switch (user.getClass().getSimpleName()){
+                case "Etudiant":
+                    fxmlLoader = new FXMLLoader(Appli.class.getResource("etud-view.fxml"));
+                    scene = new Scene(fxmlLoader.load());
+                    etudControl = fxmlLoader.getController();
+                    etudControl.labnom.setText(user.getNom());
+                    etudControl.labprenom.setText(user.getPrenom());
+                    etudControl.initialise();
+                    break;
+                case "Enseignant":
+                    fxmlLoader = new FXMLLoader(Appli.class.getResource("ens-view.fxml"));
+                    scene = new Scene(fxmlLoader.load());
+                    ensControl = fxmlLoader.getController();
+                    ensControl.labnom.setText(user.getNom());
+                    ensControl.labprenom.setText(user.getPrenom());
+                    ensControl.initialise();
+                    break;
+                case "Administrateur":
+                    fxmlLoader = new FXMLLoader(Appli.class.getResource("admin-view.fxml"));
+                    scene = new Scene(fxmlLoader.load());
+                    adminControl = fxmlLoader.getController();
+                    adminControl.labnom.setText(user.getPrenom());
+                    adminControl.initialise();
+                    break;
+            }
             Stage stage = new Stage();
             stage.setScene(scene);
-            control = fxmlLoader.getController();
             stage.show();
         } catch(Exception e) {
             e.printStackTrace();
@@ -49,6 +76,7 @@ public class AuthController{
     }
 
 
+    //ETABLIR CONNEXION AVEC LESPACE APPROPRIE
     public void login(ActionEvent event) throws SQLException, ExceptionEmail, ExceptionAge {
         if (emailIdField.getText().isEmpty() || passwordField.getText().isEmpty()) {
             codeerror.setText("Entrer un email ou un mot de passe!");
@@ -80,16 +108,19 @@ public class AuthController{
             else {
                 switch (type) {
                     case "ens":
+                        Enseignant enseignant = ((EnseignantDAO) verif).findByID(emailId);
+                        mail_pers = enseignant.getEmail();
+                        espaceDedie(event,enseignant);
                         break;
                     case "etud":
                         Etudiant etudiant = ((EtudiantDAO) verif).findByID(emailId);
                         mail_pers = etudiant.getEmail();
-                        fenetreEtud(event);
-                        control.labnom.setText(etudiant.getNom());
-                        control.labprenom.setText(etudiant.getPrenom());
-                        control.initDate();
+                        espaceDedie(event,etudiant);
                         break;
                     case "admin":
+                        Administrateur admin = ((AdministrateurDAO) verif).findByID(emailId);
+                        mail_pers = admin.getEmail();
+                        espaceDedie(event,admin);
                         break;
                 }
             }
@@ -97,6 +128,8 @@ public class AuthController{
     }
 
 
+
+    //UTILITAIRES
     public static String validateEmailRegex(String email){
         String regexEt = "^[a-zA-Z0-9]{0,30}[_.-]{0,10}[a-zA-Z0-9]{0,30}[@][e][t][u][d][.][f][r]$";
         String regexEn = "^[a-zA-Z0-9]{0,30}[_.-]{0,10}[a-zA-Z0-9]{0,30}[@][e][n][s][.][f][r]$";

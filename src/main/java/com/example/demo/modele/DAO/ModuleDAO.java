@@ -16,9 +16,10 @@ public class ModuleDAO extends JdbcDAO implements AutoCloseable{
 
 
     private ModuleDAO() throws SQLException {
-        findAll = connection.prepareStatement("SELECT * FROM MODULE");
+        findAll = connection.prepareStatement("SELECT SEANCE.CODEM, LIBELLEMOD, CODEENS, min(DATE) AS DEBUT, max(DATE) AS FIN, VOLUMEHORAIRE FROM SEANCE,MODULE WHERE SEANCE.CODEM = MODULE.CODEM GROUP BY SEANCE.CODEM");
         findby = connection.prepareStatement("SELECT * FROM MODULE WHERE CODEM=?");
-        findbyMod = connection.prepareStatement("SELECT * FROM MODULE WHERE LIBELLEMOD=?");
+        findbyID = connection.prepareStatement("SELECT SEANCE.CODEM, LIBELLEMOD, CODEENS, min(DATE) AS DEBUT, max(DATE) AS FIN, VOLUMEHORAIRE FROM SEANCE,MODULE WHERE SEANCE.CODEM = MODULE.CODEM AND SEANCE.CODEM=? GROUP BY SEANCE.CODEM");
+        findbyMod = connection.prepareStatement("SELECT SEANCE.CODEM, LIBELLEMOD, CODEENS, min(DATE) AS DEBUT, max(DATE) AS FIN, VOLUMEHORAIRE FROM SEANCE,MODULE WHERE SEANCE.CODEM = MODULE.CODEM AND LIBELLEMOD=? GROUP BY SEANCE.CODEM");
     }
 
 
@@ -27,13 +28,12 @@ public class ModuleDAO extends JdbcDAO implements AutoCloseable{
         ResultSet rs = findAll.executeQuery();
         // Extract data from result set
         while (rs.next()) {
-            modules.add(Module.of(rs.getString("CODEM"), rs.getString("LIBELLEMOD"), rs.getInt("VOLUMEHORAIRE")));
+            modules.add(Module.off(rs.getString("CODEM"), rs.getString("LIBELLEMOD"), rs.getString("CODEENS"), rs.getDate("DEBUT"), rs.getDate("FIN"), rs.getInt("VOLUMEHORAIRE")));
         }
         return modules;
     }
 
-
-    public Module findById(String module) throws SQLException {
+    public Module findMod(String module) throws SQLException {
         Module mod= null;
         findby.setString(1, module);
         ResultSet rs = findby.executeQuery();
@@ -43,12 +43,24 @@ public class ModuleDAO extends JdbcDAO implements AutoCloseable{
         return mod;
     }
 
+
+    public Module findByID(String module) throws SQLException {
+        Module mod= null;
+        findbyID.setString(1, module);
+        ResultSet rs = findbyID.executeQuery();
+        while (rs.next()) {
+            mod = Module.off(rs.getString("CODEM"), rs.getString("LIBELLEMOD"), rs.getString("CODEENS"), rs.getDate("DEBUT"), rs.getDate("FIN"), rs.getInt("VOLUMEHORAIRE"));
+        }
+        return mod;
+    }
+
+
     public Module findByMod(String module) throws SQLException {
         Module mod= null;
         findbyMod.setString(1, module);
         ResultSet rs = findbyMod.executeQuery();
         while (rs.next()) {
-            mod = Module.of(rs.getString("CODEM"), rs.getString("LIBELLEMOD"), rs.getInt("VOLUMEHORAIRE"));
+            mod = Module.off(rs.getString("CODEM"), rs.getString("LIBELLEMOD"), rs.getString("CODEENS"), rs.getDate("DEBUT"), rs.getDate("FIN"), rs.getInt("VOLUMEHORAIRE"));
         }
         return mod;
     }
@@ -60,25 +72,3 @@ public class ModuleDAO extends JdbcDAO implements AutoCloseable{
         log.info("DB connection closed");
     }
 }
-
-    /*public void displayMOLD(TableView tabedt, TableColumn codeMod, TableColumn libelleMod, TableColumn volumeHoraire) throws SQLException {
-        data = FXCollections.observableArrayList();
-        ResultSet rs = findAll.executeQuery();
-        // Extract data from result set
-        while (rs.next()) {
-            /*ObservableList<String> row = FXCollections.observableArrayList();
-            for(int i=1 ; i<=rs.getMetaData().getColumnCount(); i++){
-                //Iterate Column
-                row.add(rs.getString(i));
-            }
-            System.out.println("Row [1] added "+row );
-            data.add((ObservableList) Module.of(rs.getString("CODEM"), rs.getString("LIBELLEMOD"), rs.getInt("VOLUMEHORAIRE")));
-            System.out.println(data);
-        }
-
-        //FINALLY ADDED TO TableView
-        codeMod.setCellValueFactory(new PropertyValueFactory<Module, String>("codeMod"));
-        libelleMod.setCellValueFactory(new PropertyValueFactory<Module, String>("libelleMod"));
-        volumeHoraire.setCellValueFactory(new PropertyValueFactory<Module, Integer>("volumeHoraire"));
-        tabedt.setItems(data);
-    }*/
