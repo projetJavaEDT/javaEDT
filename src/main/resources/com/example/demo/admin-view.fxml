@@ -8,7 +8,7 @@
     <children>
         <Pane prefHeight="82.0" prefWidth="1518.0" style="-fx-background-color: LIGHTGRAY;">
             <children>
-                <Label fx:id="labnom" contentDisplay="CENTER" layoutY="44.0" prefHeight="42.0" prefWidth="115.0" text="NOM">
+                <Label fx:id="labnom" contentDisplay="CENTER" layoutX="14.0" layoutY="41.0" prefHeight="42.0" prefWidth="115.0" text="NOM">
                     <font>
                         <Font name="DejaVu Serif Bold" size="20.0" />
                     </font>
@@ -26,7 +26,7 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                        <SplitPane dividerPositions="0.3832271762208068" layoutX="1026.0" layoutY="118.0" prefHeight="488.0" prefWidth="478.0">
+                        <SplitPane dividerPositions="0.3832271762208068" layoutX="1026.0" layoutY="60.0" prefHeight="526.0" prefWidth="478.0">
                            <items>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="486.0" prefWidth="174.0">
                                  <children>
@@ -106,10 +106,10 @@
                               </AnchorPane>
                            </items>
                         </SplitPane>
-                        <Button fx:id="modifseance" disable="true" layoutX="1080.0" layoutY="620.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="100.0" text="Modifier" />
-                        <Button fx:id="saveseance" disable="true" layoutX="1211.0" layoutY="620.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="108.0" text="Sauvegarder" />
-                        <Button fx:id="cancelseance" disable="true" layoutX="1350.0" layoutY="620.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="100.0" text="Annuler" />
-                                <GridPane fx:id="edt" alignment="TOP_CENTER" gridLinesVisible="true" layoutX="22.0" layoutY="118.0" prefHeight="466.0" prefWidth="960.0" AnchorPane.bottomAnchor="105.0" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="536.0" AnchorPane.topAnchor="118.0">
+                        <Button fx:id="modifseance" disable="true" layoutX="1080.0" layoutY="594.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="100.0" text="Modifier" />
+                        <Button fx:id="saveseance" disable="true" layoutX="1211.0" layoutY="594.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="108.0" text="Sauvegarder" />
+                        <Button fx:id="cancelseance" disable="true" layoutX="1350.0" layoutY="594.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="100.0" text="Annuler" />
+                                <GridPane fx:id="edt" alignment="TOP_CENTER" gridLinesVisible="true" layoutX="22.0" layoutY="54.0" prefHeight="530.0" prefWidth="992.0" AnchorPane.bottomAnchor="105.0" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="504.0" AnchorPane.topAnchor="54.0">
                                     <columnConstraints>
                                         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="64.0" minWidth="10.0" prefWidth="80.0" />
                                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="500.0" minWidth="0.0" prefWidth="140.0" />
@@ -117,127 +117,84 @@
                                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="500.0" minWidth="10.0" prefWidth="140.0" />
                                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="500.0" minWidth="10.0" prefWidth="140.0" />
                                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="500.0" minWidth="10.0" prefWidth="140.0" />
-                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="500.0" minWidth="10.0" prefWidth="140.0" />
-                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="500.0" minWidth="10.0" prefWidth="140.0" />
                                     </columnConstraints>
                                     <rowConstraints>
-                                        <RowConstraints maxHeight="80.0" minHeight="10.0" prefHeight="40.0" valignment="CENTER" vgrow="SOMETIMES" />
-                                        <RowConstraints maxHeight="500.0" minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
-                                        <RowConstraints maxHeight="500.0" minHeight="0.0" prefHeight="60.0" vgrow="SOMETIMES" />
-                                        <RowConstraints maxHeight="500.0" minHeight="6.0" prefHeight="60.0" vgrow="SOMETIMES" />
-                                        <RowConstraints maxHeight="500.0" minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
-                                        <RowConstraints maxHeight="500.0" minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="80.0" minHeight="10.0" prefHeight="60.0" valignment="CENTER" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="500.0" minHeight="10.0" prefHeight="80.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="500.0" minHeight="0.0" prefHeight="80.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="500.0" minHeight="6.0" prefHeight="80.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="500.0" minHeight="10.0" prefHeight="80.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="500.0" minHeight="10.0" prefHeight="80.0" vgrow="SOMETIMES" />
                                         <RowConstraints maxHeight="500.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
-                                        <RowConstraints maxHeight="500.0" minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
-                                        <RowConstraints maxHeight="500.0" minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
-                                        <RowConstraints maxHeight="500.0" minHeight="0.0" prefHeight="60.0" vgrow="SOMETIMES" />
-                                        <RowConstraints maxHeight="500.0" minHeight="0.0" prefHeight="60.0" vgrow="SOMETIMES" />
-                                        <RowConstraints maxHeight="500.0" minHeight="0.0" prefHeight="60.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="500.0" minHeight="10.0" prefHeight="80.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="500.0" minHeight="10.0" prefHeight="80.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="500.0" minHeight="0.0" prefHeight="80.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="500.0" minHeight="0.0" prefHeight="80.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="500.0" minHeight="0.0" prefHeight="80.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="500.0" minHeight="10.0" prefHeight="80.0" vgrow="SOMETIMES" />
                                     </rowConstraints>
                                     <children>
-                                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="43.0" prefWidth="60.0" style="-fx-background-color: LIGHTGRAY;" text="8H" GridPane.rowIndex="1">
+                                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="43.0" prefWidth="60.0" text="8H" GridPane.rowIndex="1">
                                             <font>
                                                 <Font name="DejaVu Serif Bold" size="14.0" />
                                             </font>
                                         </Label>
-                                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="48.0" prefHeight="43.0" prefWidth="70.0" style="-fx-background-color: LIGHTGRAY;" text="9H" GridPane.rowIndex="2">
+                                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="48.0" prefHeight="43.0" prefWidth="70.0" text="9H" GridPane.rowIndex="2">
                                             <font>
                                                 <Font name="DejaVu Serif Bold" size="14.0" />
                                             </font>
                                         </Label>
-                                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="95.0" prefHeight="43.0" prefWidth="78.0" style="-fx-background-color: LIGHTGRAY;" text="10H" GridPane.rowIndex="3">
+                                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="95.0" prefHeight="43.0" prefWidth="78.0" text="10H" GridPane.rowIndex="3">
                                             <font>
                                                 <Font name="DejaVu Serif Bold" size="14.0" />
                                             </font>
                                         </Label>
-                                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="142.0" prefHeight="43.0" prefWidth="76.0" style="-fx-background-color: LIGHTGRAY;" text="11H" GridPane.rowIndex="4">
+                                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="142.0" prefHeight="43.0" prefWidth="76.0" text="11H" GridPane.rowIndex="4">
                                             <font>
                                                 <Font name="DejaVu Serif Bold" size="14.0" />
                                             </font>
                                         </Label>
-                                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="189.0" prefHeight="43.0" prefWidth="72.0" style="-fx-background-color: LIGHTGRAY;" text="14H" GridPane.rowIndex="8">
+                                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="189.0" prefHeight="43.0" prefWidth="72.0" text="14H" GridPane.rowIndex="8">
                                             <font>
                                                 <Font name="DejaVu Serif Bold" size="14.0" />
                                             </font>
                                         </Label>
-                                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="10.0" prefHeight="52.0" prefWidth="53.0" style="-fx-background-color: LIGHTGRAY;" text="13H" GridPane.rowIndex="7">
+                                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="10.0" prefHeight="52.0" prefWidth="53.0" text="13H" GridPane.rowIndex="7">
                                             <font>
                                                 <Font name="DejaVu Serif Bold" size="14.0" />
                                             </font>
                                         </Label>
-                                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="10.0" prefHeight="43.0" prefWidth="78.0" style="-fx-background-color: LIGHTGRAY;" text="12H" GridPane.rowIndex="5">
+                                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="10.0" prefHeight="43.0" prefWidth="78.0" text="12H" GridPane.rowIndex="5">
                                             <font>
                                                 <Font name="DejaVu Serif Bold" size="14.0" />
                                             </font>
                                         </Label>
-                                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="236.0" prefHeight="43.0" prefWidth="80.0" style="-fx-background-color: LIGHTGRAY;" text="15H" GridPane.rowIndex="9">
+                                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="236.0" prefHeight="43.0" prefWidth="80.0" text="15H" GridPane.rowIndex="9">
                                             <font>
                                                 <Font name="DejaVu Serif Bold" size="14.0" />
                                             </font>
                                         </Label>
-                                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="10.0" prefHeight="43.0" prefWidth="78.0" style="-fx-background-color: LIGHTGRAY;" text="16H" GridPane.rowIndex="10">
+                                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="10.0" prefHeight="43.0" prefWidth="78.0" text="16H" GridPane.rowIndex="10">
                                             <font>
                                                 <Font name="DejaVu Serif Bold" size="14.0" />
                                             </font>
                                         </Label>
-                                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="243.0" prefHeight="43.0" prefWidth="78.0" style="-fx-background-color: LIGHTGRAY;" text="17H" GridPane.rowIndex="11">
+                                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="243.0" prefHeight="43.0" prefWidth="78.0" text="17H" GridPane.rowIndex="11">
                                             <font>
                                                 <Font name="DejaVu Serif Bold" size="14.0" />
                                             </font>
                                         </Label>
-                                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="172.0" style="-fx-background-color: LIGHTGRAY;" text="Lundi" GridPane.columnIndex="1">
-                                            <font>
-                                                <Font name="System Bold Italic" size="14.0" />
-                                            </font>
-                                        </Label>
-                                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="60.0" layoutY="10.0" prefHeight="27.0" prefWidth="193.0" style="-fx-background-color: LIGHTGRAY;" text="Jeudi" GridPane.columnIndex="4">
-                                            <font>
-                                                <Font name="System Bold Italic" size="14.0" />
-                                            </font>
-                                        </Label>
-                                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="27.0" prefWidth="200.0" style="-fx-background-color: LIGHTGRAY;" text="Mercredi" GridPane.columnIndex="3">
-                                            <font>
-                                                <Font name="System Bold Italic" size="14.0" />
-                                            </font>
-                                        </Label>
-                                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="27.0" prefWidth="178.0" style="-fx-background-color: LIGHTGRAY;" text="Mardi" GridPane.columnIndex="2">
-                                            <font>
-                                                <Font name="System Bold Italic" size="14.0" />
-                                            </font>
-                                        </Label>
-                                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="188.0" layoutY="10.0" prefHeight="27.0" prefWidth="175.0" style="-fx-background-color: LIGHTGRAY;" text="Vendredi" GridPane.columnIndex="5">
-                                            <font>
-                                                <Font name="System Bold Italic" size="14.0" />
-                                            </font>
-                                        </Label>
-                                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="524.0" layoutY="11.0" prefHeight="27.0" prefWidth="175.0" style="-fx-background-color: LIGHTGRAY;" text="Samedi" GridPane.columnIndex="6">
-                                            <font>
-                                                <Font name="System Bold Italic" size="14.0" />
-                                            </font>
-                                        </Label>
-                                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="642.0" layoutY="11.0" prefHeight="27.0" prefWidth="175.0" style="-fx-background-color: LIGHTGRAY;" text="Dimanche" GridPane.columnIndex="7">
-                                            <font>
-                                                <Font name="System Bold Italic" size="14.0" />
-                                            </font>
-                                        </Label>
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="451.0" prefHeight="43.0" prefWidth="78.0" text="18H" GridPane.rowIndex="12">
+                                 <font>
+                                    <Font name="DejaVu Serif Bold" size="14.0" />
+                                 </font>
+                              </Label>
                                     </children>
                                 </GridPane>
-                                <Label layoutX="22.0" layoutY="56.0" prefHeight="24.0" prefWidth="58.0" text="Mois:">
-                                    <font>
-                                        <Font name="DejaVu Serif Bold Italic" size="17.0" />
-                                    </font>
-                                </Label>
-                                <Label layoutX="258.0" layoutY="54.0" prefHeight="24.0" prefWidth="114.0" text="Semaine:">
-                                    <font>
-                                        <Font name="DejaVu Serif Bold Italic" size="17.0" />
-                                    </font>
-                                </Label>
-                                <ChoiceBox fx:id="months" layoutX="91.0" layoutY="56.0" prefWidth="150.0" />
-                                <ChoiceBox fx:id="weeks" layoutX="365.0" layoutY="54.0" prefHeight="24.0" prefWidth="206.0" />
-                        <Button layoutX="1400.0" layoutY="68.0" mnemonicParsing="false" onMouseClicked="#addSeance" prefHeight="34.0" prefWidth="100.0" text="Ajouter" />
-                        <Button layoutX="920.0" layoutY="600.0" mnemonicParsing="false" onMouseClicked="#nextWeek" prefHeight="24.0" prefWidth="62.0" text="next" />
-                        <Button layoutX="22.0" layoutY="594.0" mnemonicParsing="false" onMouseClicked="#prevWeek" text="prev" />
-                        <Button layoutX="871.0" layoutY="44.0" mnemonicParsing="false" onMouseClicked="#displayEDT" prefHeight="34.0" prefWidth="115.0" text="Actualiser" />
+                        <Button layoutX="1400.0" layoutY="15.0" mnemonicParsing="false" onMouseClicked="#addSeance" prefHeight="34.0" prefWidth="100.0" text="Ajouter" />
+                        <Button layoutX="955.0" layoutY="638.0" mnemonicParsing="false" onMouseClicked="#nextWeek" prefHeight="24.0" prefWidth="62.0" text="next" />
+                        <Button layoutX="20.0" layoutY="638.0" mnemonicParsing="false" onMouseClicked="#prevWeek" text="prev" />
+                        <Button layoutX="899.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#displayEDT" prefHeight="34.0" prefWidth="115.0" text="Actualiser" />
                             </children></AnchorPane>
                     </content>
                 </Tab>

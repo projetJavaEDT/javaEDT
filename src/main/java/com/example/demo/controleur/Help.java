@@ -1,16 +1,58 @@
 package com.example.demo.controleur;
 
 import com.example.demo.modele.ressources.Seance;
-import javafx.collections.ObservableList;
-import javafx.scene.Node;
-import javafx.scene.control.Label;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Help {
+
+    public static String validateEmailRegex(String email){
+        String regexEt = "^[a-zA-Z0-9]{0,30}[_.-]{0,10}[a-zA-Z0-9]{0,30}[@][e][t][u][d][.][f][r]$";
+        String regexEn = "^[a-zA-Z0-9]{0,30}[_.-]{0,10}[a-zA-Z0-9]{0,30}[@][e][n][s][.][f][r]$";
+        String regexAd = "^[a-zA-Z0-9]{0,30}[_.-]{0,10}[a-zA-Z0-9]{0,30}[@][a][d][m][i][n][.][f][r]$";
+
+        Pattern pEt = Pattern.compile(regexEt);
+        Pattern pEn = Pattern.compile(regexEn);
+        Pattern pAd = Pattern.compile(regexAd);
+
+        Matcher matchEt = pEt.matcher(email);
+        Matcher matchEn = pEn.matcher(email);
+        Matcher matchAd = pAd.matcher(email);
+        if(matchEt.matches())
+            return "etud";
+        else if(matchEn.matches())
+            return "ens";
+        else if (matchAd.matches())
+            return "admin";
+        else
+            return "not exist";
+    }
+
+
+    public String hacherMdp(String mdp){
+        String s = "" ;
+        MessageDigest msg;
+
+        try {
+            msg = MessageDigest.getInstance("SHA-256");
+            byte[] hash = msg.digest(mdp.getBytes(StandardCharsets.UTF_8));
+            for(byte b : hash) {
+                s += (Integer.toString((b & 0xff) + 0x100, 16).substring(1));
+            }
+            return s;
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public void typeSeance(Seance s, FlowPane f){
         switch(s.getTypeSeance()){
@@ -94,13 +136,11 @@ public class Help {
     }
 
 
-    public void deleteOldWeeks(GridPane grid){
-        ObservableList<Node> c = grid.getChildren();
-        int i = c.size();
-        while(i-->0){ //je peux mettre 17 psk les composantes FlowPane commencent à partir de l'indice 18
-            if(c.get(i) instanceof FlowPane){
-                grid.getChildren().remove(c.get(i));
-            }
-        }
+    public static void infoBox(String infoMessage, String title) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setContentText(infoMessage);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.show();
     }
 }

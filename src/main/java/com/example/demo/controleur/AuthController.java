@@ -12,12 +12,8 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 
 public class AuthController{
     @FXML
@@ -30,6 +26,7 @@ public class AuthController{
     private EnsController ensControl;
     private AdminController adminControl;
     public static String mail_pers;
+    Help help = new Help();
 
     public void clean() {
         codeerror.setText("");
@@ -84,8 +81,8 @@ public class AuthController{
         }
         String emailId = emailIdField.getText();
         String password = passwordField.getText();
-        password = hacherMdp(password);
-        String type = validateEmailRegex(emailId);
+        password = help.hacherMdp(password);
+        String type = help.validateEmailRegex(emailId);
 
         VerificationMailMdp verif = null;
         switch(type){
@@ -126,47 +123,4 @@ public class AuthController{
             }
         }
     }
-
-
-
-    //UTILITAIRES
-    public static String validateEmailRegex(String email){
-        String regexEt = "^[a-zA-Z0-9]{0,30}[_.-]{0,10}[a-zA-Z0-9]{0,30}[@][e][t][u][d][.][f][r]$";
-        String regexEn = "^[a-zA-Z0-9]{0,30}[_.-]{0,10}[a-zA-Z0-9]{0,30}[@][e][n][s][.][f][r]$";
-        String regexAd = "^[a-zA-Z0-9]{0,30}[_.-]{0,10}[a-zA-Z0-9]{0,30}[@][a][d][m][i][n][.][f][r]$";
-
-        Pattern pEt = Pattern.compile(regexEt);
-        Pattern pEn = Pattern.compile(regexEn);
-        Pattern pAd = Pattern.compile(regexAd);
-
-        Matcher matchEt = pEt.matcher(email);
-        Matcher matchEn = pEn.matcher(email);
-        Matcher matchAd = pAd.matcher(email);
-        if(matchEt.matches())
-            return "etud";
-        else if(matchEn.matches())
-            return "ens";
-        else if (matchAd.matches())
-            return "admin";
-        else
-            return "not exist";
-    }
-
-
-    public String hacherMdp(String mdp){
-        String s = "" ;
-        MessageDigest msg;
-
-        try {
-            msg = MessageDigest.getInstance("SHA-256");
-            byte[] hash = msg.digest(mdp.getBytes(StandardCharsets.UTF_8));
-            for(byte b : hash) {
-                s += (Integer.toString((b & 0xff) + 0x100, 16).substring(1));
-            }
-            return s;
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
 }
