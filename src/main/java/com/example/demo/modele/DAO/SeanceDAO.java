@@ -50,9 +50,20 @@ public class SeanceDAO extends JdbcDAO implements AutoCloseable{
         minDate.setString(1,dated);
         minDate.setString(2,datef);
         ResultSet rs = minDate.executeQuery();
-        Date mindate = null;
         while (rs.next()) {
             s.add(Seance.of(rs.getString("CODEM"), rs.getString("CODES"), rs.getString("CODEENS"), Seance.Type.valueOf(rs.getString("TYPESEANCE")),rs.getDate("DATE"), rs.getInt("HEURED"), rs.getInt("HEUREF")));
+        }
+        return s;
+    }
+
+    public Seance recapSeance(String module, String date) throws SQLException {
+        Seance s = null;
+        PreparedStatement find = connection.prepareStatement("SELECT * FROM SEANCE WHERE CODEM=? AND DATE=?");
+        find.setString(1,module);
+        find.setString(2,date);
+        ResultSet rs = find.executeQuery();
+        while (rs.next()) {
+            s = Seance.of(rs.getString("CODEM"), rs.getString("CODES"), rs.getString("CODEENS"), Seance.Type.valueOf(rs.getString("TYPESEANCE")),rs.getDate("DATE"), rs.getInt("HEURED"), rs.getInt("HEUREF"));
         }
         return s;
     }

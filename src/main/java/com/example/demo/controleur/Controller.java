@@ -1,15 +1,12 @@
 package com.example.demo.controleur;
 
 import com.example.demo.Appli;
-import com.example.demo.exception.ExceptionEmail;
-import com.example.demo.modele.DAO.EtudiantDAO;
 import com.example.demo.modele.DAO.ModuleDAO;
 import com.example.demo.modele.DAO.SalleDAO;
 import com.example.demo.modele.DAO.SeanceDAO;
 import com.example.demo.modele.ressources.Module;
 import com.example.demo.modele.ressources.Salle;
 import com.example.demo.modele.ressources.Seance;
-import com.example.demo.modele.user.Etudiant;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -18,6 +15,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.event.EventTarget;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.HPos;
@@ -100,6 +98,7 @@ public  abstract  class Controller {
     private ObservableList data;
     private FlowPane f;
     private Label courslabel;
+    private Label datecours;
     private LocalDate today;
     private Help h = new Help();
 
@@ -152,6 +151,24 @@ public  abstract  class Controller {
             today = today.minusDays(1);
         }
         edtPerWeek(today.toString(), today.plusDays(6).toString());
+
+        codemod.setText("");
+        libm.setText("");
+        codesalle.setValue(null);
+        types.setValue(null);
+        codeens.setText("");
+        dateseance.setValue(null);
+        debuts.setText("");
+        fins.setText("");
+
+        codemod.setEditable(false);
+        libm.setEditable(false);
+        codesalle.setDisable(true);
+        types.setDisable(true);
+        codeens.setEditable(false);
+        dateseance.setDisable(true);
+        debuts.setEditable(false);
+        fins.setEditable(false);
     }
 
     public void init(){
@@ -161,6 +178,10 @@ public  abstract  class Controller {
         jour.setFont(new Font("System Bold Italic",14));
         edt.add(jour,1,0);
         edt.setHalignment(jour, HPos.CENTER);
+    }
+
+    public void actuSeance(MouseEvent mouseEvent) {
+        displayEDT(mouseEvent);
     }
 
 
@@ -185,11 +206,13 @@ public  abstract  class Controller {
                 f = new FlowPane();
                 String cours = ModuleDAO.create().findMod(s.getCodeMod()).getLibelleMod();
                 courslabel = new Label(cours);
+                datecours = new Label(s.getDate().toString());
                 courslabel.setAlignment(Pos.CENTER);
                 courslabel.setContentDisplay(ContentDisplay.CENTER);
                 courslabel.setFont(new Font("System Italic",13));
                 f.getChildren().add(courslabel);
-                //edt.setOnMouseClicked(this::dispalyRecap);
+                f.getChildren().add(datecours);
+                edt.setOnMouseClicked(this::clickEDT);
                 edt.add(f, h.jourSemaine(s), h.horaireD(s), 1, h.horaireF(s));
                 h.typeSeance(s,f);
             }
@@ -199,12 +222,33 @@ public  abstract  class Controller {
     }
 
 
-    private void dispalyRecap(MouseEvent mouseEvent) {
+    public void clickEDT(MouseEvent mouseEvent) {
+        String cours = null;
+        String date = null;
+        Node clickednode = mouseEvent.getPickResult().getIntersectedNode();
+
+        if(clickednode instanceof FlowPane){
+            Node namecours = ((FlowPane) clickednode).getChildren().get(0);
+            Node datecours = ((FlowPane) clickednode).getChildren().get(1);
+            if(namecours instanceof Label){
+                cours = ((Label) namecours).getText();
+            }
+            if(datecours instanceof Label){
+                date = ((Label) datecours).getText();
+            }
+        }
+        dispalyRecapSeance(cours,date);
+    }
+
+
+
+    private void dispalyRecapSeance(String cours, String date) {
         try(SeanceDAO seanceDAO = SeanceDAO.create()) {
-            Module m = ModuleDAO.create().findMod(courslabel.getText());
-            Seance s = seanceDAO.findById(m.getCodeMod());
+            Module m = ModuleDAO.create().findModperLib(cours);
+            Seance s = seanceDAO.recapSeance(m.getCodeMod(),date);
             codemod.setText(m.getCodeMod());
             libm.setText(m.getLibelleMod());
+
             switch (s.getTypeSeance().toString()){
                 case "CM":
                     types.getSelectionModel().select(0);
@@ -216,6 +260,8 @@ public  abstract  class Controller {
                     types.getSelectionModel().select(2);
                     break;
             }
+
+            codesalle.setValue(s.getCodeSalle());
             codeens.setText(s.getCodeEns());
             dateseance.setValue(LocalDate.parse(s.getDate().toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
             debuts.setText(String.valueOf(s.getHeureD()));

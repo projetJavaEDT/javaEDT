@@ -89,7 +89,7 @@
                                                         <Font name="DejaVu Serif Bold" size="17.0" />
                                                     </font>
                                                 </TextField>
-                                                <DatePicker fx:id="dateseance" layoutX="22.0" layoutY="325.0" prefHeight="30.0" prefWidth="250.0" />
+                                                <DatePicker fx:id="dateseance" editable="false" layoutX="22.0" layoutY="325.0" prefHeight="30.0" prefWidth="250.0" />
                                                 <ChoiceBox fx:id="codesalle" layoutX="22.0" layoutY="144.0" prefHeight="30.0" prefWidth="250.0" />
                                                 <ChoiceBox fx:id="types" layoutX="23.0" layoutY="204.0" prefHeight="30.0" prefWidth="250.0" />
                                                 <TextField fx:id="codeens" editable="false" layoutX="23.0" layoutY="262.0" prefHeight="30.0" prefWidth="250.0">

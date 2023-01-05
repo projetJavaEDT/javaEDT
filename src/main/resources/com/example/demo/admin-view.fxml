@@ -8,7 +8,7 @@
     <children>
         <Pane prefHeight="82.0" prefWidth="1518.0" style="-fx-background-color: LIGHTGRAY;">
             <children>
-                <Label fx:id="labnom" contentDisplay="CENTER" layoutX="14.0" layoutY="41.0" prefHeight="42.0" prefWidth="115.0" text="NOM">
+                <Label fx:id="labnom" contentDisplay="CENTER" layoutX="14.0" layoutY="41.0" prefHeight="42.0" prefWidth="177.0" text="NOM">
                     <font>
                         <Font name="DejaVu Serif Bold" size="20.0" />
                     </font>
@@ -19,6 +19,11 @@
                     </font>
                 </Label>
                 <Button fx:id="quitbtn" layoutX="1410.0" layoutY="14.0" mnemonicParsing="false" onAction="#fenetreAuth" prefHeight="34.0" prefWidth="94.0" text="Quitter" />
+            <Label fx:id="labprenom" contentDisplay="CENTER" layoutX="194.0" layoutY="41.0" prefHeight="42.0" prefWidth="161.0" text="NOM">
+               <font>
+                  <Font name="DejaVu Serif Bold" size="20.0" />
+               </font>
+            </Label>
             </children></Pane>
         <TabPane fx:id="menu" layoutY="82.0" prefHeight="720.0" prefWidth="1518.0" tabClosingPolicy="UNAVAILABLE">
             <tabs>
@@ -84,9 +89,9 @@
                                           <Font name="DejaVu Serif Bold" size="17.0" />
                                        </font>
                                     </TextField>
-                                    <DatePicker fx:id="dateseance" layoutX="22.0" layoutY="325.0" prefHeight="30.0" prefWidth="250.0" />
-                                    <ChoiceBox fx:id="codesalle" layoutX="22.0" layoutY="144.0" prefHeight="30.0" prefWidth="250.0" />
-                                    <ChoiceBox fx:id="types" layoutX="23.0" layoutY="204.0" prefHeight="30.0" prefWidth="250.0" />
+                                    <DatePicker fx:id="dateseance" disable="true" layoutX="22.0" layoutY="325.0" prefHeight="30.0" prefWidth="250.0" />
+                                    <ChoiceBox fx:id="codesalle" disable="true" layoutX="22.0" layoutY="144.0" prefHeight="30.0" prefWidth="250.0" />
+                                    <ChoiceBox fx:id="types" disable="true" layoutX="23.0" layoutY="204.0" prefHeight="30.0" prefWidth="250.0" />
                                     <TextField fx:id="codeens" editable="false" layoutX="23.0" layoutY="262.0" prefHeight="30.0" prefWidth="250.0">
                                        <font>
                                           <Font name="DejaVu Serif Bold" size="17.0" />
@@ -106,7 +111,7 @@
                               </AnchorPane>
                            </items>
                         </SplitPane>
-                        <Button fx:id="modifseance" disable="true" layoutX="1080.0" layoutY="594.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="100.0" text="Modifier" />
+                        <Button fx:id="modifseance" disable="true" layoutX="1080.0" layoutY="594.0" mnemonicParsing="false" onMouseClicked="#modifSeance" prefHeight="34.0" prefWidth="100.0" text="Modifier" />
                         <Button fx:id="saveseance" disable="true" layoutX="1211.0" layoutY="594.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="108.0" text="Sauvegarder" />
                         <Button fx:id="cancelseance" disable="true" layoutX="1350.0" layoutY="594.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="100.0" text="Annuler" />
                                 <GridPane fx:id="edt" alignment="TOP_CENTER" gridLinesVisible="true" layoutX="22.0" layoutY="54.0" prefHeight="530.0" prefWidth="992.0" AnchorPane.bottomAnchor="105.0" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="504.0" AnchorPane.topAnchor="54.0">
@@ -194,7 +199,7 @@
                         <Button layoutX="1400.0" layoutY="15.0" mnemonicParsing="false" onMouseClicked="#addSeance" prefHeight="34.0" prefWidth="100.0" text="Ajouter" />
                         <Button layoutX="955.0" layoutY="638.0" mnemonicParsing="false" onMouseClicked="#nextWeek" prefHeight="24.0" prefWidth="62.0" text="next" />
                         <Button layoutX="20.0" layoutY="638.0" mnemonicParsing="false" onMouseClicked="#prevWeek" text="prev" />
-                        <Button layoutX="899.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#displayEDT" prefHeight="34.0" prefWidth="115.0" text="Actualiser" />
+                        <Button layoutX="899.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#actuSeance" prefHeight="34.0" prefWidth="115.0" text="Actualiser" />
                             </children></AnchorPane>
                     </content>
                 </Tab>

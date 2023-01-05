@@ -22,12 +22,9 @@ public class AuthController{
     private Label codeerror;
     @FXML
     private PasswordField passwordField;
-    private EtudController etudControl;
-    private EnsController ensControl;
-    private AdminController adminControl;
+    private Controller control;
     public static String mail_pers;
     Help help = new Help();
-
     public void clean() {
         codeerror.setText("");
     }
@@ -38,32 +35,18 @@ public class AuthController{
         try {
             ((Node)(event.getSource())).getScene().getWindow().hide();
             FXMLLoader fxmlLoader = null;
-            Scene scene = null;
-            switch (user.getClass().getSimpleName()){
-                case "Etudiant":
-                    fxmlLoader = new FXMLLoader(Appli.class.getResource("etud-view.fxml"));
-                    scene = new Scene(fxmlLoader.load());
-                    etudControl = fxmlLoader.getController();
-                    etudControl.labnom.setText(user.getNom());
-                    etudControl.labprenom.setText(user.getPrenom());
-                    etudControl.initialise();
-                    break;
-                case "Enseignant":
-                    fxmlLoader = new FXMLLoader(Appli.class.getResource("ens-view.fxml"));
-                    scene = new Scene(fxmlLoader.load());
-                    ensControl = fxmlLoader.getController();
-                    ensControl.labnom.setText(user.getNom());
-                    ensControl.labprenom.setText(user.getPrenom());
-                    ensControl.initialise();
-                    break;
-                case "Administrateur":
-                    fxmlLoader = new FXMLLoader(Appli.class.getResource("admin-view.fxml"));
-                    scene = new Scene(fxmlLoader.load());
-                    adminControl = fxmlLoader.getController();
-                    adminControl.labnom.setText(user.getPrenom());
-                    adminControl.initialise();
-                    break;
+            if(user.getClass().getSimpleName().equals("Etudiant")){
+                fxmlLoader = new FXMLLoader(Appli.class.getResource("etud-view.fxml"));
+            } else if (user.getClass().getSimpleName().equals("Enseignant")) {
+                fxmlLoader = new FXMLLoader(Appli.class.getResource("ens-view.fxml"));
+            } else{ //admin
+                fxmlLoader = new FXMLLoader(Appli.class.getResource("admin-view.fxml"));
             }
+            Scene scene = new Scene(fxmlLoader.load());
+            control = fxmlLoader.getController();
+            control.labnom.setText(user.getNom());
+            control.labprenom.setText(user.getPrenom());
+            control.initialise();
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.show();

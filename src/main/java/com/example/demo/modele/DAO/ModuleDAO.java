@@ -43,6 +43,17 @@ public class ModuleDAO extends JdbcDAO implements AutoCloseable{
         return mod;
     }
 
+    public Module findModperLib(String module) throws SQLException {
+        Module mod= null;
+        PreparedStatement findbyy = connection.prepareStatement("SELECT * FROM MODULE WHERE LIBELLEMOD=?");
+        findbyy.setString(1, module);
+        ResultSet rs = findbyy.executeQuery();
+        while (rs.next()) {
+            mod = Module.of(rs.getString("CODEM"), rs.getString("LIBELLEMOD"), rs.getInt("VOLUMEHORAIRE"));
+        }
+        return mod;
+    }
+
 
     public Module findByID(String module) throws SQLException {
         Module mod= null;
