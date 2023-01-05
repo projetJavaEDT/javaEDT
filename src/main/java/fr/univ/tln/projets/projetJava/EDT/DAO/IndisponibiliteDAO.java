@@ -33,7 +33,6 @@ public class IndisponibiliteDAO extends JdbcDAO implements AutoCloseable {
         return indispos;
     }
 
-
     public Indisponibilite findbyId(String mail, Date jour) throws SQLException {
         Indisponibilite indispo = null;
         findbyId.setString(1, mail);
@@ -44,8 +43,6 @@ public class IndisponibiliteDAO extends JdbcDAO implements AutoCloseable {
         }
         return indispo;
     }
-
-
 
     public void insert(Indisponibilite indispo) throws SQLException {
         //String id = indispo.getId();
@@ -60,8 +57,6 @@ public class IndisponibiliteDAO extends JdbcDAO implements AutoCloseable {
         findbyId.setString(4, mail);
         insert.executeUpdate();
     }
-    
-
 
     @Override
     public void close() throws SQLException {
