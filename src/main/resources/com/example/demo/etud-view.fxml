@@ -4,8 +4,12 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="802.0" prefWidth="1514.0" style="-fx-background-color: #EDEDED;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.controleur.EtudController">
-   <children>
+<?import javafx.geometry.Insets?>
+<GridPane prefHeight="802.0" prefWidth="1514.0" style="-fx-background-color: #EDEDED;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.controleur.EtudController">
+
+
+
+    <children>
       <Pane prefHeight="82.0" prefWidth="1516.0" style="-fx-background-color: LIGHTGRAY;">
          <children>
             <Label fx:id="labnom" contentDisplay="CENTER" layoutY="44.0" prefHeight="42.0" prefWidth="85.0" text="NOM">
@@ -334,4 +338,4 @@
       </TabPane>
 
    </children>
-</AnchorPane>
+</GridPane>
