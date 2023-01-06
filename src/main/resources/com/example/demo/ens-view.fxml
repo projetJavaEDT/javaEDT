@@ -31,7 +31,7 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                                <SplitPane dividerPositions="0.3832271762208068" layoutX="1026.0" layoutY="60.0" prefHeight="526.0" prefWidth="478.0">
+                                <SplitPane dividerPositions="0.3832271762208068" layoutX="1024.0" layoutY="96.0" prefHeight="526.0" prefWidth="478.0">
                                     <items>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="486.0" prefWidth="174.0">
                                             <children>
@@ -81,12 +81,12 @@
                                             <children>
                                                 <TextField fx:id="codemod" editable="false" layoutX="22.0" layoutY="26.0" prefHeight="30.0" prefWidth="250.0">
                                                     <font>
-                                                        <Font name="DejaVu Serif Bold" size="17.0" />
+                                                        <Font name="DejaVu Serif Italic" size="17.0" />
                                                     </font>
                                                 </TextField>
                                                 <TextField fx:id="libm" editable="false" layoutX="22.0" layoutY="84.0" prefHeight="30.0" prefWidth="250.0">
                                                     <font>
-                                                        <Font name="DejaVu Serif Bold" size="17.0" />
+                                                        <Font name="DejaVu Serif Italic" size="17.0" />
                                                     </font>
                                                 </TextField>
                                                 <DatePicker fx:id="dateseance" editable="false" layoutX="22.0" layoutY="325.0" prefHeight="30.0" prefWidth="250.0" />
@@ -94,24 +94,24 @@
                                                 <ChoiceBox fx:id="types" layoutX="23.0" layoutY="204.0" prefHeight="30.0" prefWidth="250.0" />
                                                 <TextField fx:id="codeens" editable="false" layoutX="23.0" layoutY="262.0" prefHeight="30.0" prefWidth="250.0">
                                                     <font>
-                                                        <Font name="DejaVu Serif Bold" size="17.0" />
+                                                        <Font name="DejaVu Serif Italic" size="17.0" />
                                                     </font>
                                                 </TextField>
                                                 <TextField fx:id="debuts" editable="false" layoutX="23.0" layoutY="376.0" prefHeight="30.0" prefWidth="250.0">
                                                     <font>
-                                                        <Font name="DejaVu Serif Bold" size="17.0" />
+                                                        <Font name="DejaVu Serif Italic" size="17.0" />
                                                     </font>
                                                 </TextField>
                                                 <TextField fx:id="fins" editable="false" layoutX="23.0" layoutY="430.0" prefHeight="30.0" prefWidth="250.0">
                                                     <font>
-                                                        <Font name="DejaVu Serif Bold" size="17.0" />
+                                                        <Font name="DejaVu Serif Italic" size="17.0" />
                                                     </font>
                                                 </TextField>
                                             </children>
                                         </AnchorPane>
                                     </items>
                                 </SplitPane>
-                                <GridPane fx:id="edt" alignment="TOP_CENTER" gridLinesVisible="true" layoutX="22.0" layoutY="54.0" prefHeight="530.0" prefWidth="992.0" AnchorPane.bottomAnchor="105.0" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="504.0" AnchorPane.topAnchor="54.0">
+                                <GridPane fx:id="edt" alignment="TOP_CENTER" gridLinesVisible="true" layoutX="22.0" layoutY="96.0" prefHeight="530.0" prefWidth="992.0" AnchorPane.bottomAnchor="63.0" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="504.0" AnchorPane.topAnchor="96.0">
                                     <columnConstraints>
                                         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="64.0" minWidth="10.0" prefWidth="80.0" />
                                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="500.0" minWidth="0.0" prefWidth="140.0" />
@@ -191,11 +191,36 @@
                                                 <Font name="DejaVu Serif Bold" size="14.0" />
                                             </font>
                                         </Label>
+                                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="188.0" text="Lundi" GridPane.columnIndex="1">
+                                            <font>
+                                                <Font name="System Bold Italic" size="14.0" />
+                                            </font>
+                                        </Label>
+                                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="188.0" text="Mardi" GridPane.columnIndex="2">
+                                            <font>
+                                                <Font name="System Bold Italic" size="14.0" />
+                                            </font>
+                                        </Label>
+                                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="188.0" text="Mercredi" GridPane.columnIndex="3">
+                                            <font>
+                                                <Font name="System Bold Italic" size="14.0" />
+                                            </font>
+                                        </Label>
+                                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="188.0" text="Jeudi" GridPane.columnIndex="4">
+                                            <font>
+                                                <Font name="System Bold Italic" size="14.0" />
+                                            </font>
+                                        </Label>
+                                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="188.0" text="Vendredi" GridPane.columnIndex="5">
+                                            <font>
+                                                <Font name="System Bold Italic" size="14.0" />
+                                            </font>
+                                        </Label>
                                     </children>
                                 </GridPane>
-                                <Button layoutX="950.0" layoutY="592.0" mnemonicParsing="false" onMouseClicked="#nextWeek" prefHeight="24.0" prefWidth="62.0" text="next" />
-                                <Button layoutX="22.0" layoutY="592.0" mnemonicParsing="false" onMouseClicked="#prevWeek" text="prev" />
-                                <Button layoutX="899.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#displayEDT" prefHeight="34.0" prefWidth="115.0" text="Actualiser" />
+                                <Button fx:id="next" layoutX="85.0" layoutY="53.0" mnemonicParsing="false" onMouseClicked="#nextWeek" prefHeight="24.0" prefWidth="58.0" />
+                                <Button fx:id="prev" layoutX="22.0" layoutY="53.0" mnemonicParsing="false" onMouseClicked="#prevWeek" prefHeight="24.0" prefWidth="58.0" />
+                                <Button fx:id="actedt" layoutX="953.0" layoutY="32.0" mnemonicParsing="false" onMouseClicked="#displayEDT" prefHeight="42.0" prefWidth="59.0" />
                             </children></AnchorPane>
                     </content>
                 </Tab>

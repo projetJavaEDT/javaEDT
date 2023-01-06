@@ -18,12 +18,16 @@ import javafx.event.EventHandler;
 import javafx.event.EventTarget;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Bounds;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
@@ -94,11 +98,21 @@ public  abstract  class Controller {
     @FXML
     private TextField fins;
     @FXML
+    private Button next;
+    @FXML
+    private Button prev;
+    @FXML
+    private Button actedt;
+    @FXML
     private GridPane edt;
     private ObservableList data;
     private FlowPane f;
     private Label courslabel;
     private Label datecours;
+    private Label typesec;
+    private Label salle;
+    private Label heured;
+    private Label heuref;
     private LocalDate today;
     private Help h = new Help();
 
@@ -125,6 +139,10 @@ public  abstract  class Controller {
         types.getItems().add("CM");
         types.getItems().add("TD");
         types.getItems().add("TP");
+
+        next.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/imgs/next.png"))));
+        prev.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/imgs/prev.png"))));
+        actedt.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/imgs/act1.png"))));
     }
 
     public void fenetreAuth(ActionEvent event){
@@ -171,14 +189,6 @@ public  abstract  class Controller {
         fins.setEditable(false);
     }
 
-    public void init(){
-        Label jour = new Label();
-        jour.setAlignment(Pos.CENTER);
-        jour.setContentDisplay(ContentDisplay.CENTER);
-        jour.setFont(new Font("System Bold Italic",14));
-        edt.add(jour,1,0);
-        edt.setHalignment(jour, HPos.CENTER);
-    }
 
     public void actuSeance(MouseEvent mouseEvent) {
         displayEDT(mouseEvent);
@@ -206,12 +216,29 @@ public  abstract  class Controller {
                 f = new FlowPane();
                 String cours = ModuleDAO.create().findMod(s.getCodeMod()).getLibelleMod();
                 courslabel = new Label(cours);
+                courslabel.setFont(new Font("System Italic",14));
+
                 datecours = new Label(s.getDate().toString());
-                courslabel.setAlignment(Pos.CENTER);
-                courslabel.setContentDisplay(ContentDisplay.CENTER);
-                courslabel.setFont(new Font("System Italic",13));
-                f.getChildren().add(courslabel);
-                f.getChildren().add(datecours);
+                datecours.setFont(new Font("System Italic",14));
+
+                salle = new Label(s.getCodeSalle());
+                salle.setFont(new Font("System Italic",13));
+
+                typesec = new Label(s.getTypeSeance().toString());
+                typesec.setFont(new Font("System Italic",14));
+
+                heured = new Label(String.valueOf(s.getHeureD()));
+                heured.setFont(new Font("System Italic",14));
+
+                courslabel.setMouseTransparent(true);
+                datecours.setMouseTransparent(true);
+                typesec.setMouseTransparent(true);
+                salle.setMouseTransparent(true);
+                heured.setMouseTransparent(true);
+
+                f.getChildren().addAll(courslabel,datecours,salle,typesec,heured);
+                f.setHgap(300);
+                f.setAlignment(Pos.CENTER);
                 edt.setOnMouseClicked(this::clickEDT);
                 edt.add(f, h.jourSemaine(s), h.horaireD(s), 1, h.horaireF(s));
                 h.typeSeance(s,f);
@@ -225,27 +252,29 @@ public  abstract  class Controller {
     public void clickEDT(MouseEvent mouseEvent) {
         String cours = null;
         String date = null;
-        Node clickednode = mouseEvent.getPickResult().getIntersectedNode();
-
-        if(clickednode instanceof FlowPane){
-            Node namecours = ((FlowPane) clickednode).getChildren().get(0);
-            Node datecours = ((FlowPane) clickednode).getChildren().get(1);
-            if(namecours instanceof Label){
-                cours = ((Label) namecours).getText();
-            }
-            if(datecours instanceof Label){
-                date = ((Label) datecours).getText();
+        int hdebut = 0;
+        //Node clickednode = mouseEvent.getPickResult().getIntersectedNode();
+        Node clickednode = (Node) mouseEvent.getTarget();
+        int row = GridPane.getRowIndex(clickednode);
+        int col = GridPane.getColumnIndex(clickednode);
+        for(Node node : edt.getChildren()){
+            if(node instanceof FlowPane){
+                if(edt.getRowIndex(node)==row && edt.getColumnIndex(node)==col){
+                    cours = ((Label) (((FlowPane) node).getChildren().get(0))).getText();
+                    date = ((Label) (((FlowPane) node).getChildren().get(1))).getText();
+                    hdebut = Integer.parseInt(((Label) (((FlowPane) node).getChildren().get(4))).getText());
+                }
             }
         }
-        dispalyRecapSeance(cours,date);
+        dispalyRecapSeance(cours,date,hdebut);
     }
 
 
 
-    private void dispalyRecapSeance(String cours, String date) {
+    private void dispalyRecapSeance(String cours, String date, int hdebut) {
         try(SeanceDAO seanceDAO = SeanceDAO.create()) {
             Module m = ModuleDAO.create().findModperLib(cours);
-            Seance s = seanceDAO.recapSeance(m.getCodeMod(),date);
+            Seance s = seanceDAO.recapSeance(m.getCodeMod(),date,hdebut);
             codemod.setText(m.getCodeMod());
             libm.setText(m.getLibelleMod());
 

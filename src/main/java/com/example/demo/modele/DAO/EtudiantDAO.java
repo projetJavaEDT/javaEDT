@@ -47,11 +47,11 @@ public class EtudiantDAO extends JdbcDAO implements AutoCloseable, VerificationM
 
 
     public void update(String id, Etudiant etud) throws SQLException {
-        update(id, etud.getNom(), etud.getPrenom(), (Date) etud.getDatenaissance(), etud.getAdresse(), etud.getTel(), etud.getEmail(), etud.getPromo());
+        update(id, etud.getNom(), etud.getPrenom(), (Date) etud.getDatenaissance(), etud.getAdresse(), etud.getTel(), etud.getEmail(), etud.getMdp(), etud.getPromo());
     }
 
-    public void update(String id, String nom, String prenom, Date datenaissance, String adresse, String tel, String mail, String promo) throws SQLException {
-        update = connection.prepareStatement("UPDATE ETUDIANT SET NOM='"+nom+"', PRENOM='"+prenom+"', DATENAISSANCE='"+datenaissance+"', ADRESSE='"+adresse+"', TEL='"+tel+"', EMAIL='"+mail+"', PROMO='"+promo+"' WHERE EMAIL='"+id+"' ");
+    public void update(String id, String nom, String prenom, Date datenaissance, String adresse, String tel, String mail, String mdp, String promo) throws SQLException {
+        update = connection.prepareStatement("UPDATE ETUDIANT SET NOM='"+nom+"', PRENOM='"+prenom+"', DATENAISSANCE='"+datenaissance+"', ADRESSE='"+adresse+"', TEL='"+tel+"', EMAIL='"+mail+"', MDP='"+mdp+"', PROMO='"+promo+"' WHERE EMAIL='"+id+"' ");
         update.executeUpdate();
     }
 

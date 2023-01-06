@@ -56,11 +56,12 @@ public class SeanceDAO extends JdbcDAO implements AutoCloseable{
         return s;
     }
 
-    public Seance recapSeance(String module, String date) throws SQLException {
+    public Seance recapSeance(String module, String date, int hdebut) throws SQLException {
         Seance s = null;
-        PreparedStatement find = connection.prepareStatement("SELECT * FROM SEANCE WHERE CODEM=? AND DATE=?");
+        PreparedStatement find = connection.prepareStatement("SELECT * FROM SEANCE WHERE CODEM=? AND DATE=? AND HEURED=?");
         find.setString(1,module);
         find.setString(2,date);
+        find.setInt(3,hdebut);
         ResultSet rs = find.executeQuery();
         while (rs.next()) {
             s = Seance.of(rs.getString("CODEM"), rs.getString("CODES"), rs.getString("CODEENS"), Seance.Type.valueOf(rs.getString("TYPESEANCE")),rs.getDate("DATE"), rs.getInt("HEURED"), rs.getInt("HEUREF"));
@@ -68,6 +69,15 @@ public class SeanceDAO extends JdbcDAO implements AutoCloseable{
         return s;
     }
 
+
+    public void update(Seance s) throws SQLException {
+        update(s.getCodeMod(), s.getCodeSalle(), s.getCodeEns(), String.valueOf(s.getTypeSeance()), s.getDate(), s.getHeureD(), s.getHeureF());
+    }
+
+    public void update(String module, String salle, String ens, String type, Date date, int hd, int hf) throws SQLException {
+        update = connection.prepareStatement("UPDATE SEANCE SET CODEM='"+module+"', CODES='"+salle+"', CODEENS='"+ens+"', TYPESEANCE='"+type+"', DATE='"+date+"', HEURED='"+hd+"', HEUREF='"+hf+"' WHERE CODEM='"+module+"' AND DATE='"+date+"' AND HEURED='"+hd+"'");
+        update.executeUpdate();
+    }
 
     public void persist(String codeMod, String codeSalle, String codeEns, Seance.Type typeSeance, Date date, int heureD, int heureF) throws SQLException {
         persist.setString(1, codeMod);
@@ -78,6 +88,15 @@ public class SeanceDAO extends JdbcDAO implements AutoCloseable{
         persist.setInt(6, heureD);
         persist.setInt(7, heureF);
         persist.executeUpdate();
+    }
+
+
+    public void delete(String codeMod, String date, int heured) throws SQLException {
+        PreparedStatement delete = connection.prepareStatement("DELETE FROM SEANCE WHERE CODEM=? AND DATE=? AND HEURED=?");
+        delete.setString(1, codeMod);
+        delete.setString(2, date);
+        delete.setInt(3, heured);
+        delete.executeUpdate();
     }
 
     @Override

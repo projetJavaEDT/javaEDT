@@ -50,6 +50,8 @@ public class EnsController extends Controller{
     @FXML
     private DatePicker datenaiss;
     @FXML
+    private TextField mdps;
+    @FXML
     private TextField grade;
     @FXML
     private Button savebtn;
@@ -71,6 +73,7 @@ public class EnsController extends Controller{
             tel.setText(String.valueOf(ens.getTel()));
             adresse.setText(ens.getAdresse());
             grade.setText(ens.getGrade());
+            mdps.setText("aaaaaaaaaaa");
 
             nom.setDisable(true);
             prenom.setDisable(true);
@@ -78,6 +81,7 @@ public class EnsController extends Controller{
             email.setDisable(true);
             tel.setDisable(true);
             adresse.setDisable(true);
+            mdps.setDisable(true);
             grade.setDisable(true);
             savebtn.setDisable(true);
             cancelbtn.setDisable(true);
@@ -93,6 +97,7 @@ public class EnsController extends Controller{
         email.setDisable(false);
         tel.setDisable(false);
         adresse.setDisable(false);
+        mdps.setDisable(false);
         grade.setDisable(false);
         savebtn.setDisable(false);
         cancelbtn.setDisable(false);
@@ -109,9 +114,10 @@ public class EnsController extends Controller{
         String val4 = adresse.getText();
         String val5 = tel.getText();
         String val6 = email.getText();
-        String val7 = grade.getText();
+        String val7 = h.hacherMdp(mdps.getText());
+        String val8 = grade.getText();
         try(EnseignantDAO ensDAO = EnseignantDAO.create()) {
-            ensDAO.update(new AuthController().mail_pers,val1,val2, java.sql.Date.valueOf(val3),val4,val5,val6,val7);
+            ensDAO.update(new AuthController().mail_pers,val1,val2, java.sql.Date.valueOf(val3),val4,val5,val6,val7,val8);
             h.infoBox("Modification(s) sauvegardée(s)!", "Succes");
         } catch (SQLException e) {
             //throw new RuntimeException(e);

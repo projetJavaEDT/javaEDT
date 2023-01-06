@@ -49,11 +49,11 @@ public class EnseignantDAO extends JdbcDAO implements AutoCloseable, Verificatio
 
 
     public void update(String id, Enseignant ens) throws SQLException {
-        update(id, ens.getNom(), ens.getPrenom(), (Date) ens.getDatenaissance(), ens.getAdresse(), ens.getTel(), ens.getEmail(), ens.getGrade());
+        update(id, ens.getNom(), ens.getPrenom(), (Date) ens.getDatenaissance(), ens.getAdresse(), ens.getTel(), ens.getEmail(), ens.getMdp(), ens.getGrade());
     }
 
-    public void update(String id, String nom, String prenom, Date datenaissance, String adresse, String tel, String mail, String grade) throws SQLException {
-        update = connection.prepareStatement("UPDATE ENSEIGNANT SET NOM='"+nom+"', PRENOM='"+prenom+"', DATENAISSANCE='"+datenaissance+"', ADRESSE='"+adresse+"', TEL='"+tel+"', EMAIL='"+mail+"', GRADE='"+grade+"' WHERE EMAIL='"+id+"' ");
+    public void update(String id, String nom, String prenom, Date datenaissance, String adresse, String tel, String mail, String mdp, String grade) throws SQLException {
+        update = connection.prepareStatement("UPDATE ENSEIGNANT SET NOM='"+nom+"', PRENOM='"+prenom+"', DATENAISSANCE='"+datenaissance+"', ADRESSE='"+adresse+"', TEL='"+tel+"', EMAIL='"+mail+"', MDP='"+mdp+"', GRADE='"+grade+"' WHERE EMAIL='"+id+"' ");
         update.executeUpdate();
     }
 
