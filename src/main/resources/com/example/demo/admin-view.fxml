@@ -223,7 +223,7 @@
                         <Button fx:id="addseance" layoutX="878.0" layoutY="36.0" mnemonicParsing="false" onMouseClicked="#addSeance" prefHeight="42.0" prefWidth="59.0" text="ADD" />
                         <Button fx:id="next" layoutX="83.0" layoutY="48.0" mnemonicParsing="false" onMouseClicked="#nextWeek" prefHeight="24.0" prefWidth="62.0" />
                         <Button fx:id="prev" layoutX="22.0" layoutY="48.0" mnemonicParsing="false" onMouseClicked="#prevWeek" prefHeight="24.0" prefWidth="58.0" />
-                        <Button fx:id="actedt" layoutX="953.0" layoutY="36.0" mnemonicParsing="false" onMouseClicked="#actuSeance" prefHeight="42.0" prefWidth="59.0" />
+                        <Button fx:id="actedt" layoutX="953.0" layoutY="36.0" mnemonicParsing="false" onMouseClicked="#refreshEDT" prefHeight="42.0" prefWidth="59.0" />
                         <Button fx:id="suppbtn" disable="true" layoutX="1454.0" layoutY="43.0" mnemonicParsing="false" onMouseClicked="#deleteSeance" prefHeight="34.0" prefWidth="50.0" />
                             </children></AnchorPane>
                     </content>
@@ -247,7 +247,7 @@
                             </children></AnchorPane>
                     </content>
                 </Tab>
-                <Tab onSelectionChanged="#displayMatieres" text="MATIERES">
+                <Tab onSelectionChanged="#displayModule" text="MATIERES">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
@@ -261,7 +261,7 @@
                                         <TableColumn fx:id="volumeh" prefWidth="170.0" text="Volume horaire" />
                                     </columns>
                                 </TableView>
-                                <Button layoutX="1120.0" layoutY="52.0" mnemonicParsing="false" onMouseClicked="#displayMatieres" prefHeight="34.0" prefWidth="115.0" text="Actualiser" />
+                                <Button layoutX="1120.0" layoutY="52.0" mnemonicParsing="false" onMouseClicked="#displayModule" prefHeight="34.0" prefWidth="115.0" text="Actualiser" />
                                 <ChoiceBox fx:id="choicem" layoutX="283.0" layoutY="52.0" prefHeight="34.0" prefWidth="196.0" />
                                 <TextField fx:id="searchm" layoutX="501.0" layoutY="52.0" prefHeight="34.0" prefWidth="457.0" />
                                 <Button layoutX="990.0" layoutY="52.0" mnemonicParsing="false" onMouseClicked="#searchModule" prefHeight="34.0" prefWidth="115.0" text="Rechercher" />

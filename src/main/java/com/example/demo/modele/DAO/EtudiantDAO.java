@@ -17,21 +17,19 @@ public class EtudiantDAO extends JdbcDAO implements AutoCloseable, VerificationM
 
 
     private EtudiantDAO() throws SQLException {
-        findAll = connection.prepareStatement("SELECT * FROM ETUDIANT");
         findby = connection.prepareStatement("SELECT * FROM ETUDIANT WHERE EMAIL=? AND MDP=?");
         findbyID = connection.prepareStatement("SELECT * FROM ETUDIANT WHERE EMAIL=?");
     }
 
 
-    public List<Etudiant> findAll() throws SQLException, ExceptionEmail {
-        List<Etudiant> etudiants = new ArrayList<>();
-        ResultSet rs = findAll.executeQuery();
-        // Extract data from result set
-        while (rs.next()) {
-            etudiants.add(Etudiant.of(rs.getString("NOM"), rs.getString("PRENOM"), rs.getDate("DATENAISSANCE"), rs.getString("ADRESSE"), rs.getString("TEL"), rs.getString("EMAIL"), rs.getString("MDP"), rs.getString("PROMO")));
-        }
-        return etudiants;
+    @Override
+    public boolean validate(String email, String password) throws SQLException {
+        findby.setString(1, email);
+        findby.setString(2, password);
+        ResultSet resultSet = findby.executeQuery();
+        return resultSet.next();
     }
+
 
 
     public Etudiant findByID(String email) throws SQLException, ExceptionEmail {
@@ -40,7 +38,6 @@ public class EtudiantDAO extends JdbcDAO implements AutoCloseable, VerificationM
         ResultSet rs = findbyID.executeQuery();
         while (rs.next()) {
             etud = Etudiant.of(rs.getString("NOM"), rs.getString("PRENOM"), rs.getDate("DATENAISSANCE"), rs.getString("ADRESSE"), rs.getString("TEL"), rs.getString("EMAIL"), rs.getString("MDP"), rs.getString("PROMO"));
-
         }
         return etud;
     }
@@ -57,17 +54,7 @@ public class EtudiantDAO extends JdbcDAO implements AutoCloseable, VerificationM
 
 
     @Override
-    public boolean validate(String email, String password) throws SQLException {
-        findby.setString(1, email);
-        findby.setString(2, password);
-        ResultSet resultSet = findby.executeQuery();
-        return resultSet.next();
-    }
-
-
-    @Override
     public void close() throws SQLException {
         connection.close();
-        //log.info("DB connection closed");
     }
 }

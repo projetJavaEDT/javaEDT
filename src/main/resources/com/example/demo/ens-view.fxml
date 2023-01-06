@@ -8,12 +8,12 @@
     <children>
         <Pane prefHeight="82.0" prefWidth="1516.0" style="-fx-background-color: LIGHTGRAY;">
             <children>
-                <Label fx:id="labnom" contentDisplay="CENTER" layoutY="44.0" prefHeight="42.0" prefWidth="85.0" text="NOM">
+                <Label fx:id="labnom" contentDisplay="CENTER" layoutX="26.0" layoutY="42.0" prefHeight="42.0" prefWidth="105.0" text="NOM">
                     <font>
                         <Font name="DejaVu Serif Bold" size="20.0" />
                     </font>
                 </Label>
-                <Label fx:id="labprenom" contentDisplay="CENTER" layoutX="85.0" layoutY="44.0" prefHeight="42.0" prefWidth="105.0" text="PRENOM">
+                <Label fx:id="labprenom" contentDisplay="CENTER" layoutX="141.0" layoutY="42.0" prefHeight="42.0" prefWidth="105.0" text="PRENOM">
                     <font>
                         <Font name="DejaVu Serif Bold" size="20.0" />
                     </font>
@@ -243,7 +243,7 @@
                             </children></AnchorPane>
                     </content>
                 </Tab>
-                <Tab onSelectionChanged="#displayMatieres" text="MATIERES">
+                <Tab onSelectionChanged="#displayModule" text="MATIERES">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
@@ -257,7 +257,7 @@
                                         <TableColumn fx:id="volumeh" prefWidth="170.0" text="Volume horaire" />
                                     </columns>
                                 </TableView>
-                                <Button layoutX="1119.0" layoutY="54.0" mnemonicParsing="false" onMouseClicked="#displayMatieres" prefHeight="34.0" prefWidth="115.0" text="Actualiser" />
+                                <Button layoutX="1119.0" layoutY="54.0" mnemonicParsing="false" onMouseClicked="#displayModule" prefHeight="34.0" prefWidth="115.0" text="Actualiser" />
                                 <ChoiceBox fx:id="choicem" layoutX="282.0" layoutY="54.0" prefHeight="34.0" prefWidth="196.0" />
                                 <TextField fx:id="searchm" layoutX="500.0" layoutY="54.0" prefHeight="34.0" prefWidth="457.0" />
                                 <Button layoutX="989.0" layoutY="54.0" mnemonicParsing="false" onMouseClicked="#searchModule" prefHeight="34.0" prefWidth="115.0" text="Rechercher" />

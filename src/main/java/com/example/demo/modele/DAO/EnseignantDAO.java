@@ -2,9 +2,7 @@ package com.example.demo.modele.DAO;
 
 
 import com.example.demo.exception.*;
-import com.example.demo.modele.user.Administrateur;
 import com.example.demo.modele.user.Enseignant;
-import com.example.demo.modele.user.Etudiant;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -20,9 +18,18 @@ public class EnseignantDAO extends JdbcDAO implements AutoCloseable, Verificatio
 
 
     private EnseignantDAO() throws SQLException {
-        findAll = connection.prepareStatement("SELECT * FROM ENSEIGNANT");
         findby = connection.prepareStatement("SELECT * FROM ENSEIGNANT WHERE EMAIL=? AND MDP = ?");
+        findAll = connection.prepareStatement("SELECT * FROM ENSEIGNANT");
         findbyID = connection.prepareStatement("SELECT * FROM ENSEIGNANT WHERE EMAIL=?");
+    }
+
+
+    @Override
+    public boolean validate(String email, String password) throws SQLException {
+        findby.setString(1, email);
+        findby.setString(2, password);
+        ResultSet resultSet = findby.executeQuery();
+        return resultSet.next();
     }
 
 
@@ -57,19 +64,10 @@ public class EnseignantDAO extends JdbcDAO implements AutoCloseable, Verificatio
         update.executeUpdate();
     }
 
-    @Override
-    public boolean validate(String email, String password) throws SQLException {
-        findby.setString(1, email);
-        findby.setString(2, password);
-        ResultSet resultSet = findby.executeQuery();
-        return resultSet.next();
-    }
-
 
     @Override
     public void close() throws SQLException {
         connection.close();
-        log.info("DB connection closed");
     }
 
 }
