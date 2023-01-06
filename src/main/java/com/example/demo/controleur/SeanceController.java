@@ -59,6 +59,9 @@ public class SeanceController {
     }
 
     public void sallesAvailable(ActionEvent actionEvent) throws SQLException, ExceptionEmail {
+        ens.getItems().removeAll();
+        module.getItems().removeAll();
+        types.getItems().removeAll();
         SalleDAO salleDAO = SalleDAO.create();
         if(dateseance.getValue() != null){
             List<Salle> salles = salleDAO.findbyDate(dateseance.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
@@ -68,7 +71,7 @@ public class SeanceController {
         }
 
         ModuleDAO moduleDAO = ModuleDAO.create();
-        List<Module> modules = moduleDAO.findAll();
+        List<Module> modules = moduleDAO.findAll_();
         for(Module m : modules){
             module.getItems().add(m.getCodeMod());
         }
@@ -78,7 +81,6 @@ public class SeanceController {
         for(Enseignant e : enseignants){
             ens.getItems().add(e.getEmail());
         }
-
         types.getItems().add("CM");
         types.getItems().add("TD");
         types.getItems().add("TP");

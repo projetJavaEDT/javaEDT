@@ -2,6 +2,7 @@ package com.example.demo.modele.DAO;
 
 import com.example.demo.modele.ressources.Salle;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import java.util.logging.Logger;
 
 public class SalleDAO extends JdbcDAO implements AutoCloseable{
     private static Logger log = Logger.getLogger(SeanceDAO.class.getName());
+    private PreparedStatement findbyDATE;
 
     private SalleDAO() throws SQLException {
         findAll = connection.prepareStatement("SELECT * FROM SALLE");
@@ -56,6 +58,5 @@ public class SalleDAO extends JdbcDAO implements AutoCloseable{
     @Override
     public void close() throws SQLException {
         connection.close();
-        log.info("DB connection closed");
     }
 }

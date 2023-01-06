@@ -9,6 +9,9 @@ import com.example.demo.modele.ressources.Module;
 public class ModuleDAO extends JdbcDAO implements AutoCloseable{
 
     private static Logger log = Logger.getLogger(ModuleDAO.class.getName());
+    private PreparedStatement findbyLib;
+    private PreparedStatement findbyCode;
+    private PreparedStatement find;
 
     public static ModuleDAO create() throws SQLException {
         return new ModuleDAO();
@@ -17,11 +20,20 @@ public class ModuleDAO extends JdbcDAO implements AutoCloseable{
 
     private ModuleDAO() throws SQLException {
         findAll = connection.prepareStatement("SELECT SEANCE.CODEM, LIBELLEMOD, CODEENS, min(DATE) AS DEBUT, max(DATE) AS FIN, VOLUMEHORAIRE FROM SEANCE,MODULE WHERE SEANCE.CODEM = MODULE.CODEM GROUP BY SEANCE.CODEM,CODEENS");
-        findby = connection.prepareStatement("SELECT * FROM MODULE WHERE CODEM=?");
-        findbyID = connection.prepareStatement("SELECT SEANCE.CODEM, LIBELLEMOD, CODEENS, min(DATE) AS DEBUT, max(DATE) AS FIN, VOLUMEHORAIRE FROM SEANCE,MODULE WHERE SEANCE.CODEM = MODULE.CODEM AND SEANCE.CODEM=? GROUP BY SEANCE.CODEM");
-        findbyMod = connection.prepareStatement("SELECT SEANCE.CODEM, LIBELLEMOD, CODEENS, min(DATE) AS DEBUT, max(DATE) AS FIN, VOLUMEHORAIRE FROM SEANCE,MODULE WHERE SEANCE.CODEM = MODULE.CODEM AND LIBELLEMOD=? GROUP BY SEANCE.CODEM");
+        findbyCode = connection.prepareStatement("SELECT SEANCE.CODEM, LIBELLEMOD, CODEENS, min(DATE) AS DEBUT, max(DATE) AS FIN, VOLUMEHORAIRE FROM SEANCE,MODULE WHERE SEANCE.CODEM = MODULE.CODEM AND SEANCE.CODEM=? GROUP BY SEANCE.CODEM");
+        findbyLib = connection.prepareStatement("SELECT SEANCE.CODEM, LIBELLEMOD, CODEENS, min(DATE) AS DEBUT, max(DATE) AS FIN, VOLUMEHORAIRE FROM SEANCE,MODULE WHERE SEANCE.CODEM = MODULE.CODEM AND LIBELLEMOD=? GROUP BY SEANCE.CODEM");
     }
 
+    public List<Module> findAll_() throws SQLException {
+        List<Module> modules = new ArrayList<>();
+        findAll = connection.prepareStatement("SELECT * FROM MODULE");
+        ResultSet rs = findAll.executeQuery();
+        // Extract data from result set
+        while (rs.next()) {
+            modules.add(Module.of(rs.getString("CODEM"), rs.getString("LIBELLEMOD"), rs.getInt("VOLUMEHORAIRE")));
+        }
+        return modules;
+    }
 
     public List<Module> findAll() throws SQLException {
         List<Module> modules = new ArrayList<>();
@@ -33,32 +45,10 @@ public class ModuleDAO extends JdbcDAO implements AutoCloseable{
         return modules;
     }
 
-    public Module findMod(String module) throws SQLException {
+    public Module recapByCode(String module) throws SQLException {
         Module mod= null;
-        findby.setString(1, module);
-        ResultSet rs = findby.executeQuery();
-        while (rs.next()) {
-            mod = Module.of(rs.getString("CODEM"), rs.getString("LIBELLEMOD"), rs.getInt("VOLUMEHORAIRE"));
-        }
-        return mod;
-    }
-
-    public Module findModperLib(String module) throws SQLException {
-        Module mod= null;
-        PreparedStatement findbyy = connection.prepareStatement("SELECT * FROM MODULE WHERE LIBELLEMOD=?");
-        findbyy.setString(1, module);
-        ResultSet rs = findbyy.executeQuery();
-        while (rs.next()) {
-            mod = Module.of(rs.getString("CODEM"), rs.getString("LIBELLEMOD"), rs.getInt("VOLUMEHORAIRE"));
-        }
-        return mod;
-    }
-
-
-    public Module findByID(String module) throws SQLException {
-        Module mod= null;
-        findbyID.setString(1, module);
-        ResultSet rs = findbyID.executeQuery();
+        findbyCode.setString(1, module);
+        ResultSet rs = findbyCode.executeQuery();
         while (rs.next()) {
             mod = Module.off(rs.getString("CODEM"), rs.getString("LIBELLEMOD"), rs.getString("CODEENS"), rs.getDate("DEBUT"), rs.getDate("FIN"), rs.getInt("VOLUMEHORAIRE"));
         }
@@ -66,12 +56,35 @@ public class ModuleDAO extends JdbcDAO implements AutoCloseable{
     }
 
 
-    public Module findByMod(String module) throws SQLException {
+    public Module recapByLib(String module) throws SQLException {
         Module mod= null;
-        findbyMod.setString(1, module);
-        ResultSet rs = findbyMod.executeQuery();
+        findbyLib.setString(1, module);
+        ResultSet rs = findbyLib.executeQuery();
         while (rs.next()) {
             mod = Module.off(rs.getString("CODEM"), rs.getString("LIBELLEMOD"), rs.getString("CODEENS"), rs.getDate("DEBUT"), rs.getDate("FIN"), rs.getInt("VOLUMEHORAIRE"));
+        }
+        return mod;
+    }
+
+
+    public Module findbyId(String module) throws SQLException {
+        Module mod= null;
+        find = connection.prepareStatement("SELECT * FROM MODULE WHERE CODEM=?");
+        find.setString(1, module);
+        ResultSet rs = find.executeQuery();
+        while (rs.next()) {
+            mod = Module.of(rs.getString("CODEM"), rs.getString("LIBELLEMOD"), rs.getInt("VOLUMEHORAIRE"));
+        }
+        return mod;
+    }
+
+    public Module findbyLib(String module) throws SQLException {
+        Module mod= null;
+        find = connection.prepareStatement("SELECT * FROM MODULE WHERE LIBELLEMOD=?");
+        find.setString(1, module);
+        ResultSet rs = find.executeQuery();
+        while (rs.next()) {
+            mod = Module.of(rs.getString("CODEM"), rs.getString("LIBELLEMOD"), rs.getInt("VOLUMEHORAIRE"));
         }
         return mod;
     }
@@ -80,6 +93,5 @@ public class ModuleDAO extends JdbcDAO implements AutoCloseable{
     @Override
     public void close() throws SQLException {
         connection.close();
-        log.info("DB connection closed");
     }
 }

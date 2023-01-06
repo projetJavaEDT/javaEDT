@@ -5,7 +5,6 @@ import com.example.demo.exception.ExceptionEmail;
 import com.example.demo.modele.DAO.*;
 import com.example.demo.modele.ressources.Salle;
 import com.example.demo.modele.user.Administrateur;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -13,7 +12,6 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.sql.Date;
@@ -85,8 +83,8 @@ public class AdminController extends Controller{
 
 
     @Override
-    public void actuSeance(MouseEvent mouseEvent) {
-        super.actuSeance(mouseEvent);
+    public void refreshEDT(MouseEvent mouseEvent) {
+        super.refreshEDT(mouseEvent);
         modifseance.setDisable(true);
         saveseance.setDisable(true);
         suppbtn.setDisable(true);
