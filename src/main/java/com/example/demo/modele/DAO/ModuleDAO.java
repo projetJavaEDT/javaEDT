@@ -4,84 +4,76 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
-import com.example.demo.Module;
-import com.example.demo.Seance;
+import com.example.demo.modele.ressources.Module;
 
 public class ModuleDAO extends JdbcDAO implements AutoCloseable{
 
     private static Logger log = Logger.getLogger(ModuleDAO.class.getName());
-    private ModuleDAO() throws SQLException {
-        findAll = connection.prepareStatement("SELECT * FROM MODULE");
-        findbyId = connection.prepareStatement("SELECT * FROM MODULE WHERE CODEM=?");
-    }
 
     public static ModuleDAO create() throws SQLException {
         return new ModuleDAO();
     }
+
+
+    private ModuleDAO() throws SQLException {
+        findAll = connection.prepareStatement("SELECT SEANCE.CODEM, LIBELLEMOD, CODEENS, min(DATE) AS DEBUT, max(DATE) AS FIN, VOLUMEHORAIRE FROM SEANCE,MODULE WHERE SEANCE.CODEM = MODULE.CODEM GROUP BY SEANCE.CODEM,CODEENS");
+        findby = connection.prepareStatement("SELECT * FROM MODULE WHERE CODEM=?");
+        findbyID = connection.prepareStatement("SELECT SEANCE.CODEM, LIBELLEMOD, CODEENS, min(DATE) AS DEBUT, max(DATE) AS FIN, VOLUMEHORAIRE FROM SEANCE,MODULE WHERE SEANCE.CODEM = MODULE.CODEM AND SEANCE.CODEM=? GROUP BY SEANCE.CODEM");
+        findbyMod = connection.prepareStatement("SELECT SEANCE.CODEM, LIBELLEMOD, CODEENS, min(DATE) AS DEBUT, max(DATE) AS FIN, VOLUMEHORAIRE FROM SEANCE,MODULE WHERE SEANCE.CODEM = MODULE.CODEM AND LIBELLEMOD=? GROUP BY SEANCE.CODEM");
+    }
+
 
     public List<Module> findAll() throws SQLException {
         List<Module> modules = new ArrayList<>();
         ResultSet rs = findAll.executeQuery();
         // Extract data from result set
         while (rs.next()) {
-            modules.add(Module.of(rs.getString("CODEM"), rs.getString("LIBELLEMOD"), rs.getInt("VOLUMEHORAIRE")));
+            modules.add(Module.off(rs.getString("CODEM"), rs.getString("LIBELLEMOD"), rs.getString("CODEENS"), rs.getDate("DEBUT"), rs.getDate("FIN"), rs.getInt("VOLUMEHORAIRE")));
         }
         return modules;
     }
 
-    /*public Seance displayM_1() throws SQLException {
-        //List<Seance> seances = new ArrayList<>();
-        findAll = connection.prepareStatement("SELECT CODEM,DATE,TYPESEANCE,HEURED,HEUREF FROM SEANCE");
-        ResultSet rs = findAll.executeQuery();
-        // Extract data from result set
-        Seance s = null;
-        while (rs.next()) {
-            s = Seance.of(rs.getString("CODEM"), Seance.Type.valueOf(rs.getString("TYPESEANCE")),rs.getDate("DATE"), rs.getString("HEURED"), rs.getString("HEUREF"));
-        }
-        System.out.println(s);
-        return s;
-    }*/
-
-    /*public void displayMOLD(TableView tabedt, TableColumn codeMod, TableColumn libelleMod, TableColumn volumeHoraire) throws SQLException {
-        data = FXCollections.observableArrayList();
-        ResultSet rs = findAll.executeQuery();
-        // Extract data from result set
-        while (rs.next()) {
-            /*ObservableList<String> row = FXCollections.observableArrayList();
-            for(int i=1 ; i<=rs.getMetaData().getColumnCount(); i++){
-                //Iterate Column
-                row.add(rs.getString(i));
-            }
-            System.out.println("Row [1] added "+row );
-            data.add((ObservableList) Module.of(rs.getString("CODEM"), rs.getString("LIBELLEMOD"), rs.getInt("VOLUMEHORAIRE")));
-            System.out.println(data);
-        }
-
-        //FINALLY ADDED TO TableView
-        codeMod.setCellValueFactory(new PropertyValueFactory<Module, String>("codeMod"));
-        libelleMod.setCellValueFactory(new PropertyValueFactory<Module, String>("libelleMod"));
-        volumeHoraire.setCellValueFactory(new PropertyValueFactory<Module, Integer>("volumeHoraire"));
-        tabedt.setItems(data);
-    }*/
-
-    public Module findById(String module) throws SQLException {
+    public Module findMod(String module) throws SQLException {
         Module mod= null;
-        findbyId.setString(1, module);
-        ResultSet rs = findbyId.executeQuery();
+        findby.setString(1, module);
+        ResultSet rs = findby.executeQuery();
         while (rs.next()) {
             mod = Module.of(rs.getString("CODEM"), rs.getString("LIBELLEMOD"), rs.getInt("VOLUMEHORAIRE"));
         }
         return mod;
     }
 
-    public boolean exist(Module module) throws SQLException {
-        return exist(module.getCodeMod());
+    public Module findModperLib(String module) throws SQLException {
+        Module mod= null;
+        PreparedStatement findbyy = connection.prepareStatement("SELECT * FROM MODULE WHERE LIBELLEMOD=?");
+        findbyy.setString(1, module);
+        ResultSet rs = findbyy.executeQuery();
+        while (rs.next()) {
+            mod = Module.of(rs.getString("CODEM"), rs.getString("LIBELLEMOD"), rs.getInt("VOLUMEHORAIRE"));
+        }
+        return mod;
     }
 
-    public boolean exist(String module) throws SQLException {
-        findbyId.setString(1, module);
-        ResultSet rs = findbyId.executeQuery();
-        return rs.next();
+
+    public Module findByID(String module) throws SQLException {
+        Module mod= null;
+        findbyID.setString(1, module);
+        ResultSet rs = findbyID.executeQuery();
+        while (rs.next()) {
+            mod = Module.off(rs.getString("CODEM"), rs.getString("LIBELLEMOD"), rs.getString("CODEENS"), rs.getDate("DEBUT"), rs.getDate("FIN"), rs.getInt("VOLUMEHORAIRE"));
+        }
+        return mod;
+    }
+
+
+    public Module findByMod(String module) throws SQLException {
+        Module mod= null;
+        findbyMod.setString(1, module);
+        ResultSet rs = findbyMod.executeQuery();
+        while (rs.next()) {
+            mod = Module.off(rs.getString("CODEM"), rs.getString("LIBELLEMOD"), rs.getString("CODEENS"), rs.getDate("DEBUT"), rs.getDate("FIN"), rs.getInt("VOLUMEHORAIRE"));
+        }
+        return mod;
     }
 
 
