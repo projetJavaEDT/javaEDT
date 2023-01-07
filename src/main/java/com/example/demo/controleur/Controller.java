@@ -15,15 +15,15 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.event.EventTarget;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
@@ -94,11 +94,21 @@ public  abstract  class Controller {
     @FXML
     private TextField fins;
     @FXML
+    private Button next;
+    @FXML
+    private Button prev;
+    @FXML
+    private Button actedt;
+    @FXML
     private GridPane edt;
     private ObservableList data;
     private FlowPane f;
     private Label courslabel;
     private Label datecours;
+    private Label typesec;
+    private Label salle;
+    private Label heured;
+    private Label heuref;
     private LocalDate today;
     private Help h = new Help();
 
@@ -125,6 +135,10 @@ public  abstract  class Controller {
         types.getItems().add("CM");
         types.getItems().add("TD");
         types.getItems().add("TP");
+
+        next.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/imgs/next.png"))));
+        prev.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/imgs/prev.png"))));
+        actedt.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/imgs/act1.png"))));
     }
 
     public void fenetreAuth(ActionEvent event){
@@ -171,47 +185,56 @@ public  abstract  class Controller {
         fins.setEditable(false);
     }
 
-    public void init(){
-        Label jour = new Label();
-        jour.setAlignment(Pos.CENTER);
-        jour.setContentDisplay(ContentDisplay.CENTER);
-        jour.setFont(new Font("System Bold Italic",14));
-        edt.add(jour,1,0);
-        edt.setHalignment(jour, HPos.CENTER);
-    }
 
-    public void actuSeance(MouseEvent mouseEvent) {
+    public void refreshEDT(MouseEvent mouseEvent) {
         displayEDT(mouseEvent);
     }
 
 
-    public void nextWeek(MouseEvent mouseEvent) {
+    public void nextWeek(MouseEvent mouseEvent) { //affichage de la semaine prochaine
         deleteOldWeeks();
         today = today.plusDays(7);
         edtPerWeek(today.toString(), today.plusDays(6).toString());
     }
 
-    public void prevWeek(MouseEvent mouseEvent) {
+    public void prevWeek(MouseEvent mouseEvent) { //affichage de la semaine précédente
         deleteOldWeeks();
         today = today.minusDays(7);
         edtPerWeek(today.toString(), today.plusDays(6).toString());
     }
 
 
-    private void edtPerWeek(String dated, String datef){
+    private void edtPerWeek(String dated, String datef){ //affichage de l'emploi du temps par semaine par defaut on se met sur la semaine courante
         h = new Help();
         try(SeanceDAO seanceDAO = SeanceDAO.create()) {
-            List<Seance> ss = seanceDAO.findMinDate(dated, datef);
+            List<Seance> ss = seanceDAO.findbyDate(dated, datef);
             for(Seance s : ss) {
                 f = new FlowPane();
-                String cours = ModuleDAO.create().findMod(s.getCodeMod()).getLibelleMod();
+                String cours = ModuleDAO.create().findbyId(s.getCodeMod()).getLibelleMod();
                 courslabel = new Label(cours);
+                courslabel.setFont(new Font("System Italic",14));
+
                 datecours = new Label(s.getDate().toString());
-                courslabel.setAlignment(Pos.CENTER);
-                courslabel.setContentDisplay(ContentDisplay.CENTER);
-                courslabel.setFont(new Font("System Italic",13));
-                f.getChildren().add(courslabel);
-                f.getChildren().add(datecours);
+                datecours.setFont(new Font("System Italic",14));
+
+                salle = new Label(s.getCodeSalle());
+                salle.setFont(new Font("System Italic",13));
+
+                typesec = new Label(s.getTypeSeance().toString());
+                typesec.setFont(new Font("System Italic",14));
+
+                heured = new Label(String.valueOf(s.getHeureD()));
+                heured.setFont(new Font("System Italic",14));
+
+                courslabel.setMouseTransparent(true);
+                datecours.setMouseTransparent(true);
+                typesec.setMouseTransparent(true);
+                salle.setMouseTransparent(true);
+                heured.setMouseTransparent(true);
+
+                f.getChildren().addAll(courslabel,datecours,salle,typesec,heured);
+                f.setHgap(300);
+                f.setAlignment(Pos.CENTER);
                 edt.setOnMouseClicked(this::clickEDT);
                 edt.add(f, h.jourSemaine(s), h.horaireD(s), 1, h.horaireF(s));
                 h.typeSeance(s,f);
@@ -222,30 +245,32 @@ public  abstract  class Controller {
     }
 
 
-    public void clickEDT(MouseEvent mouseEvent) {
+    public void clickEDT(MouseEvent mouseEvent) { //récuperer la séance (flowpane) clicker
         String cours = null;
         String date = null;
-        Node clickednode = mouseEvent.getPickResult().getIntersectedNode();
-
-        if(clickednode instanceof FlowPane){
-            Node namecours = ((FlowPane) clickednode).getChildren().get(0);
-            Node datecours = ((FlowPane) clickednode).getChildren().get(1);
-            if(namecours instanceof Label){
-                cours = ((Label) namecours).getText();
-            }
-            if(datecours instanceof Label){
-                date = ((Label) datecours).getText();
+        int hdebut = 0;
+        //Node clickednode = mouseEvent.getPickResult().getIntersectedNode();
+        Node clickednode = (Node) mouseEvent.getTarget();
+        int row = GridPane.getRowIndex(clickednode);
+        int col = GridPane.getColumnIndex(clickednode);
+        for(Node node : edt.getChildren()){
+            if(node instanceof FlowPane){
+                if(edt.getRowIndex(node)==row && edt.getColumnIndex(node)==col){
+                    cours = ((Label) (((FlowPane) node).getChildren().get(0))).getText();
+                    date = ((Label) (((FlowPane) node).getChildren().get(1))).getText();
+                    hdebut = Integer.parseInt(((Label) (((FlowPane) node).getChildren().get(4))).getText());
+                }
             }
         }
-        dispalyRecapSeance(cours,date);
+        dispalyRecapSeance(cours,date,hdebut);
     }
 
 
 
-    private void dispalyRecapSeance(String cours, String date) {
+    private void dispalyRecapSeance(String cours, String date, int hdebut) { //affichage d'un résumé d'une séance
         try(SeanceDAO seanceDAO = SeanceDAO.create()) {
-            Module m = ModuleDAO.create().findModperLib(cours);
-            Seance s = seanceDAO.recapSeance(m.getCodeMod(),date);
+            Module m = ModuleDAO.create().findbyLib(cours);
+            Seance s = seanceDAO.recapSeance(m.getCodeMod(),date,hdebut);
             codemod.setText(m.getCodeMod());
             libm.setText(m.getLibelleMod());
 
@@ -274,7 +299,7 @@ public  abstract  class Controller {
 
 
     //********************************************PARTIE MATIERE****************************************************
-    public void displayMatieres(Event event) {
+    public void displayModule(Event event) { //affichage des modules
         try(ModuleDAO modDAO = ModuleDAO.create()) {
             data = FXCollections.observableArrayList();
             List<Module> modules = modDAO.findAll();
@@ -295,14 +320,14 @@ public  abstract  class Controller {
         }
     }
 
-    public void searchModule(MouseEvent mouseEvent) {
+    public void searchModule(MouseEvent mouseEvent) { //recherche d'un module soit par code ou par libellé
         try(ModuleDAO moduleDAO = ModuleDAO.create()) {
             Module module = null;
             data = FXCollections.observableArrayList();
             if (choicem.getValue() == "Code"){
-                module = moduleDAO.findByID(searchm.getText());
+                module = moduleDAO.recapByCode(searchm.getText());
             } else{
-                module = moduleDAO.findByMod(searchm.getText());
+                module = moduleDAO.recapByLib(searchm.getText());
             }
             data.add(module);
             codem.setCellValueFactory(new PropertyValueFactory<Salle, String>("codeMod"));
@@ -320,7 +345,7 @@ public  abstract  class Controller {
 
 
     //********************************************PARTIE SALLE****************************************************
-    public void displaySalles(Event event) {
+    public void displaySalles(Event event) { //affichage des salles
         try(SalleDAO salleDAO = SalleDAO.create()) {
             List<Salle> salles = salleDAO.findAll();;
             data = FXCollections.observableArrayList();
@@ -349,7 +374,7 @@ public  abstract  class Controller {
         }
     }
 
-    public void searchSalle(MouseEvent mouseEvent) {
+    public void searchSalle(MouseEvent mouseEvent) { //rechercher une salle
         try(SalleDAO salleDAO = SalleDAO.create()) {
             List<Salle> salles = null;
             Salle salle = null;
@@ -374,12 +399,11 @@ public  abstract  class Controller {
     }
 
 
-
-
-    public void deleteOldWeeks(){
+    
+    public void deleteOldWeeks(){ //supprimer les flowpane contenu dans le gridpane (edt)
         ObservableList<Node> c = edt.getChildren();
         int i = c.size();
-        while(i-->0){ //je peux mettre 17 psk les composantes FlowPane commencent à partir de l'indice 18
+        while(i-->0){ 
             if(c.get(i) instanceof FlowPane){
                 edt.getChildren().remove(c.get(i));
             }

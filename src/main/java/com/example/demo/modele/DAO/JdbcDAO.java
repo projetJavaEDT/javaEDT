@@ -10,18 +10,15 @@ public abstract class JdbcDAO {
     public static String USER = "sa";
     public static String PASS = "";
     public Connection connection;
-
+    public static PreparedStatement findby; //pour verif de connexion
     public PreparedStatement findAll;
-    public PreparedStatement findbyDATE;
-    public PreparedStatement persist;
-    public static PreparedStatement findby;
     public PreparedStatement findbyID;
     public PreparedStatement update;
-    public PreparedStatement findbyMod;
 
 
     public JdbcDAO() throws SQLException {
-        //log.info("DB connection opened");
         connection = DriverManager.getConnection(DB_URL, USER, PASS);
     }
+
+
 }

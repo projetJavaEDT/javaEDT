@@ -41,7 +41,6 @@ public class Help {
     public String hacherMdp(String mdp){
         String s = "" ;
         MessageDigest msg;
-
         try {
             msg = MessageDigest.getInstance("SHA-256");
             byte[] hash = msg.digest(mdp.getBytes(StandardCharsets.UTF_8));
@@ -57,13 +56,13 @@ public class Help {
     public void typeSeance(Seance s, FlowPane f){
         switch(s.getTypeSeance()){
             case CM:
-                f.setBackground(Background.fill(Color.LIGHTPINK));
+                f.setBackground(Background.fill(Color.web("#23b0b8")));
                 break;
             case TP:
-                f.setBackground(Background.fill(Color.LIGHTBLUE));
+                f.setBackground(Background.fill(Color.web("fec5d9")));
                 break;
             case TD:
-                f.setBackground(Background.fill(Color.LIGHTGREEN));
+                f.setBackground(Background.fill(Color.web("b0c4de")));
                 break;
         }
     }

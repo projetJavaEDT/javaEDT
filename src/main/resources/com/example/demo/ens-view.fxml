@@ -8,12 +8,12 @@
     <children>
         <Pane prefHeight="82.0" prefWidth="1516.0" style="-fx-background-color: LIGHTGRAY;">
             <children>
-                <Label fx:id="labnom" contentDisplay="CENTER" layoutY="44.0" prefHeight="42.0" prefWidth="85.0" text="NOM">
+                <Label fx:id="labnom" contentDisplay="CENTER" layoutX="26.0" layoutY="42.0" prefHeight="42.0" prefWidth="105.0" text="NOM">
                     <font>
                         <Font name="DejaVu Serif Bold" size="20.0" />
                     </font>
                 </Label>
-                <Label fx:id="labprenom" contentDisplay="CENTER" layoutX="85.0" layoutY="44.0" prefHeight="42.0" prefWidth="105.0" text="PRENOM">
+                <Label fx:id="labprenom" contentDisplay="CENTER" layoutX="141.0" layoutY="42.0" prefHeight="42.0" prefWidth="105.0" text="PRENOM">
                     <font>
                         <Font name="DejaVu Serif Bold" size="20.0" />
                     </font>
@@ -23,7 +23,6 @@
                         <Font name="DejaVu Serif Bold" size="17.0" />
                     </font>
                 </Label>
-                <Button fx:id="quitbtn" layoutX="1401.0" layoutY="5.0" mnemonicParsing="false" onAction="#fenetreAuth" prefHeight="34.0" prefWidth="94.0" text="Quitter" />
             </children></Pane>
         <TabPane fx:id="menu" layoutY="82.0" prefHeight="720.0" prefWidth="1516.0" tabClosingPolicy="UNAVAILABLE">
             <tabs>
@@ -31,7 +30,7 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                                <SplitPane dividerPositions="0.3832271762208068" layoutX="1026.0" layoutY="60.0" prefHeight="526.0" prefWidth="478.0">
+                                <SplitPane dividerPositions="0.3832271762208068" layoutX="1024.0" layoutY="96.0" prefHeight="526.0" prefWidth="478.0">
                                     <items>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="486.0" prefWidth="174.0">
                                             <children>
@@ -81,12 +80,12 @@
                                             <children>
                                                 <TextField fx:id="codemod" editable="false" layoutX="22.0" layoutY="26.0" prefHeight="30.0" prefWidth="250.0">
                                                     <font>
-                                                        <Font name="DejaVu Serif Bold" size="17.0" />
+                                                        <Font name="DejaVu Serif Italic" size="17.0" />
                                                     </font>
                                                 </TextField>
                                                 <TextField fx:id="libm" editable="false" layoutX="22.0" layoutY="84.0" prefHeight="30.0" prefWidth="250.0">
                                                     <font>
-                                                        <Font name="DejaVu Serif Bold" size="17.0" />
+                                                        <Font name="DejaVu Serif Italic" size="17.0" />
                                                     </font>
                                                 </TextField>
                                                 <DatePicker fx:id="dateseance" editable="false" layoutX="22.0" layoutY="325.0" prefHeight="30.0" prefWidth="250.0" />
@@ -94,24 +93,24 @@
                                                 <ChoiceBox fx:id="types" layoutX="23.0" layoutY="204.0" prefHeight="30.0" prefWidth="250.0" />
                                                 <TextField fx:id="codeens" editable="false" layoutX="23.0" layoutY="262.0" prefHeight="30.0" prefWidth="250.0">
                                                     <font>
-                                                        <Font name="DejaVu Serif Bold" size="17.0" />
+                                                        <Font name="DejaVu Serif Italic" size="17.0" />
                                                     </font>
                                                 </TextField>
                                                 <TextField fx:id="debuts" editable="false" layoutX="23.0" layoutY="376.0" prefHeight="30.0" prefWidth="250.0">
                                                     <font>
-                                                        <Font name="DejaVu Serif Bold" size="17.0" />
+                                                        <Font name="DejaVu Serif Italic" size="17.0" />
                                                     </font>
                                                 </TextField>
                                                 <TextField fx:id="fins" editable="false" layoutX="23.0" layoutY="430.0" prefHeight="30.0" prefWidth="250.0">
                                                     <font>
-                                                        <Font name="DejaVu Serif Bold" size="17.0" />
+                                                        <Font name="DejaVu Serif Italic" size="17.0" />
                                                     </font>
                                                 </TextField>
                                             </children>
                                         </AnchorPane>
                                     </items>
                                 </SplitPane>
-                                <GridPane fx:id="edt" alignment="TOP_CENTER" gridLinesVisible="true" layoutX="22.0" layoutY="54.0" prefHeight="530.0" prefWidth="992.0" AnchorPane.bottomAnchor="105.0" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="504.0" AnchorPane.topAnchor="54.0">
+                                <GridPane fx:id="edt" alignment="TOP_CENTER" gridLinesVisible="true" layoutX="22.0" layoutY="96.0" prefHeight="530.0" prefWidth="992.0" AnchorPane.bottomAnchor="63.0" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="504.0" AnchorPane.topAnchor="96.0">
                                     <columnConstraints>
                                         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="64.0" minWidth="10.0" prefWidth="80.0" />
                                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="500.0" minWidth="0.0" prefWidth="140.0" />
@@ -191,11 +190,36 @@
                                                 <Font name="DejaVu Serif Bold" size="14.0" />
                                             </font>
                                         </Label>
+                                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="188.0" text="Lundi" GridPane.columnIndex="1">
+                                            <font>
+                                                <Font name="System Bold Italic" size="14.0" />
+                                            </font>
+                                        </Label>
+                                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="188.0" text="Mardi" GridPane.columnIndex="2">
+                                            <font>
+                                                <Font name="System Bold Italic" size="14.0" />
+                                            </font>
+                                        </Label>
+                                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="188.0" text="Mercredi" GridPane.columnIndex="3">
+                                            <font>
+                                                <Font name="System Bold Italic" size="14.0" />
+                                            </font>
+                                        </Label>
+                                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="188.0" text="Jeudi" GridPane.columnIndex="4">
+                                            <font>
+                                                <Font name="System Bold Italic" size="14.0" />
+                                            </font>
+                                        </Label>
+                                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="188.0" text="Vendredi" GridPane.columnIndex="5">
+                                            <font>
+                                                <Font name="System Bold Italic" size="14.0" />
+                                            </font>
+                                        </Label>
                                     </children>
                                 </GridPane>
-                                <Button layoutX="950.0" layoutY="592.0" mnemonicParsing="false" onMouseClicked="#nextWeek" prefHeight="24.0" prefWidth="62.0" text="next" />
-                                <Button layoutX="22.0" layoutY="592.0" mnemonicParsing="false" onMouseClicked="#prevWeek" text="prev" />
-                                <Button layoutX="899.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#displayEDT" prefHeight="34.0" prefWidth="115.0" text="Actualiser" />
+                                <Button fx:id="next" layoutX="85.0" layoutY="53.0" mnemonicParsing="false" onMouseClicked="#nextWeek" prefHeight="24.0" prefWidth="58.0" />
+                                <Button fx:id="prev" layoutX="22.0" layoutY="53.0" mnemonicParsing="false" onMouseClicked="#prevWeek" prefHeight="24.0" prefWidth="58.0" />
+                                <Button fx:id="actedt" layoutX="953.0" layoutY="32.0" mnemonicParsing="false" onMouseClicked="#displayEDT" prefHeight="42.0" prefWidth="59.0" />
                             </children></AnchorPane>
                     </content>
                 </Tab>
@@ -218,7 +242,7 @@
                             </children></AnchorPane>
                     </content>
                 </Tab>
-                <Tab onSelectionChanged="#displayMatieres" text="MATIERES">
+                <Tab onSelectionChanged="#displayModule" text="MATIERES">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
@@ -232,7 +256,7 @@
                                         <TableColumn fx:id="volumeh" prefWidth="170.0" text="Volume horaire" />
                                     </columns>
                                 </TableView>
-                                <Button layoutX="1119.0" layoutY="54.0" mnemonicParsing="false" onMouseClicked="#displayMatieres" prefHeight="34.0" prefWidth="115.0" text="Actualiser" />
+                                <Button layoutX="1119.0" layoutY="54.0" mnemonicParsing="false" onMouseClicked="#displayModule" prefHeight="34.0" prefWidth="115.0" text="Actualiser" />
                                 <ChoiceBox fx:id="choicem" layoutX="282.0" layoutY="54.0" prefHeight="34.0" prefWidth="196.0" />
                                 <TextField fx:id="searchm" layoutX="500.0" layoutY="54.0" prefHeight="34.0" prefWidth="457.0" />
                                 <Button layoutX="989.0" layoutY="54.0" mnemonicParsing="false" onMouseClicked="#searchModule" prefHeight="34.0" prefWidth="115.0" text="Rechercher" />
@@ -327,6 +351,42 @@
                                 <Button layoutX="543.0" layoutY="641.0" mnemonicParsing="false" onMouseClicked="#modifInfos" prefHeight="34.0" prefWidth="100.0" text="Modifier" />
                                 <Button fx:id="savebtn" disable="true" layoutX="678.0" layoutY="641.0" mnemonicParsing="false" onMouseClicked="#saveModif" prefHeight="34.0" prefWidth="108.0" text="Sauvegarder" />
                                 <Button fx:id="cancelbtn" disable="true" layoutX="819.0" layoutY="641.0" mnemonicParsing="false" onMouseClicked="#cancelModif" prefHeight="34.0" prefWidth="100.0" text="Annuler" />
+                            </children></AnchorPane>
+                    </content>
+                </Tab>
+                <Tab onSelectionChanged="#displayInfos" text="INDISPONIBILITE">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <SplitPane layoutX="330.0" layoutY="49.0" prefHeight="574.0" prefWidth="856.0">
+                                    <items>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="618.0" prefWidth="361.0">
+                                            <children>
+                                                
+                                                <Label fx:id="Jour" layoutX="45.0" layoutY="43.0" prefHeight="36.0" prefWidth="145.0" text="Jour">
+
+                                                <font>
+                                                        <Font name="DejaVu Serif Bold Italic" size="21.0" />
+                                                    </font>
+                                                </Label>
+                                                <Label layoutX="45.0" layoutY="99.0" prefHeight="34.0" prefWidth="217.0" text="Heure">
+                                                    <font>
+                                                        <Font name="DejaVu Serif Bold Italic" size="21.0" />
+                                                    </font>
+                                                </Label>
+                                    <DatePicker fx:id="day" layoutX="272.0" layoutY="48.0" />
+                                    <Label layoutX="45.0" layoutY="171.0" prefHeight="34.0" prefWidth="193.0" text="Remarque">
+                                       <font>
+                                          <Font name="DejaVu Serif Bold Italic" size="21.0" />
+                                       </font>
+                                    </Label>
+                                    <Button layoutX="430.0" layoutY="452.0" onMouseClicked="#saveIndispo" mnemonicParsing="false" text="Enregistrer" />
+                                    <Button layoutX="772.0" layoutY="14.0" mnemonicParsing="false" text="Consulter" />
+                                    <TextField fx:id="remarque" layoutX="271.0" layoutY="188.0" prefHeight="227.0" prefWidth="390.0" />
+                                            </children>
+                                        </AnchorPane>
+                                    </items>
+                                </SplitPane>
                             </children></AnchorPane>
                     </content>
                 </Tab>

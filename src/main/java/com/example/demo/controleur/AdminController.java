@@ -5,15 +5,16 @@ import com.example.demo.exception.ExceptionEmail;
 import com.example.demo.modele.DAO.*;
 import com.example.demo.modele.ressources.Salle;
 import com.example.demo.modele.user.Administrateur;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -32,6 +33,8 @@ public class AdminController extends Controller{
     private TextField tel;
     @FXML
     private DatePicker datenaiss;
+    @FXML
+    private TextField mdps;
     @FXML
     private Button savebtn;
     @FXML
@@ -55,18 +58,47 @@ public class AdminController extends Controller{
     @FXML
     private Button modifseance;
     @FXML
+    private Button suppbtn;
+    @FXML
     private Button saveseance;
     @FXML
-    private Button cancelseance;
+    private Button addseance;
     private Help h = new Help();
 
 
     @Override
-    public void actuSeance(MouseEvent mouseEvent) {
-        super.actuSeance(mouseEvent);
+    public void initialise(){
+        super.initialise();
+        //addseance.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/imgs/delete.png"))));
+        saveseance.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/imgs/save.png"))));
+        modifseance.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/imgs/edit.png"))));
+        suppbtn.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/imgs/delete.png"))));
+    }
+
+    @Override
+    public void clickEDT(MouseEvent mouseEvent) {
+        super.clickEDT(mouseEvent);
+        modifseance.setDisable(false);
+    }
+
+
+    @Override
+    public void refreshEDT(MouseEvent mouseEvent) {
+        super.refreshEDT(mouseEvent);
         modifseance.setDisable(true);
         saveseance.setDisable(true);
-        cancelseance.setDisable(true);
+        suppbtn.setDisable(true);
+    }
+
+
+    public void salleAvailable(DatePicker date, ChoiceBox choice) throws SQLException {
+        SalleDAO s = SalleDAO.create();
+        if(date.getValue() != null){
+            List<Salle> salles = s.findbyDate(date.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+            for(Salle sa : salles){
+                choice.getItems().add(sa.getCodeSalle());
+            }
+        }
     }
 
 
@@ -81,28 +113,43 @@ public class AdminController extends Controller{
         fins.setEditable(true);
 
         saveseance.setDisable(false);
-        cancelseance.setDisable(false);
+        suppbtn.setDisable(false);
 
         codesalle.getItems().remove(1,codesalle.getItems().size());
         salleAvailable(dateseance, codesalle);
     }
 
-    public void salleAvailable(DatePicker date, ChoiceBox choice) throws SQLException {
-        SalleDAO s = SalleDAO.create();
-        if(date.getValue() != null){
-            List<Salle> salles = s.findbyDate(date.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-            for(Salle sa : salles){
-                choice.getItems().add(sa.getCodeSalle());
-            }
+
+    public void saveModifsSeance(MouseEvent mouseEvent) {
+        String val1 = codemod.getText();
+        String val2 = String.valueOf(codesalle.getValue());
+        String val3 = codeens.getText();
+        String val4 = String.valueOf(types.getValue());
+        String val5 = dateseance.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));;
+        int val6 = Integer.parseInt(debuts.getText());
+        int val7 = Integer.parseInt(fins.getText());
+        try(SeanceDAO seanceDAO = SeanceDAO.create()) {
+            seanceDAO.update(val1,val2,val3,val4,Date.valueOf(val5),val6,val7);
+            h.infoBox("Modification(s) sauvegardée(s)!", "Succes");
+        } catch (SQLException e) {
+            //throw new RuntimeException(e);
+            h.infoBox("Modification(s) non sauvegardée(s)!", "Echec");
         }
     }
 
-
-    @Override
-    public void clickEDT(MouseEvent mouseEvent) {
-        super.clickEDT(mouseEvent);
-        modifseance.setDisable(false);
+    public void deleteSeance(MouseEvent mouseEvent) {
+        String val1 = codemod.getText();
+        String val2 = String.valueOf(dateseance.getValue());
+        int val3 = Integer.parseInt(debuts.getText());
+        try(SeanceDAO seanceDAO = SeanceDAO.create()) {
+            seanceDAO.delete(val1,val2,val3);
+            h.infoBox("La séance a bien été supprimée!", "Succes");
+        } catch (SQLException e) {
+            //throw new RuntimeException(e);
+            h.infoBox("Séance non supprimée!", "Echec");
+        }
     }
+
 
     public void addSeance(MouseEvent mouseEvent) {
         try {
@@ -131,12 +178,14 @@ public class AdminController extends Controller{
             email.setText(admin.getEmail());
             tel.setText(String.valueOf(admin.getTel()));
             adresse.setText(admin.getAdresse());
+            mdps.setText("aaaaaaaaaaa");
 
             nom.setDisable(true);
             prenom.setDisable(true);
             datenaiss.setDisable(true);
             email.setDisable(true);
             tel.setDisable(true);
+            mdps.setDisable(true);
             adresse.setDisable(true);
             savebtn.setDisable(true);
             cancelbtn.setDisable(true);
@@ -151,6 +200,7 @@ public class AdminController extends Controller{
         datenaiss.setDisable(false);
         email.setDisable(false);
         tel.setDisable(false);
+        mdps.setDisable(false);
         adresse.setDisable(false);
         savebtn.setDisable(false);
         cancelbtn.setDisable(false);
@@ -167,8 +217,9 @@ public class AdminController extends Controller{
         String val4 = adresse.getText();
         String val5 = tel.getText();
         String val6 = email.getText();
+        String val7 = h.hacherMdp(mdps.getText());
         try(AdministrateurDAO adminDAO = AdministrateurDAO.create()) {
-            adminDAO.update(new AuthController().mail_pers,val1,val2, java.sql.Date.valueOf(val3),val4,val5,val6);
+            adminDAO.update(new AuthController().mail_pers,val1,val2, java.sql.Date.valueOf(val3),val4,val5,val6,val7);
             h.infoBox("Modification(s) sauvegardée(s)!", "Succes");
         } catch (SQLException e) {
             //throw new RuntimeException(e);
