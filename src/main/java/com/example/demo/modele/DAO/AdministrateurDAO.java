@@ -9,8 +9,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Logger;
 
-public class AdministrateurDAO extends JdbcDAO implements AutoCloseable, VerificationMailMdp {
-    private static Logger log = Logger.getLogger(EtudiantDAO.class.getName());
+public class AdministrateurDAO extends JdbcDAO implements AutoCloseable, ComportementUser {
+    //private static Logger log = Logger.getLogger(EtudiantDAO.class.getName());
 
     public static AdministrateurDAO  create() throws SQLException {
         return new AdministrateurDAO();
@@ -43,7 +43,7 @@ public class AdministrateurDAO extends JdbcDAO implements AutoCloseable, Verific
     }
 
 
-    public void update(String id, Administrateur admin) throws SQLException {
+    public void update(String id, Administrateur admin) throws SQLException{
         update(id, admin.getNom(), admin.getPrenom(), (Date) admin.getDatenaissance(), admin.getAdresse(), admin.getTel(), admin.getEmail(), admin.getMdp());
     }
 
@@ -57,6 +57,6 @@ public class AdministrateurDAO extends JdbcDAO implements AutoCloseable, Verific
     @Override
     public void close() throws SQLException {
         connection.close();
-        log.info("DB connection closed");
+        //log.info("DB connection closed");
     }
 }

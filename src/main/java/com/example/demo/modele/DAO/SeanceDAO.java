@@ -13,9 +13,8 @@ import java.util.logging.Logger;
 
 public class SeanceDAO extends JdbcDAO implements AutoCloseable{
 
-    private static Logger log = Logger.getLogger(SeanceDAO.class.getName());
+    //private static Logger log = Logger.getLogger(SeanceDAO.class.getName());
     private PreparedStatement weekseance;
-    public PreparedStatement persist;
     public PreparedStatement delete;
 
 

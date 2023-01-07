@@ -1,11 +1,6 @@
 package com.example.demo.modele.ressources;
 
-
-
-
-import javafx.scene.control.DatePicker;
-
-        import java.util.*;
+import java.util.Date;
 
 public class Indisponibilite {
     private String id;
@@ -14,15 +9,14 @@ public class Indisponibilite {
     private String mail;
 
 
-    private Indisponibilite(Date jour,String remarque, String mail) {
+    private Indisponibilite(Date jour,String heure,String remarque, String mail) {
         this.mail = mail;
-
         this.remarque = remarque;
         this.jour = jour;
         this.id = this.mail+this.jour;
     }
-    public static Indisponibilite of(Date jour,String remarque, String mail){
-        return new Indisponibilite(jour, remarque, mail);
+    public static Indisponibilite of(Date jour,String heure,String remarque, String mail){
+        return new Indisponibilite(jour, heure, remarque, mail);
     }
 
     public String getId() {

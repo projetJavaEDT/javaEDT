@@ -6,7 +6,7 @@
 
 <AnchorPane prefHeight="616.0" prefWidth="920.0" style="-fx-background-color: #EDEDED;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.controleur.SeanceController">
     <children>
-      <SplitPane dividerPositions="0.3832271762208068" layoutX="190.0" layoutY="40.0" prefHeight="488.0" prefWidth="540.0">
+      <SplitPane dividerPositions="0.3832271762208068" layoutX="190.0" layoutY="78.0" prefHeight="488.0" prefWidth="540.0">
          <items>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="486.0" prefWidth="174.0">
                <children>
@@ -49,9 +49,9 @@
             </AnchorPane>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="572.0" prefWidth="686.0">
                <children>
-                  <DatePicker fx:id="dateseance" layoutX="40.0" layoutY="31.0" onAction="#sallesAvailable" prefHeight="30.0" prefWidth="250.0" />
+                  <DatePicker fx:id="dateseance" layoutX="40.0" layoutY="31.0" onAction="#checkAvailability" prefHeight="30.0" prefWidth="250.0" />
                   <ChoiceBox fx:id="salle" layoutX="40.0" layoutY="168.0" prefHeight="30.0" prefWidth="250.0" />
-                  <ChoiceBox fx:id="types" layoutX="40.0" layoutY="240.0" prefHeight="30.0" prefWidth="250.0" />
+                  <ChoiceBox fx:id="type_c" layoutX="40.0" layoutY="240.0" prefHeight="30.0" prefWidth="250.0" />
                   <ChoiceBox fx:id="module" layoutX="40.0" layoutY="96.0" prefHeight="30.0" prefWidth="250.0" />
                   <ChoiceBox fx:id="ens" layoutX="40.0" layoutY="313.0" prefHeight="30.0" prefWidth="250.0" />
                   <TextField fx:id="debuts" layoutX="40.0" layoutY="372.0" prefHeight="30.0" prefWidth="250.0" />
@@ -60,8 +60,8 @@
             </AnchorPane>
          </items>
       </SplitPane>
-      <Button layoutX="340.0" layoutY="542.0" mnemonicParsing="false" onMouseClicked="#saveSeance" prefHeight="34.0" prefWidth="108.0" text="Sauvegarder" />
-      <Button layoutX="480.0" layoutY="542.0" mnemonicParsing="false" onMouseClicked="#cancelSeance" prefHeight="34.0" prefWidth="100.0" text="Annuler" />
+      <Button fx:id="savescbtn" layoutX="622.0" layoutY="30.0" mnemonicParsing="false" onMouseClicked="#saveSeance" prefHeight="42.0" prefWidth="49.0" />
+      <Button fx:id="cancelbtn" layoutX="681.0" layoutY="30.0" mnemonicParsing="false" onMouseClicked="#cancelSeance" prefHeight="42.0" prefWidth="49.0" />
 
     </children>
 </AnchorPane>

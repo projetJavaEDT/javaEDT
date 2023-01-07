@@ -1,42 +1,15 @@
 package com.example.demo.controleur;
 
-import com.example.demo.Appli;
 import com.example.demo.exception.ExceptionEmail;
 import com.example.demo.modele.DAO.EtudiantDAO;
-import com.example.demo.modele.DAO.ModuleDAO;
-import com.example.demo.modele.DAO.SalleDAO;
-import com.example.demo.modele.DAO.SeanceDAO;
-import com.example.demo.modele.ressources.Module;
-import com.example.demo.modele.ressources.Salle;
-import com.example.demo.modele.ressources.Seance;
 import com.example.demo.modele.user.Etudiant;
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
-import javafx.util.Duration;
 
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.List;
 
 public class EtudController extends Controller{
     @FXML
@@ -56,11 +29,8 @@ public class EtudController extends Controller{
     @FXML
     private TextField promo;
     @FXML
-    private Button savebtn;
-    @FXML
-    private Button cancelbtn;
-
-    private Help h = new Help();
+    private Button infossavebtn;
+    private Utilities h = new Utilities();
 
 
     public void displayInfos(){
@@ -85,8 +55,7 @@ public class EtudController extends Controller{
             adresse.setDisable(true);
             mdps.setDisable(true);
             promo.setDisable(true);
-            savebtn.setDisable(true);
-            cancelbtn.setDisable(true);
+            infossavebtn.setDisable(true);
         } catch (SQLException | ExceptionEmail e) {
             throw new RuntimeException(e);
         }
@@ -101,13 +70,9 @@ public class EtudController extends Controller{
         adresse.setDisable(false);
         mdps.setDisable(false);
         promo.setDisable(false);
-        savebtn.setDisable(false);
-        cancelbtn.setDisable(false);
+        infossavebtn.setDisable(false);
     }
 
-    public void cancelModif(MouseEvent mouseEvent) {
-        displayInfos();
-    }
 
     public void saveModif(MouseEvent mouseEvent) {
         String val1 = nom.getText();

@@ -9,8 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-public class EnseignantDAO extends JdbcDAO implements AutoCloseable, VerificationMailMdp {
-    private static Logger log = Logger.getLogger(EnseignantDAO.class.getName());
+public class EnseignantDAO extends JdbcDAO implements AutoCloseable, ComportementUser {
+    //private static Logger log = Logger.getLogger(EnseignantDAO.class.getName());
+    PreparedStatement findAllDispo;
 
     public static EnseignantDAO  create() throws SQLException {
         return new EnseignantDAO();
@@ -21,6 +22,7 @@ public class EnseignantDAO extends JdbcDAO implements AutoCloseable, Verificatio
         findby = connection.prepareStatement("SELECT * FROM ENSEIGNANT WHERE EMAIL=? AND MDP = ?");
         findAll = connection.prepareStatement("SELECT * FROM ENSEIGNANT");
         findbyID = connection.prepareStatement("SELECT * FROM ENSEIGNANT WHERE EMAIL=?");
+        findAllDispo = connection.prepareStatement("SELECT * FROM ENSEIGNANT WHERE EMAIL NOT IN(SELECT EMAIL FROM INDISPONIBILITE WHERE JOUR=?)");
     }
 
 
@@ -36,6 +38,17 @@ public class EnseignantDAO extends JdbcDAO implements AutoCloseable, Verificatio
     public List<Enseignant> findAll() throws SQLException, ExceptionEmail  {
         List<Enseignant> enseignants = new ArrayList<>();
         ResultSet rs = findAll.executeQuery();
+        // Extract data from result set
+        while (rs.next()) {
+            enseignants.add(Enseignant.of(rs.getString("NOM"), rs.getString("PRENOM"), rs.getDate("DATENAISSANCE"), rs.getString("ADRESSE"), rs.getString("TEL"), rs.getString("EMAIL"), rs.getString("MDP"), rs.getString("GRADE")));
+        }
+        return enseignants;
+    }
+
+    public List<Enseignant> findAllDispo(String date) throws SQLException, ExceptionEmail  {
+        List<Enseignant> enseignants = new ArrayList<>();
+        findAllDispo.setString(1, date);
+        ResultSet rs = findAllDispo.executeQuery();
         // Extract data from result set
         while (rs.next()) {
             enseignants.add(Enseignant.of(rs.getString("NOM"), rs.getString("PRENOM"), rs.getDate("DATENAISSANCE"), rs.getString("ADRESSE"), rs.getString("TEL"), rs.getString("EMAIL"), rs.getString("MDP"), rs.getString("GRADE")));

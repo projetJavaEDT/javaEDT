@@ -1,41 +1,18 @@
 package com.example.demo.controleur;
 
-import com.example.demo.Appli;
 import com.example.demo.exception.ExceptionEmail;
 import com.example.demo.modele.DAO.*;
-import com.example.demo.modele.ressources.Module;
-import com.example.demo.modele.ressources.Salle;
-import com.example.demo.modele.ressources.Seance;
 import com.example.demo.modele.user.Enseignant;
-import com.example.demo.modele.user.Etudiant;
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
-import javafx.util.Duration;
 
 import java.sql.Date;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.List;
 
 public class EnsController extends Controller{
     @FXML
@@ -55,17 +32,26 @@ public class EnsController extends Controller{
     @FXML
     private TextField grade;
     @FXML
-    private DatePicker day;
+    private Button infossavebtn;
     @FXML
-    private TextField remarque;
+    private TextArea remarque;
     @FXML
-    private Button savebtn;
+    private DatePicker dateindispo;
     @FXML
-    private Button cancelbtn;
-    private Help h = new Help();
+    private Button saveindispo;
+    @FXML
+    private Button cancelindispo;
+    private Utilities h = new Utilities();
+
+    @Override
+    public void initialise(){
+        super.initialise();
+        cancelindispo.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/imgs/act1.png"))));
+        saveindispo.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/imgs/save.png"))));
+    }
 
 
-
+    //********************************************PARTIE INFOS PERSOS****************************************************
     public void displayInfos(){
         try(EnseignantDAO ensDAO = EnseignantDAO.create()) {
             Enseignant ens = ensDAO.findByID(AuthController.mail_pers);
@@ -88,8 +74,7 @@ public class EnsController extends Controller{
             adresse.setDisable(true);
             mdps.setDisable(true);
             grade.setDisable(true);
-            savebtn.setDisable(true);
-            cancelbtn.setDisable(true);
+            infossavebtn.setDisable(true);
         } catch (SQLException | ExceptionEmail e) {
             throw new RuntimeException(e);
         }
@@ -104,24 +89,9 @@ public class EnsController extends Controller{
         adresse.setDisable(false);
         mdps.setDisable(false);
         grade.setDisable(false);
-        savebtn.setDisable(false);
-        cancelbtn.setDisable(false);
+        infossavebtn.setDisable(false);
     }
 
-    public void saveIndispo(MouseEvent mouseEvent) {
-        String val1 = day.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        String val2 = remarque.getText();
-        String val3 = AuthController.mail_pers;
-        try(IndisponibiliteDAO indspo = IndisponibiliteDAO.create()) {
-            indspo.insert(Date.valueOf(val1),val2,val3);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void cancelModif(MouseEvent mouseEvent) {
-        displayInfos();
-    }
 
     public void saveModif(MouseEvent mouseEvent) {
         String val1 = nom.getText();
@@ -141,4 +111,22 @@ public class EnsController extends Controller{
         }
     }
 
+    //********************************************PARTIE INDISPO****************************************************
+    public void saveIdispo(MouseEvent mouseEvent) {
+        String val1 = dateindispo.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        String val2 = remarque.getText();
+        String val3 = AuthController.mail_pers;
+        try(IndisponibiliteDAO indispoDAO = IndisponibiliteDAO.create()) {
+            indispoDAO.persist(Date.valueOf(val1),val2,val3);
+            h.infoBox("Modification(s) sauvegardée(s)!", "Succes");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+            //h.infoBox("Modification(s) non sauvegardée(s)!", "Echec");
+        }
+    }
+
+    public void cancelIndispo(MouseEvent mouseEvent) {
+        dateindispo.setValue(null);
+        remarque.setText("");
+    }
 }

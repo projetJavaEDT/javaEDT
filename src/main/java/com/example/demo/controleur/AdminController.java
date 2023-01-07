@@ -5,8 +5,11 @@ import com.example.demo.exception.ExceptionEmail;
 import com.example.demo.modele.DAO.*;
 import com.example.demo.modele.ressources.Salle;
 import com.example.demo.modele.user.Administrateur;
+import com.example.demo.modele.user.Utilisateur;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -14,10 +17,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+import java.sql.Array;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class AdminController extends Controller{
@@ -36,9 +42,7 @@ public class AdminController extends Controller{
     @FXML
     private TextField mdps;
     @FXML
-    private Button savebtn;
-    @FXML
-    private Button cancelbtn;
+    private Button infossavebtn;
     @FXML
     private TextField codemod;
     @FXML
@@ -63,13 +67,13 @@ public class AdminController extends Controller{
     private Button saveseance;
     @FXML
     private Button addseance;
-    private Help h = new Help();
+    private Utilities h = new Utilities();
 
 
     @Override
     public void initialise(){
         super.initialise();
-        //addseance.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/imgs/delete.png"))));
+        addseance.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/imgs/insert.png"))));
         saveseance.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/imgs/save.png"))));
         modifseance.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/imgs/edit.png"))));
         suppbtn.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/imgs/delete.png"))));
@@ -155,6 +159,8 @@ public class AdminController extends Controller{
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Appli.class.getResource("addSeance-view.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 900,700);
+            SeanceController control = fxmlLoader.getController();
+            control.initCompenents();
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.setTitle("Insertion séance");
@@ -187,8 +193,7 @@ public class AdminController extends Controller{
             tel.setDisable(true);
             mdps.setDisable(true);
             adresse.setDisable(true);
-            savebtn.setDisable(true);
-            cancelbtn.setDisable(true);
+            infossavebtn.setDisable(true);
         } catch (SQLException | ExceptionEmail e) {
             throw new RuntimeException(e);
         }
@@ -202,12 +207,7 @@ public class AdminController extends Controller{
         tel.setDisable(false);
         mdps.setDisable(false);
         adresse.setDisable(false);
-        savebtn.setDisable(false);
-        cancelbtn.setDisable(false);
-    }
-
-    public void cancelModifInfos(MouseEvent mouseEvent) {
-        displayInfos();
+        infossavebtn.setDisable(false);
     }
 
     public void saveModifInfos(MouseEvent mouseEvent) {
@@ -219,7 +219,7 @@ public class AdminController extends Controller{
         String val6 = email.getText();
         String val7 = h.hacherMdp(mdps.getText());
         try(AdministrateurDAO adminDAO = AdministrateurDAO.create()) {
-            adminDAO.update(new AuthController().mail_pers,val1,val2, java.sql.Date.valueOf(val3),val4,val5,val6,val7);
+            adminDAO.update(AuthController.mail_pers,val1,val2, java.sql.Date.valueOf(val3),val4,val5,val6,val7);
             h.infoBox("Modification(s) sauvegardée(s)!", "Succes");
         } catch (SQLException e) {
             //throw new RuntimeException(e);

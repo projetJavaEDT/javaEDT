@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 public class SalleDAO extends JdbcDAO implements AutoCloseable{
-    private static Logger log = Logger.getLogger(SeanceDAO.class.getName());
+    //private static Logger log = Logger.getLogger(SeanceDAO.class.getName());
     private PreparedStatement findbyDATE;
 
     private SalleDAO() throws SQLException {

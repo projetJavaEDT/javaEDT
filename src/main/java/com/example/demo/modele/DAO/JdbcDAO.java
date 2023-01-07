@@ -5,7 +5,7 @@ import java.util.logging.Logger;
 
 
 public abstract class JdbcDAO {
-    private static Logger log = Logger.getLogger(JdbcDAO.class.getName());
+    //private static Logger log = Logger.getLogger(JdbcDAO.class.getName());
     public static String DB_URL = "jdbc:h2:tcp://localhost/~/EDTbdd";
     public static String USER = "sa";
     public static String PASS = "";
@@ -14,9 +14,11 @@ public abstract class JdbcDAO {
     public PreparedStatement findAll;
     public PreparedStatement findbyID;
     public PreparedStatement update;
+    public PreparedStatement persist;
 
 
     public JdbcDAO() throws SQLException {
+        //log.info("DB connection opened");
         connection = DriverManager.getConnection(DB_URL, USER, PASS);
     }
 

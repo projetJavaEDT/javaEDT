@@ -4,12 +4,10 @@ import com.example.demo.exception.*;
 import com.example.demo.modele.user.Etudiant;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Logger;
 
-public class EtudiantDAO extends JdbcDAO implements AutoCloseable, VerificationMailMdp {
-    private static Logger log = Logger.getLogger(EtudiantDAO.class.getName());
+public class EtudiantDAO extends JdbcDAO implements AutoCloseable, ComportementUser {
+    //private static Logger log = Logger.getLogger(EtudiantDAO.class.getName());
 
     public static EtudiantDAO create() throws SQLException {
         return new EtudiantDAO();

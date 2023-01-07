@@ -2,16 +2,15 @@ package com.example.demo.modele.DAO;
 
 import com.example.demo.modele.ressources.Indisponibilite;
 
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
-
 public class IndisponibiliteDAO extends JdbcDAO implements AutoCloseable {
-    private static Logger log = Logger.getLogger(IndisponibiliteDAO.class.getName());
+    //private static Logger log = Logger.getLogger(EtudiantDAO.class.getName());
 
     public static IndisponibiliteDAO create() throws SQLException {
         return new IndisponibiliteDAO();
@@ -21,6 +20,7 @@ public class IndisponibiliteDAO extends JdbcDAO implements AutoCloseable {
     private IndisponibiliteDAO() throws SQLException {
         findAll = connection.prepareStatement("SELECT * FROM INDISPONIBILITE");
         findbyID = connection.prepareStatement("SELECT * FROM INDISPONIBILITE WHERE EMAIL=? AND JOUR=?");
+        persist = connection.prepareStatement("INSERT INTO INDISPONIBILITE(JOUR, REMARQUE, EMAIL) VALUES(?, ?, ?)");
     }
 
 
@@ -29,7 +29,7 @@ public class IndisponibiliteDAO extends JdbcDAO implements AutoCloseable {
         ResultSet rs = findAll.executeQuery();
         // Extract data from result set
         while (rs.next()) {
-            indispos.add(Indisponibilite.of(rs.getDate("JOUR"), rs.getString("REMARQUE"), rs.getString("MAIL")));
+            indispos.add(Indisponibilite.of(rs.getDate("JOUR"), rs.getString("HEURE"), rs.getString("REMARQUE"), rs.getString("MAIL")));
         }
         return indispos;
     }
@@ -40,18 +40,17 @@ public class IndisponibiliteDAO extends JdbcDAO implements AutoCloseable {
         findbyID.setString(2, String.valueOf(jour));
         ResultSet rs = findbyID.executeQuery();
         while (rs.next()) {
-            indispo = Indisponibilite.of(rs.getDate("JOUR"), rs.getString("REMARQUE"), rs.getString("MAIL"));
+            indispo = Indisponibilite.of(rs.getDate("JOUR"), rs.getString("HEURE"), rs.getString("REMARQUE"), rs.getString("MAIL"));
         }
         return indispo;
     }
 
-    public void insert(Indisponibilite indispo) throws SQLException {
-        //String id = indispo.getId();
-        insert((Date) indispo.getJour(), indispo.getRemarque(), indispo.getMail());
+
+    public void persist(Indisponibilite indispo) throws SQLException {
+        persist(indispo.getJour(), indispo.getRemarque(), indispo.getMail());
     }
 
-    public void insert(Date jour, String remarque, String mail) throws SQLException {
-        persist = connection.prepareStatement("INSERT INTO INDISPONIBILITE(JOUR, REMARQUE, EMAIL) VALUES( ?, ?, ?)");
+    public void persist(Date jour,String remarque, String mail) throws SQLException {
         persist.setString(1, String.valueOf(jour));
         persist.setString(2, remarque);
         persist.setString(3, mail);

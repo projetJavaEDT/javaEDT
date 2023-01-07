@@ -35,6 +35,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
@@ -94,13 +95,25 @@ public  abstract  class Controller {
     @FXML
     private TextField fins;
     @FXML
+    private GridPane edt;
+    @FXML
     private Button next;
     @FXML
     private Button prev;
     @FXML
     private Button actedt;
     @FXML
-    private GridPane edt;
+    private Button salsearchtbn;
+    @FXML
+    private Button salactbtn;
+    @FXML
+    private Button matactbtn;
+    @FXML
+    private Button matsearchbtn;
+    @FXML
+    private Button infosmodifbtn;
+    @FXML
+    private Button infossavebtn;
     private ObservableList data;
     private FlowPane f;
     private Label courslabel;
@@ -108,9 +121,8 @@ public  abstract  class Controller {
     private Label typesec;
     private Label salle;
     private Label heured;
-    private Label heuref;
     private LocalDate today;
-    private Help h = new Help();
+    private Utilities h = new Utilities();
 
 
     public void initialise(){
@@ -125,6 +137,10 @@ public  abstract  class Controller {
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
 
+        initComponents();
+    }
+
+    private void initComponents(){
         //ajout des items du choicebox
         choicem.getItems().add("Code");
         choicem.getItems().add("Libellé");
@@ -139,13 +155,19 @@ public  abstract  class Controller {
         next.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/imgs/next.png"))));
         prev.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/imgs/prev.png"))));
         actedt.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/imgs/act1.png"))));
+        salsearchtbn.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/imgs/searchh.png"))));;
+        salactbtn.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/imgs/act1.png"))));;
+        matactbtn.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/imgs/act1.png"))));;
+        matsearchbtn.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/imgs/searchh.png"))));;
+        infosmodifbtn.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/imgs/edit.png"))));;
+        infossavebtn.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/imgs/save.png"))));;
     }
 
     public void fenetreAuth(ActionEvent event){
         try {
             ((Node)(event.getSource())).getScene().getWindow().hide();
             FXMLLoader fxmlLoader = new FXMLLoader(Appli.class.getResource("auth-view.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 900,500);
+            Scene scene = new Scene(fxmlLoader.load());
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.setTitle("EDT-authentification");
@@ -205,7 +227,7 @@ public  abstract  class Controller {
 
 
     private void edtPerWeek(String dated, String datef){ //affichage de l'emploi du temps par semaine par defaut on se met sur la semaine courante
-        h = new Help();
+        h = new Utilities();
         try(SeanceDAO seanceDAO = SeanceDAO.create()) {
             List<Seance> ss = seanceDAO.findbyDate(dated, datef);
             for(Seance s : ss) {
@@ -249,10 +271,14 @@ public  abstract  class Controller {
         String cours = null;
         String date = null;
         int hdebut = 0;
+        int row = 0;
+        int col = 0;
         //Node clickednode = mouseEvent.getPickResult().getIntersectedNode();
         Node clickednode = (Node) mouseEvent.getTarget();
-        int row = GridPane.getRowIndex(clickednode);
-        int col = GridPane.getColumnIndex(clickednode);
+        if(clickednode instanceof FlowPane){
+            row = GridPane.getRowIndex(clickednode);
+            col = GridPane.getColumnIndex(clickednode);
+        }
         for(Node node : edt.getChildren()){
             if(node instanceof FlowPane){
                 if(edt.getRowIndex(node)==row && edt.getColumnIndex(node)==col){
@@ -262,7 +288,9 @@ public  abstract  class Controller {
                 }
             }
         }
-        dispalyRecapSeance(cours,date,hdebut);
+        if (cours!=null){
+            dispalyRecapSeance(cours,date,hdebut);
+        }
     }
 
 
@@ -322,14 +350,16 @@ public  abstract  class Controller {
 
     public void searchModule(MouseEvent mouseEvent) { //recherche d'un module soit par code ou par libellé
         try(ModuleDAO moduleDAO = ModuleDAO.create()) {
-            Module module = null;
+            List<Module> modules = null;
             data = FXCollections.observableArrayList();
             if (choicem.getValue() == "Code"){
-                module = moduleDAO.recapByCode(searchm.getText());
+                modules = moduleDAO.recapByCode(searchm.getText());
             } else{
-                module = moduleDAO.recapByLib(searchm.getText());
+                modules = moduleDAO.recapByLib(searchm.getText());
             }
-            data.add(module);
+            for(Module m : modules){
+                data.add(m);
+            }
             codem.setCellValueFactory(new PropertyValueFactory<Salle, String>("codeMod"));
             libmod.setCellValueFactory(new PropertyValueFactory<Salle, Integer>("libelleMod"));
             ens.setCellValueFactory(new PropertyValueFactory<Salle, Integer>("enseignant"));
@@ -400,7 +430,7 @@ public  abstract  class Controller {
 
 
     
-    public void deleteOldWeeks(){ //supprimer les flowpane contenu dans le gridpane (edt)
+    public void deleteOldWeeks(){ //supprimer les flowpane contenu dans le gridpane (edt) pour afficher une autre semaine
         ObservableList<Node> c = edt.getChildren();
         int i = c.size();
         while(i-->0){ 

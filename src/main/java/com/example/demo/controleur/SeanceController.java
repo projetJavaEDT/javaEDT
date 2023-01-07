@@ -9,6 +9,8 @@ import com.example.demo.modele.user.Enseignant;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import java.sql.SQLException;
@@ -21,7 +23,7 @@ public class SeanceController {
     @FXML
     private ChoiceBox salle;
     @FXML
-    private ChoiceBox types;
+    private ChoiceBox type_c;
     @FXML
     private ChoiceBox ens;
     @FXML
@@ -30,12 +32,24 @@ public class SeanceController {
     private TextField debuts;
     @FXML
     private TextField fins;
+    @FXML
+    private Button cancelbtn;
+    @FXML
+    private Button savescbtn;
+
+    public void initCompenents() {
+        type_c.getItems().add("CM");
+        type_c.getItems().add("TD");
+        type_c.getItems().add("TP");
+        cancelbtn.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/imgs/act1.png"))));
+        savescbtn.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/imgs/save.png"))));
+    }
 
     public void cancelSeance(MouseEvent mouseEvent) {
         module.setValue(null);
         salle.setValue(null);
         ens.setValue(null);
-        types.setValue(null);
+        type_c.setValue(null);
         dateseance.setValue(null);
         debuts.setText("");
         fins.setText("");
@@ -45,7 +59,7 @@ public class SeanceController {
         String val1 = module.getValue().toString();
         String val2 = salle.getValue().toString();
         String val3 = ens.getValue().toString();
-        String val4 = types.getValue().toString();
+        String val4 = type_c.getValue().toString();
         String val5 = dateseance.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         int val6 = Integer.parseInt(debuts.getText());
         int val7 = Integer.parseInt(fins.getText());
@@ -58,13 +72,16 @@ public class SeanceController {
         }
     }
 
-    public void sallesAvailable(ActionEvent actionEvent) throws SQLException, ExceptionEmail {
-        ens.getItems().removeAll();
-        module.getItems().removeAll();
-        types.getItems().removeAll();
+    public void checkAvailability(ActionEvent actionEvent) throws SQLException, ExceptionEmail { //en choissisant une date pour un séance on vérifie la dispo des profs et des salles
+        salle.getItems().clear();
+        module.getItems().clear();
+        ens.getItems().clear();
+        debuts.setText("");
+        fins.setText("");
+        String date = dateseance.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         SalleDAO salleDAO = SalleDAO.create();
         if(dateseance.getValue() != null){
-            List<Salle> salles = salleDAO.findbyDate(dateseance.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+            List<Salle> salles = salleDAO.findbyDate(date);
             for(Salle s : salles){
                 salle.getItems().add(s.getCodeSalle());
             }
@@ -77,13 +94,10 @@ public class SeanceController {
         }
 
         EnseignantDAO ensDAO = EnseignantDAO.create();
-        List<Enseignant> enseignants = ensDAO.findAll();
+        List<Enseignant> enseignants = ensDAO.findAllDispo(date);
         for(Enseignant e : enseignants){
             ens.getItems().add(e.getEmail());
         }
-        types.getItems().add("CM");
-        types.getItems().add("TD");
-        types.getItems().add("TP");
     }
 
     public static void infoBox(String infoMessage, String title) {

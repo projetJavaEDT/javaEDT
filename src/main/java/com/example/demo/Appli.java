@@ -12,7 +12,7 @@ public class Appli extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Appli.class.getResource("auth-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 900,500);
+        Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("EDT-authentification");
         stage.setScene(scene);
         stage.setResizable(false);

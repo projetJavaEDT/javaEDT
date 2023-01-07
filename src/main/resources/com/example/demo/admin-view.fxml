@@ -81,12 +81,12 @@
                                  <children>
                                     <TextField fx:id="codemod" editable="false" layoutX="22.0" layoutY="26.0" prefHeight="30.0" prefWidth="250.0">
                                        <font>
-                                          <Font name="DejaVu Serif Italic" size="17.0" />
+                                          <Font name="DejaVu Serif" size="17.0" />
                                        </font>
                                     </TextField>
                                     <TextField fx:id="libm" editable="false" layoutX="22.0" layoutY="84.0" prefHeight="30.0" prefWidth="250.0">
                                        <font>
-                                          <Font name="DejaVu Serif Italic" size="17.0" />
+                                          <Font name="DejaVu Serif" size="17.0" />
                                        </font>
                                     </TextField>
                                     <DatePicker fx:id="dateseance" disable="true" layoutX="22.0" layoutY="325.0" prefHeight="30.0" prefWidth="250.0" />
@@ -94,17 +94,17 @@
                                     <ChoiceBox fx:id="types" disable="true" layoutX="23.0" layoutY="204.0" prefHeight="30.0" prefWidth="250.0" />
                                     <TextField fx:id="codeens" editable="false" layoutX="23.0" layoutY="262.0" prefHeight="30.0" prefWidth="250.0">
                                        <font>
-                                          <Font name="DejaVu Serif Italic" size="17.0" />
+                                          <Font name="DejaVu Serif" size="17.0" />
                                        </font>
                                     </TextField>
                                     <TextField fx:id="debuts" editable="false" layoutX="23.0" layoutY="376.0" prefHeight="30.0" prefWidth="250.0">
                                        <font>
-                                          <Font name="DejaVu Serif Italic" size="17.0" />
+                                          <Font name="DejaVu Serif" size="17.0" />
                                        </font>
                                     </TextField>
                                     <TextField fx:id="fins" editable="false" layoutX="23.0" layoutY="430.0" prefHeight="30.0" prefWidth="250.0">
                                        <font>
-                                          <Font name="DejaVu Serif Italic" size="17.0" />
+                                          <Font name="DejaVu Serif" size="17.0" />
                                        </font>
                                     </TextField>
                                  </children>
@@ -220,7 +220,7 @@
                                         </Label>
                                     </children>
                                 </GridPane>
-                        <Button fx:id="addseance" layoutX="878.0" layoutY="36.0" mnemonicParsing="false" onMouseClicked="#addSeance" prefHeight="42.0" prefWidth="59.0" text="ADD" />
+                        <Button fx:id="addseance" layoutX="878.0" layoutY="36.0" mnemonicParsing="false" onMouseClicked="#addSeance" prefHeight="42.0" prefWidth="59.0" />
                         <Button fx:id="next" layoutX="83.0" layoutY="48.0" mnemonicParsing="false" onMouseClicked="#nextWeek" prefHeight="24.0" prefWidth="62.0" />
                         <Button fx:id="prev" layoutX="22.0" layoutY="48.0" mnemonicParsing="false" onMouseClicked="#prevWeek" prefHeight="24.0" prefWidth="58.0" />
                         <Button fx:id="actedt" layoutX="953.0" layoutY="36.0" mnemonicParsing="false" onMouseClicked="#refreshEDT" prefHeight="42.0" prefWidth="59.0" />
@@ -232,18 +232,18 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                                <TableView fx:id="tablesal" layoutX="387.0" layoutY="101.0" prefHeight="484.0" prefWidth="744.0">
+                                <TableView fx:id="tablesal" layoutX="214.0" layoutY="99.0" prefHeight="484.0" prefWidth="1082.0">
                                     <columns>
-                                        <TableColumn fx:id="codes" prefWidth="250.0" text="Code" />
-                                        <TableColumn fx:id="depart" prefWidth="250.0" text="Département" />
-                                        <TableColumn fx:id="nbrpl" prefWidth="250.0" text="NbrPlace" />
+                                        <TableColumn fx:id="codes" prefWidth="360.0" text="Code" />
+                                        <TableColumn fx:id="depart" prefWidth="360.0" text="Département" />
+                                        <TableColumn fx:id="nbrpl" prefWidth="360.0" text="NbrPlace" />
                                     </columns>
                                 </TableView>
-                                <Button layoutX="881.0" layoutY="56.0" mnemonicParsing="false" onMouseClicked="#searchSalle" prefHeight="34.0" prefWidth="115.0" text="Rechercher" />
-                                <TextField fx:id="searchs" layoutX="532.0" layoutY="56.0" prefHeight="34.0" prefWidth="329.0" />
-                                <ChoiceBox fx:id="choices" layoutX="387.0" layoutY="56.0" onAction="#searchChoice" prefHeight="34.0" prefWidth="132.0" />
-                                <Button layoutX="1016.0" layoutY="56.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="115.0" text="Actualiser" />
-                                <DatePicker fx:id="dates" layoutX="532.0" layoutY="57.0" prefHeight="34.0" prefWidth="330.0" />
+                                <Button fx:id="salsearchtbn" layoutX="1186.0" layoutY="40.0" mnemonicParsing="false" onMouseClicked="#searchSalle" prefHeight="42.0" prefWidth="49.0" />
+                                <TextField fx:id="searchs" layoutX="403.0" layoutY="48.0" prefHeight="34.0" prefWidth="625.0" />
+                                <ChoiceBox fx:id="choices" layoutX="214.0" layoutY="48.0" onAction="#searchChoice" prefHeight="34.0" prefWidth="161.0" />
+                                <Button fx:id="salactbtn" layoutX="1247.0" layoutY="40.0" mnemonicParsing="false" onMouseClicked="#displaySalles" prefHeight="42.0" prefWidth="49.0" />
+                                <DatePicker fx:id="dates" layoutX="403.0" layoutY="49.0" prefHeight="34.0" prefWidth="626.0" />
                             </children></AnchorPane>
                     </content>
                 </Tab>
@@ -251,20 +251,20 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                                <TableView fx:id="tablemat" layoutX="283.0" layoutY="111.0" prefHeight="484.0" prefWidth="952.0">
+                                <TableView fx:id="tablemat" layoutX="209.0" layoutY="111.0" prefHeight="484.0" prefWidth="1104.0">
                                     <columns>
-                                        <TableColumn fx:id="codem" prefWidth="100.0" text="Code" />
-                                        <TableColumn fx:id="libmod" prefWidth="170.0" text="Libellé" />
-                                        <TableColumn fx:id="ens" prefWidth="170.0" text="Enseignant" />
-                                        <TableColumn fx:id="debut" prefWidth="170.0" text="Début" />
-                                        <TableColumn fx:id="fin" prefWidth="170.0" text="Fin" />
+                                        <TableColumn fx:id="codem" prefWidth="180.0" text="Code" />
+                                        <TableColumn fx:id="libmod" prefWidth="190.0" text="Libellé" />
+                                        <TableColumn fx:id="ens" prefWidth="190.0" text="Enseignant" />
+                                        <TableColumn fx:id="debut" prefWidth="190.0" text="Début" />
+                                        <TableColumn fx:id="fin" prefWidth="190.0" text="Fin" />
                                         <TableColumn fx:id="volumeh" prefWidth="170.0" text="Volume horaire" />
                                     </columns>
                                 </TableView>
-                                <Button layoutX="1120.0" layoutY="52.0" mnemonicParsing="false" onMouseClicked="#displayModule" prefHeight="34.0" prefWidth="115.0" text="Actualiser" />
-                                <ChoiceBox fx:id="choicem" layoutX="283.0" layoutY="52.0" prefHeight="34.0" prefWidth="196.0" />
-                                <TextField fx:id="searchm" layoutX="501.0" layoutY="52.0" prefHeight="34.0" prefWidth="457.0" />
-                                <Button layoutX="990.0" layoutY="52.0" mnemonicParsing="false" onMouseClicked="#searchModule" prefHeight="34.0" prefWidth="115.0" text="Rechercher" />
+                                <Button fx:id="matactbtn" layoutX="1264.0" layoutY="44.0" mnemonicParsing="false" onMouseClicked="#displayModule" prefHeight="42.0" prefWidth="49.0" />
+                                <ChoiceBox fx:id="choicem" layoutX="209.0" layoutY="52.0" prefHeight="34.0" prefWidth="196.0" />
+                                <TextField fx:id="searchm" layoutX="431.0" layoutY="52.0" prefHeight="34.0" prefWidth="731.0" />
+                                <Button fx:id="matsearchbtn" layoutX="1202.0" layoutY="44.0" mnemonicParsing="false" onMouseClicked="#searchModule" prefHeight="42.0" prefWidth="49.0" />
                             </children></AnchorPane>
                     </content>
                 </Tab>
@@ -272,7 +272,7 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                                <SplitPane dividerPositions="0.3832271762208068" layoutX="332.0" layoutY="39.0" prefHeight="574.0" prefWidth="856.0">
+                                <SplitPane dividerPositions="0.3832271762208068" layoutX="331.0" layoutY="83.0" prefHeight="574.0" prefWidth="856.0">
                                     <items>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="618.0" prefWidth="361.0">
                                             <children>
@@ -317,36 +317,35 @@
                                             <children>
                                                 <TextField fx:id="nom" disable="true" layoutX="60.0" layoutY="46.0" prefHeight="30.0" prefWidth="407.0">
                                                     <font>
-                                                        <Font name="DejaVu Serif Bold" size="17.0" />
+                                                        <Font name="DejaVu Serif" size="17.0" />
                                                     </font></TextField>
                                                 <TextField fx:id="prenom" disable="true" layoutX="60.0" layoutY="104.0" prefHeight="30.0" prefWidth="407.0">
                                                     <font>
-                                                        <Font name="DejaVu Serif Bold" size="17.0" />
+                                                        <Font name="DejaVu Serif" size="17.0" />
                                                     </font></TextField>
                                                 <TextField fx:id="email" disable="true" layoutX="60.0" layoutY="236.0" prefHeight="30.0" prefWidth="407.0">
                                                     <font>
-                                                        <Font name="DejaVu Serif Bold" size="17.0" />
+                                                        <Font name="DejaVu Serif" size="17.0" />
                                                     </font></TextField>
                                                 <TextField fx:id="tel" disable="true" layoutX="59.0" layoutY="378.0" prefHeight="30.0" prefWidth="407.0">
                                                     <font>
-                                                        <Font name="DejaVu Serif Bold" size="17.0" />
+                                                        <Font name="DejaVu Serif" size="17.0" />
                                                     </font></TextField>
                                                 <TextArea fx:id="adresse" disable="true" layoutX="60.0" layoutY="442.0" prefHeight="54.0" prefWidth="406.0">
                                                     <font>
-                                                        <Font name="DejaVu Serif Bold" size="17.0" />
+                                                        <Font name="DejaVu Serif" size="17.0" />
                                                     </font></TextArea>
                                                 <DatePicker fx:id="datenaiss" disable="true" layoutX="61.0" layoutY="177.0" prefHeight="30.0" prefWidth="408.0" />
                                                 <PasswordField fx:id="mdps" disable="true" layoutX="59.0" layoutY="311.0" prefHeight="30.0" prefWidth="405.0">
                                                     <font>
-                                                        <Font name="DejaVu Serif Bold" size="17.0" />
+                                                        <Font name="DejaVu Serif" size="17.0" />
                                                     </font></PasswordField>
                                             </children>
                                         </AnchorPane>
                                     </items>
                                 </SplitPane>
-                                <Button layoutX="571.0" layoutY="635.0" mnemonicParsing="false" onMouseClicked="#modifInfos" prefHeight="34.0" prefWidth="100.0" text="Modifier" />
-                                <Button fx:id="savebtn" disable="true" layoutX="706.0" layoutY="635.0" mnemonicParsing="false" onMouseClicked="#saveModifInfos" prefHeight="34.0" prefWidth="108.0" text="Sauvegarder" />
-                                <Button fx:id="cancelbtn" disable="true" layoutX="847.0" layoutY="635.0" mnemonicParsing="false" onMouseClicked="#cancelModifInfos" prefHeight="34.0" prefWidth="100.0" text="Annuler" />
+                                <Button fx:id="infosmodifbtn" layoutX="1071.0" layoutY="29.0" mnemonicParsing="false" onMouseClicked="#modifInfos" prefHeight="42.0" prefWidth="49.0" />
+                                <Button fx:id="infossavebtn" disable="true" layoutX="1138.0" layoutY="29.0" mnemonicParsing="false" onMouseClicked="#saveModifInfos" prefHeight="42.0" prefWidth="49.0" />
                             </children></AnchorPane>
                     </content>
                 </Tab>

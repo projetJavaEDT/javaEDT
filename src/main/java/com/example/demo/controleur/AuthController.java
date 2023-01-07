@@ -24,7 +24,7 @@ public class AuthController{
     private PasswordField passwordField;
     private Controller control;
     public static String mail_pers;
-    Help help = new Help();
+    Utilities utilitie = new Utilities();
     public void clean() {
         codeerror.setText("");
     }
@@ -58,17 +58,17 @@ public class AuthController{
 
     //ETABLIR CONNEXION AVEC LESPACE APPROPRIE
     public void login(ActionEvent event) throws SQLException, ExceptionEmail, ExceptionAge {
-        if (emailIdField.getText().isEmpty() || passwordField.getText().isEmpty()) {
+        if (emailIdField.getText().isEmpty() || passwordField.getText().isEmpty()) { //si les champs sont vides et qu'on veut se connecter
             codeerror.setText("Entrer un email ou un mot de passe!");
             return;
         }
         String emailId = emailIdField.getText();
         String password = passwordField.getText();
-        password = help.hacherMdp(password);
-        String type = help.validateEmailRegex(emailId);
+        password = utilitie.hacherMdp(password);
+        String type = utilitie.validateEmailRegex(emailId);
 
-        VerificationMailMdp verif = null;
-        switch(type){
+        ComportementUser verif = null;
+        switch(type){ //recuperer le type personne qui se connecte avec un regex (admin: ****@admin.fr/ enseignant: ****@ens.fr/ etudiant: ****@etud.fr)
             case "ens":
                 verif = EnseignantDAO.create();
                 break;
