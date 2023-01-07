@@ -29,7 +29,7 @@ public class IndisponibiliteDAO extends JdbcDAO implements AutoCloseable {
         ResultSet rs = findAll.executeQuery();
         // Extract data from result set
         while (rs.next()) {
-            indispos.add(Indisponibilite.of(rs.getDate("JOUR"), rs.getString("HEURE"), rs.getString("REMARQUE"), rs.getString("MAIL")));
+            indispos.add(Indisponibilite.of(rs.getDate("JOUR"), rs.getString("REMARQUE"), rs.getString("MAIL")));
         }
         return indispos;
     }
@@ -40,7 +40,7 @@ public class IndisponibiliteDAO extends JdbcDAO implements AutoCloseable {
         findbyID.setString(2, String.valueOf(jour));
         ResultSet rs = findbyID.executeQuery();
         while (rs.next()) {
-            indispo = Indisponibilite.of(rs.getDate("JOUR"), rs.getString("HEURE"), rs.getString("REMARQUE"), rs.getString("MAIL"));
+            indispo = Indisponibilite.of(rs.getDate("JOUR"), rs.getString("REMARQUE"), rs.getString("MAIL"));
         }
         return indispo;
     }

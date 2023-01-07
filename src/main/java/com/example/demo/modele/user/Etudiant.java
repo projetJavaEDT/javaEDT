@@ -22,4 +22,12 @@ public class Etudiant extends Utilisateur {
     public void setPromo(String promo) {
         this.promo = promo;
     }
+
+    @Override
+    public String toString() {
+        return "Etudiant{" +
+                super.toString()+
+                "promo='" + promo + '\'' +
+                '}';
+    }
 }

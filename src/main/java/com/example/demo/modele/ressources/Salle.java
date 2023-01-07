@@ -38,4 +38,13 @@ public class Salle {
     public void setNbPlace(int nbPlace) {
         this.nbPlace = nbPlace;
     }
+
+    @Override
+    public String toString() {
+        return "Salle{" +
+                "codeSalle='" + codeSalle + '\'' +
+                ", depart='" + depart + '\'' +
+                ", nbPlace=" + nbPlace +
+                '}';
+    }
 }

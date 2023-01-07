@@ -17,8 +17,6 @@ public abstract class Utilisateur {
     private String mdp;
 
 
-
-
     protected Utilisateur (String nom, String prenom, Date datenaissance, String adresse, String tel, String email, String mdp) throws ExceptionEmail{
         String regex = "^[a-zA-Z0-9]{0,30}[_.-]{0,10}[a-zA-Z0-9]{0,30}[@][a-z]{3,5}[.][f][r]$";
         Pattern p = Pattern.compile(regex);
@@ -89,5 +87,18 @@ public abstract class Utilisateur {
 
     public void setMdp(String mdp) {
         this.mdp = mdp;
+    }
+
+    @Override
+    public String toString() {
+        return "Utilisateur{" +
+                "nom='" + nom + '\'' +
+                ", prenom='" + prenom + '\'' +
+                ", datenaissance=" + datenaissance +
+                ", adresse='" + adresse + '\'' +
+                ", tel='" + tel + '\'' +
+                ", email='" + email + '\'' +
+                ", mdp='" + mdp + '\'' +
+                '}';
     }
 }
