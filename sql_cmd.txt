@@ -86,7 +86,7 @@ create table SEANCE
     CODES         VARCHAR,
     CODEENS       VARCHAR,
     TYPESEANCE    ENUM('TP','TD','CM'),
-    DATE          DATE,
+    DATESE        DATE,
     HEURED        INTEGER,
     HEUREF        INTEGER,
     constraint "SEANCE_pk"

@@ -17,7 +17,7 @@ public class SalleDAO extends JdbcDAO implements AutoCloseable{
     private SalleDAO() throws SQLException {
         findAll = connection.prepareStatement("SELECT * FROM SALLE");
         findbyID = connection.prepareStatement("SELECT * FROM SALLE WHERE CODES=?");
-        findbyDATE = connection.prepareStatement("SELECT * FROM SALLE WHERE CODES NOT IN(SELECT CODES FROM SEANCE WHERE DATE=?)");
+        findbyDATE = connection.prepareStatement("SELECT * FROM SALLE WHERE CODES NOT IN(SELECT CODES FROM SEANCE WHERE DATESE=?)");
     }
 
     public static SalleDAO create() throws SQLException {

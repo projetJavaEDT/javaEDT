@@ -15,15 +15,16 @@ public class SeanceDAO extends JdbcDAO implements AutoCloseable{
 
     //private static Logger log = Logger.getLogger(SeanceDAO.class.getName());
     private PreparedStatement weekseance;
-    public PreparedStatement delete;
+    private PreparedStatement delete;
+    private  int indiceSeance;
 
 
     private SeanceDAO() throws SQLException {
         findAll = connection.prepareStatement("SELECT * FROM SEANCE");
-        findbyID = connection.prepareStatement("SELECT * FROM SEANCE WHERE CODEM=? AND DATE=? AND HEURED=?");
-        weekseance = connection.prepareStatement("SELECT * FROM SEANCE where DATE BETWEEN ? AND ?");
-        persist = connection.prepareStatement("INSERT INTO SEANCE(CODEM, CODES, CODEENS, TYPESEANCE, DATE, HEURED, HEUREF) VALUES (?,?,?,?,?,?,?)");
-        delete = connection.prepareStatement("DELETE FROM SEANCE WHERE CODEM=? AND DATE=? AND HEURED=?");
+        findbyID = connection.prepareStatement("SELECT * FROM SEANCE WHERE CODEM=? AND DATESE=? AND HEURED=?");
+        weekseance = connection.prepareStatement("SELECT * FROM SEANCE where DATESE BETWEEN ? AND ?");
+        persist = connection.prepareStatement("INSERT INTO SEANCE(CODEM, CODES, CODEENS, TYPESEANCE, DATESE, HEURED, HEUREF) VALUES (?,?,?,?,?,?,?)");
+        delete = connection.prepareStatement("DELETE FROM SEANCE WHERE CODEM=? AND DATESE=? AND HEURED=?");
     }
 
     public static SeanceDAO create() throws SQLException {
@@ -35,7 +36,7 @@ public class SeanceDAO extends JdbcDAO implements AutoCloseable{
         ResultSet rs = findAll.executeQuery();
         // Extract data from result set
         while (rs.next()) {
-            seances.add(Seance.of(rs.getString("CODEM"), rs.getString("CODES"), rs.getString("CODEENS"), Seance.Type.valueOf(rs.getString("TYPESEANCE")),rs.getDate("DATE"), rs.getInt("HEURED"), rs.getInt("HEUREF")));
+            seances.add(Seance.of(rs.getString("CODEM"), rs.getString("CODES"), rs.getString("CODEENS"), Seance.Type.valueOf(rs.getString("TYPESEANCE")),rs.getDate("DATESE"), rs.getInt("HEURED"), rs.getInt("HEUREF")));
         }
         return seances;
     }
@@ -45,9 +46,11 @@ public class SeanceDAO extends JdbcDAO implements AutoCloseable{
         findbyID.setString(1,module);
         findbyID.setString(2,date);
         findbyID.setInt(3,hdebut);
+
         ResultSet rs = findbyID.executeQuery();
         while (rs.next()) {
-            s = Seance.of(rs.getString("CODEM"), rs.getString("CODES"), rs.getString("CODEENS"), Seance.Type.valueOf(rs.getString("TYPESEANCE")),rs.getDate("DATE"), rs.getInt("HEURED"), rs.getInt("HEUREF"));
+            s = Seance.of(rs.getString("CODEM"), rs.getString("CODES"), rs.getString("CODEENS"), Seance.Type.valueOf(rs.getString("TYPESEANCE")),rs.getDate("DATESE"), rs.getInt("HEURED"), rs.getInt("HEUREF"));
+            indiceSeance = rs.getInt("ID");
         }
         return s;
     }
@@ -58,7 +61,7 @@ public class SeanceDAO extends JdbcDAO implements AutoCloseable{
         weekseance.setString(2,datef);
         ResultSet rs = weekseance.executeQuery();
         while (rs.next()) {
-            s.add(Seance.of(rs.getString("CODEM"), rs.getString("CODES"), rs.getString("CODEENS"), Seance.Type.valueOf(rs.getString("TYPESEANCE")),rs.getDate("DATE"), rs.getInt("HEURED"), rs.getInt("HEUREF")));
+            s.add(Seance.of(rs.getString("CODEM"), rs.getString("CODES"), rs.getString("CODEENS"), Seance.Type.valueOf(rs.getString("TYPESEANCE")),rs.getDate("DATESE"), rs.getInt("HEURED"), rs.getInt("HEUREF")));
         }
         return s;
     }
@@ -84,15 +87,14 @@ public class SeanceDAO extends JdbcDAO implements AutoCloseable{
     }
 
 
-    public void update(Seance s) throws SQLException {
-        update(s.getCodeMod(), s.getCodeSalle(), s.getCodeEns(), String.valueOf(s.getTypeSeance()), s.getDate(), s.getHeureD(), s.getHeureF());
+    public void update(Date olddate, int oldheure, Seance s) throws SQLException {
+        update(olddate, oldheure, s.getCodeMod(), s.getCodeSalle(), s.getCodeEns(), String.valueOf(s.getTypeSeance()), s.getDate(), s.getHeureD(), s.getHeureF());
     }
 
-    public void update(String module, String salle, String ens, String type, Date date, int hd, int hf) throws SQLException {
-        update = connection.prepareStatement("UPDATE SEANCE SET CODEM='"+module+"', CODES='"+salle+"', CODEENS='"+ens+"', TYPESEANCE='"+type+"', DATE='"+date+"', HEURED='"+hd+"', HEUREF='"+hf+"' WHERE CODEM='"+module+"' AND DATE='"+date+"' AND HEURED='"+hd+"'");
+    public void update(Date olddate, int oldheure, String module, String salle, String ens, String type, Date date, int hd, int hf) throws SQLException {
+        update = connection.prepareStatement("UPDATE SEANCE SET CODEM='"+module+"', CODES='"+salle+"', CODEENS='"+ens+"', TYPESEANCE='"+type+"', DATESE='"+date+"', HEURED='"+hd+"', HEUREF='"+hf+"' WHERE CODEM='"+module+"' AND DATESE='"+olddate+"' AND HEURED='"+oldheure+"'");
         update.executeUpdate();
     }
-
 
     @Override
     public void close() throws SQLException {
