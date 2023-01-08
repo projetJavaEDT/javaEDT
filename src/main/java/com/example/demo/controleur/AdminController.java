@@ -68,6 +68,8 @@ public class AdminController extends Controller{
     @FXML
     private Button addseance;
     private Utilities h = new Utilities();
+    private Date olddate;
+    private int oldheure;
 
 
     @Override
@@ -121,6 +123,8 @@ public class AdminController extends Controller{
 
         codesalle.getItems().remove(1,codesalle.getItems().size());
         salleAvailable(dateseance, codesalle);
+        olddate = Date.valueOf(dateseance.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        oldheure = Integer.parseInt(debuts.getText());
     }
 
 
@@ -129,11 +133,11 @@ public class AdminController extends Controller{
         String val2 = String.valueOf(codesalle.getValue());
         String val3 = codeens.getText();
         String val4 = String.valueOf(types.getValue());
-        String val5 = dateseance.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));;
+        String val5 = dateseance.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         int val6 = Integer.parseInt(debuts.getText());
         int val7 = Integer.parseInt(fins.getText());
         try(SeanceDAO seanceDAO = SeanceDAO.create()) {
-            seanceDAO.update(val1,val2,val3,val4,Date.valueOf(val5),val6,val7);
+            seanceDAO.update(olddate,oldheure,val1,val2,val3,val4,Date.valueOf(val5),val6,val7);
             h.infoBox("Modification(s) sauvegardée(s)!", "Succes");
         } catch (SQLException e) {
             //throw new RuntimeException(e);
